@@ -6,6 +6,9 @@ public class DadosDoFuncionario {
     private String senha;
     private String cargo;
 
+    public DadosDoFuncionario() {
+    }
+
     public int getCodigo() {
         return codigo;
     }
