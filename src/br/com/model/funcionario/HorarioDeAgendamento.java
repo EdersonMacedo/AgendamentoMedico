@@ -5,6 +5,15 @@ import java.util.Date;
 public class HorarioDeAgendamento {
     private Date entradaManha;
     private Date saidaManhã;
+    private String compromisso;
+
+    public String getCompromisso() {
+        return compromisso;
+    }
+
+    public void setCompromisso(String compromisso) {
+        this.compromisso = compromisso;
+    }
     
     private Date entradaTarde;
     private Date saidaTarde;
