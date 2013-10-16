@@ -27,6 +27,15 @@ public class JanelaCadastro extends javax.swing.JFrame {
     private void initComponents() {
 
         PainelSuperior = new javax.swing.JPanel();
+        PainelInferior = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        PainelCadastro = new javax.swing.JPanel();
+        PainelSuperior1 = new javax.swing.JPanel();
+        PainelInferior1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        btCadastroMedico = new javax.swing.JButton();
+        btCadastroSecretaria = new javax.swing.JButton();
+        btCadastroPaciente = new javax.swing.JButton();
 
         PainelSuperior.setBackground(new java.awt.Color(102, 255, 255));
 
@@ -41,17 +50,125 @@ public class JanelaCadastro extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        PainelInferior.setBackground(new java.awt.Color(102, 255, 255));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Java.png"))); // NOI18N
+
+        javax.swing.GroupLayout PainelInferiorLayout = new javax.swing.GroupLayout(PainelInferior);
+        PainelInferior.setLayout(PainelInferiorLayout);
+        PainelInferiorLayout.setHorizontalGroup(
+            PainelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelInferiorLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
+        );
+        PainelInferiorLayout.setVerticalGroup(
+            PainelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelInferiorLayout.createSequentialGroup()
+                .addContainerGap(75, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        PainelCadastro.setBackground(new java.awt.Color(255, 255, 255));
+
+        PainelSuperior1.setBackground(new java.awt.Color(102, 255, 255));
+
+        javax.swing.GroupLayout PainelSuperior1Layout = new javax.swing.GroupLayout(PainelSuperior1);
+        PainelSuperior1.setLayout(PainelSuperior1Layout);
+        PainelSuperior1Layout.setHorizontalGroup(
+            PainelSuperior1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        PainelSuperior1Layout.setVerticalGroup(
+            PainelSuperior1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        PainelInferior1.setBackground(new java.awt.Color(102, 255, 255));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Java.png"))); // NOI18N
+
+        javax.swing.GroupLayout PainelInferior1Layout = new javax.swing.GroupLayout(PainelInferior1);
+        PainelInferior1.setLayout(PainelInferior1Layout);
+        PainelInferior1Layout.setHorizontalGroup(
+            PainelInferior1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelInferior1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap())
+        );
+        PainelInferior1Layout.setVerticalGroup(
+            PainelInferior1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelInferior1Layout.createSequentialGroup()
+                .addContainerGap(65, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap())
+        );
+
+        btCadastroMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Medico.png"))); // NOI18N
+        btCadastroMedico.setText("Médico");
+        btCadastroMedico.setToolTipText("");
+        btCadastroMedico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btCadastroMedico.setContentAreaFilled(false);
+        btCadastroMedico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btCadastroMedico.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        btCadastroSecretaria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Secretaria.png"))); // NOI18N
+        btCadastroSecretaria.setText("Secretaria");
+        btCadastroSecretaria.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btCadastroSecretaria.setContentAreaFilled(false);
+        btCadastroSecretaria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btCadastroSecretaria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        btCadastroPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Cadastro.png"))); // NOI18N
+        btCadastroPaciente.setText("Paciente");
+        btCadastroPaciente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btCadastroPaciente.setContentAreaFilled(false);
+        btCadastroPaciente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btCadastroPaciente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        javax.swing.GroupLayout PainelCadastroLayout = new javax.swing.GroupLayout(PainelCadastro);
+        PainelCadastro.setLayout(PainelCadastroLayout);
+        PainelCadastroLayout.setHorizontalGroup(
+            PainelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PainelSuperior1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PainelInferior1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(PainelCadastroLayout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addComponent(btCadastroMedico)
+                .addGap(18, 18, 18)
+                .addComponent(btCadastroSecretaria)
+                .addGap(18, 18, 18)
+                .addComponent(btCadastroPaciente)
+                .addContainerGap(111, Short.MAX_VALUE))
+        );
+        PainelCadastroLayout.setVerticalGroup(
+            PainelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PainelCadastroLayout.createSequentialGroup()
+                .addComponent(PainelSuperior1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addGroup(PainelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PainelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btCadastroMedico)
+                        .addComponent(btCadastroSecretaria))
+                    .addComponent(btCadastroPaciente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addComponent(PainelInferior1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 637, Short.MAX_VALUE)
+            .addComponent(PainelCadastro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 448, Short.MAX_VALUE)
+            .addComponent(PainelCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -92,6 +209,15 @@ public class JanelaCadastro extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PainelCadastro;
+    private javax.swing.JPanel PainelInferior;
+    private javax.swing.JPanel PainelInferior1;
     private javax.swing.JPanel PainelSuperior;
+    private javax.swing.JPanel PainelSuperior1;
+    private javax.swing.JButton btCadastroMedico;
+    private javax.swing.JButton btCadastroPaciente;
+    private javax.swing.JButton btCadastroSecretaria;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
