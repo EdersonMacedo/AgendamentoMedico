@@ -36,6 +36,7 @@ public class JanelaLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         PainelSuperior = new javax.swing.JPanel();
         PainelInferior = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         txSenha = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
 
@@ -80,15 +81,23 @@ public class JanelaLogin extends javax.swing.JFrame {
 
         PainelInferior.setBackground(new java.awt.Color(102, 255, 255));
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Java.png"))); // NOI18N
+
         javax.swing.GroupLayout PainelInferiorLayout = new javax.swing.GroupLayout(PainelInferior);
         PainelInferior.setLayout(PainelInferiorLayout);
         PainelInferiorLayout.setHorizontalGroup(
             PainelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelInferiorLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap())
         );
         PainelInferiorLayout.setVerticalGroup(
             PainelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 119, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelInferiorLayout.createSequentialGroup()
+                .addContainerGap(94, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap())
         );
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/LogoMedico.png"))); // NOI18N
@@ -211,6 +220,7 @@ public class JanelaLogin extends javax.swing.JFrame {
     private javax.swing.JButton btSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelSenha;
