@@ -1,9 +1,9 @@
 package br.com.model.funcionario;
 
-public class Secretaria {
+public class Secretaria extends Pessoa {
 
     private int codigo;
-    private String nome;
+    private String login;
     private String senha;
 
     public int getCodigo() {
@@ -12,14 +12,6 @@ public class Secretaria {
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getSenha() {
