@@ -7,6 +7,7 @@ public class HorarioDeAgendamento {
     private Date saidaManhã;
     private String compromisso;
 
+    
     public String getCompromisso() {
         return compromisso;
     }
