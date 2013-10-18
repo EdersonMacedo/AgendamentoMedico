@@ -8,23 +8,23 @@ package br.com.model.funcionario;
  */
 public abstract class Pessoa {
 
-    private int id;
+    
+    private int codigo;
     private String telefone;
     private String celular;
     private String nome;
     private String endereco;
     private String cidade;
     private String estado;
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
     
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -72,6 +72,5 @@ public abstract class Pessoa {
     public void setCelular(String celular) {
         this.celular = celular;
     }
-
     
 }
