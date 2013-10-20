@@ -1,4 +1,4 @@
-package br.com.model.funcionario;
+package br.com.model.paciente;
 
 public class Convenio {
     private String TipoDeConvenio;
