@@ -8,7 +8,6 @@ package br.com.model.funcionario;
  */
 public abstract class Pessoa {
 
-    
     private int codigo;
     private String telefone;
     private String celular;

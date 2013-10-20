@@ -1,6 +1,6 @@
 package br.com.model.funcionario;
 
-public class Medico extends Pessoa {
+public class Funcionario extends Pessoa {
      
     private String login;
     private String senha;
