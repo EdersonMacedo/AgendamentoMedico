@@ -13,7 +13,7 @@ public class FuncionarioController {
     
     public List<Funcionario> listarTodos(){
         FuncionarioDAO dao = new FuncionarioDAOImplements();
-        return dao.listall();
+        return dao.listAll();
     }
     public List<Funcionario> listByNome(String nome){
         FuncionarioDAO dao = new FuncionarioDAOImplements();

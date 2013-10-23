@@ -121,9 +121,9 @@
                   <Component id="PainelSuperior1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btCadastroMedico" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btCadastroSecretaria" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btCadastroMedico" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="btCadastroPaciente" min="-2" max="-2" attributes="0"/>
                   </Group>

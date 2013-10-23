@@ -59,6 +59,11 @@ public class JanelaLogin extends javax.swing.JFrame {
         labelSenha.setText("Senha:");
 
         btEntrar.setText("Entrar");
+        btEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEntrarActionPerformed(evt);
+            }
+        });
 
         btSair.setText("Sair");
 
@@ -188,6 +193,14 @@ public class JanelaLogin extends javax.swing.JFrame {
     private void txUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txUsuarioActionPerformed
+
+    private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
+        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+        janelaPrincipal.setLocationRelativeTo(null);
+        janelaPrincipal.setExtendedState(JanelaPrincipal.MAXIMIZED_BOTH);
+        janelaPrincipal.setVisible(true);
+        
+    }//GEN-LAST:event_btEntrarActionPerformed
 
     /**
      * @param args the command line arguments

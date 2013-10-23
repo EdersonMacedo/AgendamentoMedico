@@ -230,7 +230,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastroActionPerformed
-        // TODO add your handling code here:
+        JanelaOpcaoCadastro jc = new JanelaOpcaoCadastro();
+        jc.setLocationRelativeTo(this);
+        jc.setVisible(true);
     }//GEN-LAST:event_btCadastroActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
