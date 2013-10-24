@@ -36,7 +36,10 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
         PreparedStatement pstm = null;
         int retorno = -1;
         try{
+            
+            //con = guarda a conexão aberta no connectionFactory
             con = ConnectionFactory.getConnection();
+            //pstm = manda um sql para o banco
             pstm = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             //(nome, login, senha, telefone, celular, endereco, cidade, estado)
             pstm.setString(1, f.getNome());
