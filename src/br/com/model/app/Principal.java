@@ -1,6 +1,7 @@
 package br.com.model.app;
 
 import br.com.model.view.FuncionarioInserirGUI;
+import br.com.model.view.JanelaLogin;
 
 /**
  *
@@ -8,9 +9,10 @@ import br.com.model.view.FuncionarioInserirGUI;
  */
 public class Principal {
     public static void main(String args[]){
-        FuncionarioInserirGUI figui = new FuncionarioInserirGUI(null);
-        figui.setLocationRelativeTo(null);
-        figui.dispose();
-        figui.setVisible(true);
+        JanelaLogin jl = new JanelaLogin();        
+        jl.setLocationRelativeTo(null);
+        jl.dispose();
+        jl.setVisible(true);
+        
     }
 }

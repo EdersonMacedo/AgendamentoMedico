@@ -10,6 +10,10 @@ public class FuncionarioController {
         FuncionarioDAO dao = new FuncionarioDAOImplements();
         return dao.salvar(f);
     }
+    public Funcionario listById(int codigo){
+        FuncionarioDAO dao = new FuncionarioDAOImplements();
+        return dao.listById(codigo);
+    }
     
     public List<Funcionario> listarTodos(){
         FuncionarioDAO dao = new FuncionarioDAOImplements();
@@ -22,6 +26,9 @@ public class FuncionarioController {
     public boolean remove (int id){
         FuncionarioDAO dao = new FuncionarioDAOImplements();
         return dao.remove(id);
-        
+    }
+    public boolean autentica(String login,String senha){
+        FuncionarioDAO dao = new FuncionarioDAOImplements();
+        return dao.autentica(login, senha);
     }
 }

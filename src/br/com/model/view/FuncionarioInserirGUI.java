@@ -6,6 +6,7 @@
 
 package br.com.model.view;
 
+import br.com.model.controller.EnderecoController;
 import br.com.model.controller.FuncionarioController;
 import br.com.model.funcionario.Endereco;
 import br.com.model.funcionario.Funcionario;
@@ -26,8 +27,24 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         
     }    
     public FuncionarioInserirGUI(DefaultTableModel modelo,int linhaSelecionada,int idFuncionario) {
-        initComponents();
         this.modelo = modelo;
+        this.linhaSelecionada = linhaSelecionada;
+        initComponents();
+        FuncionarioController fc = new FuncionarioController();
+        Funcionario f = fc.listById(idFuncionario);
+        txCodigo.setText(Integer.toString(f.getCodigo()));
+        txNome.setText(f.getNome());
+        txLogin.setText(f.getLogin());
+        txSenha.setText(f.getSenha());
+        txTelefone.setText(f.getTelefone());
+        txCelular.setText(f.getCelular());
+        if(f.getCargo().equals("Médico(a)")){
+            boxCargo.getSelectedIndex();
+        }else if(f.getCargo().equals("Secretária")){
+            boxCargo.getSelectedIndex();
+        }
+        
+        
         
     }
 
@@ -283,6 +300,13 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_txNomeActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        Endereco e = new Endereco();
+        e.setEndereco(txEndereco.getText());
+        e.setCidade(txCidade.getText());
+        e.setEstado(txEstado.getText());
+        EnderecoController ec = new EnderecoController();
+        e.setCodigo(ec.salvar(e));
+        
         Funcionario f = new Funcionario();
         f.setNome(txNome.getText());
         f.setSenha(txSenha.getText());
@@ -294,6 +318,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         }else if(boxCargo.getSelectedIndex() == 1){
             f.setCargo("Secretária");
         }
+        f.setEndereco(e);
         
         
         FuncionarioController fc = new FuncionarioController();

@@ -25,7 +25,6 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
         criaJTable();
         PainelRolagem.setViewportView(tabela);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -242,6 +241,7 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
         modelo.addColumn("Nome");
         modelo.addColumn("Login");
         modelo.addColumn("Cargo");
+        preencherJTable();
         
         
 //id, f.getNome(), f.getLogin(), f.getCargo

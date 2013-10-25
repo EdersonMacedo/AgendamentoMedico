@@ -12,12 +12,13 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class FuncionarioDAOImplements implements FuncionarioDAO{
-    private static final String INSERT = "insert into funcionario(nome, login, senha, telefone, celular, cargo) values (?, ?, ?, ?, ?, ?);";
+    private static final String INSERT = "insert into funcionario(nome, login, senha, telefone, celular, cargo, enderecocodigo) values (?, ?, ?, ?, ?, ?, ?);";
     private static final String LIST = "select * from funcionario;";
     private static final String REMOVE = "delete from funcionario where codigo = ?;";
     private static final String UPDATE = "update funcionario set nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, cargo = ? where codigo = ?";
-    private static final String LISTBYID = "select from funcionario where codigo = ?;";
+    private static final String LISTBYID = "select * from funcionario, endereco where funcionario.enderecocodigo = endereco.codigo and funcionario.codigo = ?;";
     private static final String LISTBYNOME = "select * from funcionario where nome like ?;";
+    private static final String VALIDALOGIN = "select login,senha from funcionario where login = ? and senha = ?;";
     
     @Override
     public int salvar(Funcionario f) {
@@ -46,7 +47,7 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
             pstm.setString(4, f.getTelefone());
             pstm.setString(5, f.getCelular());
             pstm.setString(6, f.getCargo());
-            
+            pstm.setInt(7, f.getEndereco().getCodigo());
             pstm.execute();
             try(ResultSet rs = pstm.getGeneratedKeys()){
                 if(rs.next()){
@@ -229,5 +230,32 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
             }
         }
         return funcionarios;
+    }
+
+    @Override
+    public boolean autentica(String login, String senha) {
+        boolean valida = false;
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            pstm = con.prepareStatement(VALIDALOGIN);
+            pstm.setString(1, login);            
+            pstm.setString(2, senha);
+            rs = pstm.executeQuery();
+            while(rs.next()){
+                return true;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao efetuar login..."+e.getMessage());
+        }finally{
+            try {
+                ConnectionFactory.closeConnection(con, pstm, rs);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar conexão do login..."+e.getMessage());
+            }
+        }
+        return valida;
     }
 }
