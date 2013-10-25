@@ -35,10 +35,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        btCadastro = new javax.swing.JButton();
-        btEditar = new javax.swing.JButton();
-        btExcluir = new javax.swing.JButton();
-        btPesquisar = new javax.swing.JButton();
+        btFuncionario = new javax.swing.JButton();
+        btPaciente = new javax.swing.JButton();
         btAgenda = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -114,16 +112,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jPanel6.setMaximumSize(new java.awt.Dimension(200, 200));
         jPanel6.setLayout(new java.awt.GridBagLayout());
 
-        btCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Cadastro.png"))); // NOI18N
-        btCadastro.setText("Cadastro");
-        btCadastro.setToolTipText("Cadastro de fucionários e usuários");
-        btCadastro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btCadastro.setContentAreaFilled(false);
-        btCadastro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btCadastro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btCadastro.addActionListener(new java.awt.event.ActionListener() {
+        btFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Secretaria.png"))); // NOI18N
+        btFuncionario.setText("Funcionário");
+        btFuncionario.setToolTipText("Cadastro de fucionários e usuários");
+        btFuncionario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btFuncionario.setContentAreaFilled(false);
+        btFuncionario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btFuncionario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCadastroActionPerformed(evt);
+                btFuncionarioActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -131,48 +129,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(59, 127, 86, 0);
-        jPanel6.add(btCadastro, gridBagConstraints);
+        jPanel6.add(btFuncionario, gridBagConstraints);
 
-        btEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Editar.png"))); // NOI18N
-        btEditar.setText("Editar");
-        btEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btEditar.setContentAreaFilled(false);
-        btEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btEditar.addActionListener(new java.awt.event.ActionListener() {
+        btPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Paciente.png"))); // NOI18N
+        btPaciente.setText("Paciente");
+        btPaciente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btPaciente.setContentAreaFilled(false);
+        btPaciente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btPaciente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btEditarActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(59, 18, 86, 0);
-        jPanel6.add(btEditar, gridBagConstraints);
-
-        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Delete.png"))); // NOI18N
-        btExcluir.setText("Excluir");
-        btExcluir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btExcluir.setContentAreaFilled(false);
-        btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(59, 18, 86, 0);
-        jPanel6.add(btExcluir, gridBagConstraints);
-
-        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/search.png"))); // NOI18N
-        btPesquisar.setText("Pesquisar");
-        btPesquisar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btPesquisar.setContentAreaFilled(false);
-        btPesquisar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btPesquisar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btPesquisarActionPerformed(evt);
+                btPacienteActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -180,7 +147,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(59, 18, 86, 0);
-        jPanel6.add(btPesquisar, gridBagConstraints);
+        jPanel6.add(btPaciente, gridBagConstraints);
 
         btAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Calendario.png"))); // NOI18N
         btAgenda.setText("Agenda Médica");
@@ -229,19 +196,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastroActionPerformed
+    private void btFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFuncionarioActionPerformed
         JanelaOpcaoCadastro jc = new JanelaOpcaoCadastro();
         jc.setLocationRelativeTo(this);
         jc.setVisible(true);
-    }//GEN-LAST:event_btCadastroActionPerformed
+    }//GEN-LAST:event_btFuncionarioActionPerformed
 
-    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+    private void btPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPacienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btEditarActionPerformed
-
-    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btPesquisarActionPerformed
+    }//GEN-LAST:event_btPacienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,10 +245,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel PainelPrincipal;
     private javax.swing.JPanel PainelSuperior;
     private javax.swing.JButton btAgenda;
-    private javax.swing.JButton btCadastro;
-    private javax.swing.JButton btEditar;
-    private javax.swing.JButton btExcluir;
-    private javax.swing.JButton btPesquisar;
+    private javax.swing.JButton btFuncionario;
+    private javax.swing.JButton btPaciente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

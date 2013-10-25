@@ -9,15 +9,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class FuncionarioDAOImplements implements FuncionarioDAO{
-    private static final String INSERT = "inset into funcionario(nome, login, senha, telefone, celular, endereco, cidade, estado) values (?, ?, ?, ?, ?, ?, ?, ?);";
+    private static final String INSERT = "inset into funcionario(nome, login, senha, telefone, celular, endereco, cidade, estado, cargo) values (?, ?, ?, ?, ?, ?, ?, ?,?);";
     private static final String LIST = "select * from funcionario;";
     private static final String REMOVE = "delete from funcionario where codigo = ?;";
-    private static final String UPDATE = "update funcionario set nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, endereco = ?, cidade = ?, estado = ? where codigo = ?";
+    private static final String UPDATE = "update funcionario set nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, endereco = ?, cidade = ?, estado = ?, cargo = ? where codigo = ?";
     private static final String LISTBYID = "select from funcionario where codigo = ?;";
     private static final String LISTBYNOME = "select * from funcionario where nome like ?;";
     
@@ -50,6 +48,8 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
             pstm.setString(6, f.getEndereco());
             pstm.setString(7, f.getCidade());
             pstm.setString(8, f.getEstado());
+            pstm.setString(9, f.getCargo());
+            
             pstm.execute();
             try(ResultSet rs = pstm.getGeneratedKeys()){
                 if(rs.next()){
@@ -86,7 +86,8 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
             pstm.setString(6, f.getEndereco());
             pstm.setString(7, f.getCidade());
             pstm.setString(8, f.getEstado());
-            pstm.setInt(9, f.getCodigo());
+            pstm.setString(9, f.getCargo());
+            pstm.setInt(10, f.getCodigo());
             pstm.execute();
             retorno = f.getCodigo();
             
@@ -151,6 +152,7 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
                 f.setEndereco(rs.getString("endereco"));
                 f.setCidade(rs.getString("cidade"));
                 f.setEstado(rs.getString("estado"));
+                f.setCargo(rs.getString("cargo"));
                 funcionarios.add(f);
             }
             
@@ -188,6 +190,7 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
                 f.setEndereco(rs.getString("endereco"));
                 f.setCidade(rs.getString("cidade"));
                 f.setEstado(rs.getString("estado"));
+                f.setCargo(rs.getString("cargo"));
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Erro ao listar funcionário: "+e.getMessage());
@@ -227,6 +230,7 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
                 f.setEndereco(rs.getString("endereco"));
                 f.setCidade(rs.getString("cidade"));
                 f.setEstado(rs.getString("estado"));
+                f.setCargo(rs.getString("cargo"));
                 funcionarios.add(f);
             }
             
