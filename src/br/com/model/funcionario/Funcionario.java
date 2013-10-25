@@ -13,7 +13,7 @@ public class Funcionario extends Pessoa {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
-
+    
     public String getLogin() {
         return login;
     }

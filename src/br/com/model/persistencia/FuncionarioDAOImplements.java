@@ -12,10 +12,10 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class FuncionarioDAOImplements implements FuncionarioDAO{
-    private static final String INSERT = "inset into funcionario(nome, login, senha, telefone, celular, endereco, cidade, estado, cargo) values (?, ?, ?, ?, ?, ?, ?, ?,?);";
+    private static final String INSERT = "inset into funcionario(nome, login, senha, telefone, celular, cargo) values (?, ?, ?, ?, ?, ?);";
     private static final String LIST = "select * from funcionario;";
     private static final String REMOVE = "delete from funcionario where codigo = ?;";
-    private static final String UPDATE = "update funcionario set nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, endereco = ?, cidade = ?, estado = ?, cargo = ? where codigo = ?";
+    private static final String UPDATE = "update funcionario set nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, cargo = ? where codigo = ?";
     private static final String LISTBYID = "select from funcionario where codigo = ?;";
     private static final String LISTBYNOME = "select * from funcionario where nome like ?;";
     
@@ -39,16 +39,13 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
             con = ConnectionFactory.getConnection();
             //pstm = manda um sql para o banco
             pstm = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-            //(nome, login, senha, telefone, celular, endereco, cidade, estado)
+            //(nome, login, senha, telefone, celular, cargo)
             pstm.setString(1, f.getNome());
             pstm.setString(2, f.getLogin());
             pstm.setString(3, f.getSenha());
             pstm.setString(4, f.getTelefone());
             pstm.setString(5, f.getCelular());
-            pstm.setString(6, f.getEndereco());
-            pstm.setString(7, f.getCidade());
-            pstm.setString(8, f.getEstado());
-            pstm.setString(9, f.getCargo());
+            pstm.setString(6, f.getCargo());
             
             pstm.execute();
             try(ResultSet rs = pstm.getGeneratedKeys()){
@@ -83,11 +80,8 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
             pstm.setString(3, f.getSenha());
             pstm.setString(4, f.getTelefone());
             pstm.setString(5, f.getCelular());
-            pstm.setString(6, f.getEndereco());
-            pstm.setString(7, f.getCidade());
-            pstm.setString(8, f.getEstado());
-            pstm.setString(9, f.getCargo());
-            pstm.setInt(10, f.getCodigo());
+            pstm.setString(6, f.getCargo());
+            pstm.setInt(7, f.getCodigo());
             pstm.execute();
             retorno = f.getCodigo();
             
@@ -149,9 +143,6 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
                 f.setSenha(rs.getString("senha"));
                 f.setTelefone(rs.getString("telefone"));
                 f.setCelular(rs.getString("celular"));
-                f.setEndereco(rs.getString("endereco"));
-                f.setCidade(rs.getString("cidade"));
-                f.setEstado(rs.getString("estado"));
                 f.setCargo(rs.getString("cargo"));
                 funcionarios.add(f);
             }
@@ -187,9 +178,6 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
                 f.setSenha(rs.getString("senha"));
                 f.setTelefone(rs.getString("telefone"));
                 f.setCelular(rs.getString("celular"));
-                f.setEndereco(rs.getString("endereco"));
-                f.setCidade(rs.getString("cidade"));
-                f.setEstado(rs.getString("estado"));
                 f.setCargo(rs.getString("cargo"));
             }
         }catch(Exception e){
@@ -227,9 +215,6 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
                 f.setSenha(rs.getString("senha"));
                 f.setTelefone(rs.getString("telefone"));
                 f.setCelular(rs.getString("celular"));
-                f.setEndereco(rs.getString("endereco"));
-                f.setCidade(rs.getString("cidade"));
-                f.setEstado(rs.getString("estado"));
                 f.setCargo(rs.getString("cargo"));
                 funcionarios.add(f);
             }

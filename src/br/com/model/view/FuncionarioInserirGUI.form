@@ -60,7 +60,7 @@
                                           </Group>
                                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jComboBox1" min="-2" pref="102" max="-2" attributes="0"/>
+                                              <Component id="boxCargo" min="-2" pref="102" max="-2" attributes="0"/>
                                               <Component id="txEstado" min="-2" pref="170" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -76,6 +76,13 @@
                                   <Component id="txCidade" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jSeparator1" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="221" max="-2" attributes="0"/>
+                                  <Component id="btSalvar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                                  <Component id="Deletar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -110,7 +117,7 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jPasswordField1" pref="168" max="32767" attributes="0"/>
+                              <Component id="txSenha" pref="168" max="32767" attributes="0"/>
                               <Component id="txCelular" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -138,7 +145,7 @@
                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPasswordField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -164,9 +171,14 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="boxCargo" min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="45" max="32767" attributes="0"/>
+                  <EmptySpace pref="11" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Deletar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="PainelInferior" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -235,7 +247,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txLogin">
         </Component>
-        <Component class="javax.swing.JPasswordField" name="jPasswordField1">
+        <Component class="javax.swing.JPasswordField" name="txSenha">
         </Component>
         <Component class="javax.swing.JTextField" name="txTelefone">
         </Component>
@@ -247,7 +259,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txEstado">
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="boxCargo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
@@ -315,6 +327,22 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
+        </Component>
+        <Component class="javax.swing.JButton" name="btSalvar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Salvar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSalvarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Deletar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Deletar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DeletarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

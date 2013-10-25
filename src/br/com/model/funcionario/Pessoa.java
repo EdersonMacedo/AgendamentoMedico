@@ -1,21 +1,15 @@
 package br.com.model.funcionario;
 
-/**
- * Classe responsavel por modelar os objetos do tipo pessoa
- *
- * @author Mauricio Cardoso
- * @version 1.0, 13/05/13
- */
+import java.util.Date;
+
 public abstract class Pessoa {
 
     private int codigo;
     private String telefone;
     private String celular;
     private String nome;
-    private String endereco;
-    private String cidade;
-    private String estado;
-
+    private Date dataNascimento;
+    
     public int getCodigo() {
         return codigo;
     }
@@ -39,31 +33,7 @@ public abstract class Pessoa {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }   
-
+    
     public String getCelular() {
         return celular;
     }

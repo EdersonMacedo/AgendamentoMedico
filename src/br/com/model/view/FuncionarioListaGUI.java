@@ -6,17 +6,24 @@
 
 package br.com.model.view;
 
+import br.com.model.controller.FuncionarioController;
+import br.com.model.funcionario.Funcionario;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Ederson
  */
 public class FuncionarioListaGUI extends javax.swing.JFrame {
-
-    /**
-     * Creates new form FuncionarioListaGUI
-     */
+    private JTable tabela;
+    private DefaultTableModel modelo = new DefaultTableModel();
+    
     public FuncionarioListaGUI() {
         initComponents();
+        criaJTable();
+        PainelRolagem.setViewportView(tabela);
     }
 
     /**
@@ -79,20 +86,41 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
 
         jLabel2.setText("Pesquisar.:");
 
+        txPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txPesquisarActionPerformed(evt);
+            }
+        });
+
         btInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Cadastro.png"))); // NOI18N
         btInserir.setText("Inserir");
         btInserir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btInserir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInserirActionPerformed(evt);
+            }
+        });
 
         btEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Editar.png"))); // NOI18N
         btEditar.setText("Editar");
         btEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Delete.png"))); // NOI18N
         btExcluir.setText("Excluir");
         btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,9 +138,9 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
                         .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btInserir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(14, 14, 14)
                         .addComponent(btEditar)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btExcluir)
                         .addGap(0, 34, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -153,40 +181,48 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FuncionarioListaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FuncionarioListaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FuncionarioListaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FuncionarioListaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
+        FuncionarioInserirGUI fi = new FuncionarioInserirGUI(modelo);
+        fi.setLocationRelativeTo(null);
+        fi.setVisible(true);
+    }//GEN-LAST:event_btInserirActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FuncionarioListaGUI().setVisible(true);
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        int linhaSelecionada = -1;
+        linhaSelecionada = tabela.getSelectedRow();
+        if(linhaSelecionada >= 0){
+            int idFuncionario = (int)tabela.getValueAt(linhaSelecionada, 0);
+            FuncionarioController fc = new FuncionarioController();
+            if(fc.remove(idFuncionario)){
+                modelo.removeRow(linhaSelecionada);
+            }else{
+                JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
             }
-        });
-    }
+        }
+        
+    }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        int linhaSelecionada = -1;
+        linhaSelecionada = tabela.getSelectedRow();
+        if(linhaSelecionada >= 0){
+            int idFuncionario = (int)tabela.getValueAt(linhaSelecionada, 0);
+            FuncionarioInserirGUI fi = new FuncionarioInserirGUI(modelo,linhaSelecionada,idFuncionario);
+            fi.setVisible(true);
+        }else{
+                JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
+             }
+    }//GEN-LAST:event_btEditarActionPerformed
+
+    private void txPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txPesquisarActionPerformed
+        String nome = txPesquisar.getText();
+       FuncionarioController fc =
+               new FuncionarioController();
+       modelo.setNumRows(0);
+      for(Funcionario f: fc.listByNome(nome)){
+          modelo.addRow(new Object[]{ f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()});
+      }
+    }//GEN-LAST:event_txPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PainelInferior;
@@ -200,4 +236,15 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txPesquisar;
     // End of variables declaration//GEN-END:variables
+
+    private void criaJTable() {
+        tabela = new JTable(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Nome");
+        modelo.addColumn("Login");
+        modelo.addColumn("Cargo");
+        
+        
+//id, f.getNome(), f.getLogin(), f.getCargo
+    }
 }

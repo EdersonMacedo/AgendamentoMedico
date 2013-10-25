@@ -197,9 +197,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFuncionarioActionPerformed
-        JanelaOpcaoCadastro jc = new JanelaOpcaoCadastro();
-        jc.setLocationRelativeTo(this);
-        jc.setVisible(true);
+        FuncionarioListaGUI fg = new FuncionarioListaGUI();
+        fg.setLocationRelativeTo(this);
+        fg.setVisible(true);
     }//GEN-LAST:event_btFuncionarioActionPerformed
 
     private void btPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPacienteActionPerformed

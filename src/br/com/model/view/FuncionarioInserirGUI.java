@@ -6,17 +6,29 @@
 
 package br.com.model.view;
 
+import br.com.model.controller.FuncionarioController;
+import br.com.model.funcionario.Endereco;
+import br.com.model.funcionario.Funcionario;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Ederson
  */
 public class FuncionarioInserirGUI extends javax.swing.JFrame {
-
-    /**
-     * Creates new form FuncionarioInserirGUI
-     */
-    public FuncionarioInserirGUI() {
+    private DefaultTableModel modelo;
+    private int linhaSelecionada;
+    
+    public FuncionarioInserirGUI(DefaultTableModel modelo) {
         initComponents();
+        this.modelo = modelo;
+        
+    }    
+    public FuncionarioInserirGUI(DefaultTableModel modelo,int linhaSelecionada,int idFuncionario) {
+        initComponents();
+        this.modelo = modelo;
+        
     }
 
     /**
@@ -42,17 +54,19 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         txCodigo = new javax.swing.JTextField();
         txNome = new javax.swing.JTextField();
         txLogin = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txSenha = new javax.swing.JPasswordField();
         txTelefone = new javax.swing.JTextField();
         txCelular = new javax.swing.JTextField();
         txEndereco = new javax.swing.JTextField();
         txCidade = new javax.swing.JTextField();
         txEstado = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
+        boxCargo = new javax.swing.JComboBox();
         PainelSuperior = new javax.swing.JPanel();
         PainelInferior = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        btSalvar = new javax.swing.JButton();
+        Deletar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,7 +100,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Médico(a)", "Secretário(a)" }));
+        boxCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Médico(a)", "Secretário(a)" }));
 
         PainelSuperior.setBackground(new java.awt.Color(102, 255, 255));
 
@@ -122,6 +136,20 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+
+        Deletar.setText("Deletar");
+        Deletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeletarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -142,7 +170,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
                                             .addComponent(jLabel8))
                                         .addGap(30, 30, 30)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(boxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel5)
@@ -152,7 +180,13 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
                                 .addComponent(txCidade))
-                            .addComponent(jSeparator1)))
+                            .addComponent(jSeparator1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(221, 221, 221)
+                                .addComponent(btSalvar)
+                                .addGap(29, 29, 29)
+                                .addComponent(Deletar)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,7 +212,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
                             .addComponent(jLabel10))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                            .addComponent(txSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                             .addComponent(txCelular))))
                 .addContainerGap())
         );
@@ -199,7 +233,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(txLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -221,8 +255,12 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                    .addComponent(boxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btSalvar)
+                    .addComponent(Deletar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PainelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -244,45 +282,59 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txNomeActionPerformed
 
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        Funcionario f = new Funcionario();
+        f.setNome(txNome.getText());
+        f.setSenha(txSenha.getText());
+        f.setLogin(txLogin.getText());
+        f.setTelefone(txTelefone.getText());
+        f.setCelular(txCelular.getText());
+        f.setCargo(boxCargo.toString());
+        
+        
+        FuncionarioController fc = new FuncionarioController();
+        if(f.getCodigo() == 0){
+            int id = fc.salvar(f);
+            if(id>=0){
+        JOptionPane.showMessageDialog(this, "Salvo com sucesso... Voltando ao menu Pirncipal");
+        modelo.addRow(new Object[]{id, f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()});
+            }
+        }
+        else{
+            int id = fc.salvar(f);
+            if(id >= 0){
+                modelo.removeRow(linhaSelecionada);
+                modelo.addRow(new Object[]{id, f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()});
+
+            }
+        }
+        
+        dispose();
+        
+        
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void DeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletarActionPerformed
+        // TODO add your handling code here:
+        
+        txNome.setText("");
+        txSenha.setText("");
+        txLogin.setText("");
+        txTelefone.setText("");
+        txCelular.setText("");
+        //boxCargo.;
+    }//GEN-LAST:event_DeletarActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FuncionarioInserirGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FuncionarioInserirGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FuncionarioInserirGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FuncionarioInserirGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FuncionarioInserirGUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Deletar;
     private javax.swing.JPanel PainelInferior;
     private javax.swing.JPanel PainelSuperior;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox boxCargo;
+    private javax.swing.JButton btSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -295,7 +347,6 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField txCelular;
     private javax.swing.JTextField txCidade;
@@ -304,6 +355,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
     private javax.swing.JTextField txEstado;
     private javax.swing.JTextField txLogin;
     private javax.swing.JTextField txNome;
+    private javax.swing.JPasswordField txSenha;
     private javax.swing.JTextField txTelefone;
     // End of variables declaration//GEN-END:variables
 }

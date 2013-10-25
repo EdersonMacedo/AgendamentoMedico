@@ -55,9 +55,9 @@
                           <Component id="txPesquisar" min="-2" pref="311" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btInserir" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Component id="btEditar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btExcluir" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
                       </Group>
@@ -73,7 +73,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btEditar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btEditar" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="btExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -163,6 +163,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txPesquisar">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txPesquisarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btInserir">
           <Properties>
@@ -173,6 +176,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btInserirActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btEditar">
           <Properties>
@@ -183,6 +189,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btEditarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btExcluir">
           <Properties>
@@ -193,6 +202,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btExcluirActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
