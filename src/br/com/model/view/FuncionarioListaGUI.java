@@ -151,7 +151,7 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
                 .addComponent(PainelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btEditar)
                         .addComponent(btExcluir))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +199,6 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
             }
         }
-        
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
@@ -247,4 +246,13 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
         
 //id, f.getNome(), f.getLogin(), f.getCargo
     }
+private void preencherJTable(){
+    FuncionarioController uc = new FuncionarioController();
+    for(Funcionario f : uc.listarTodos()){
+        modelo.addRow(new Object[]{
+            f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()
+        });
+    }
 }
+}
+

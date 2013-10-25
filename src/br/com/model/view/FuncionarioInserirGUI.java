@@ -289,7 +289,11 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         f.setLogin(txLogin.getText());
         f.setTelefone(txTelefone.getText());
         f.setCelular(txCelular.getText());
-        f.setCargo(boxCargo.toString());
+        if(boxCargo.getSelectedIndex()==0){
+            f.setCargo("Médico(a)");
+        }else if(boxCargo.getSelectedIndex() == 1){
+            f.setCargo("Secretária");
+        }
         
         
         FuncionarioController fc = new FuncionarioController();
@@ -322,7 +326,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         txLogin.setText("");
         txTelefone.setText("");
         txCelular.setText("");
-        //boxCargo.;
+        boxCargo.setSelectedIndex(0);
     }//GEN-LAST:event_DeletarActionPerformed
 
     /**

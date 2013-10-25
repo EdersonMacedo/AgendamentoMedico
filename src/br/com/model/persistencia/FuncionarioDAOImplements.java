@@ -12,7 +12,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class FuncionarioDAOImplements implements FuncionarioDAO{
-    private static final String INSERT = "inset into funcionario(nome, login, senha, telefone, celular, cargo) values (?, ?, ?, ?, ?, ?);";
+    private static final String INSERT = "insert into funcionario(nome, login, senha, telefone, celular, cargo) values (?, ?, ?, ?, ?, ?);";
     private static final String LIST = "select * from funcionario;";
     private static final String REMOVE = "delete from funcionario where codigo = ?;";
     private static final String UPDATE = "update funcionario set nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, cargo = ? where codigo = ?";

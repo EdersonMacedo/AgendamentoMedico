@@ -9,6 +9,23 @@ public abstract class Pessoa {
     private String celular;
     private String nome;
     private Date dataNascimento;
+    private Endereco endereco;
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
     
     public int getCodigo() {
         return codigo;
