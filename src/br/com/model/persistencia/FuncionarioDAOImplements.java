@@ -15,7 +15,7 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
     private static final String INSERT = "insert into funcionario(nome, login, senha, telefone, celular, cargo, enderecocodigo) values (?, ?, ?, ?, ?, ?, ?);";
     private static final String LIST = "select * from funcionario;";
     private static final String REMOVE = "delete from funcionario where codigo = ?;";
-    private static final String UPDATE = "update funcionario set nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, cargo = ? where codigo = ?";
+    private static final String UPDATE = "update funcionario set nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, cargo = ? where codigo = ?;";
     private static final String LISTBYID = "select * from funcionario, endereco where funcionario.enderecocodigo = endereco.codigo and funcionario.codigo = ?;";
     private static final String LISTBYNOME = "select * from funcionario where nome like ?;";
     private static final String VALIDALOGIN = "select login,senha from funcionario where login = ? and senha = ?;";
@@ -56,12 +56,12 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
             }
             
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro ao inserir: "+e);
+            JOptionPane.showMessageDialog(null, "Erro ao inserir: "+e.getMessage());
         }finally{
             try{
                 ConnectionFactory.closeConnection(con, pstm);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao finalizar conexão em inserir: " + ex);
+                JOptionPane.showMessageDialog(null, "Erro ao finalizar conexão em inserir: " + ex.getMessage());
             }
         }
         return retorno;
@@ -82,7 +82,8 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
             pstm.setString(4, f.getTelefone());
             pstm.setString(5, f.getCelular());
             pstm.setString(6, f.getCargo());
-            pstm.setInt(7, f.getCodigo());
+            pstm.setInt(7, f.getEndereco().getCodigo());
+            pstm.setInt(8, f.getCodigo());
             pstm.execute();
             retorno = f.getCodigo();
             
@@ -92,7 +93,7 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
             try{
                 ConnectionFactory.closeConnection(con, pstm);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao finalizar conexão em inserir: " + ex);
+                JOptionPane.showMessageDialog(null, "Erro ao finalizar conexão em inserir: " + ex.getMessage());
             }
         }
         return retorno;

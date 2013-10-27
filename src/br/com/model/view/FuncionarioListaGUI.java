@@ -218,7 +218,9 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
                new FuncionarioController();
        modelo.setNumRows(0);
       for(Funcionario f: fc.listByNome(nome)){
-          modelo.addRow(new Object[]{ f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()});
+                  modelo.addRow(new Object[]{
+            f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()
+        });
       }
     }//GEN-LAST:event_txPesquisarActionPerformed
 

@@ -324,17 +324,16 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         FuncionarioController fc = new FuncionarioController();
         if(f.getCodigo() == 0){
             int id = fc.salvar(f);
-            if(id>=0){
+            if(id>0){
         JOptionPane.showMessageDialog(this, "Salvo com sucesso... Voltando ao menu Pirncipal");
         modelo.addRow(new Object[]{id, f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()});
             }
         }
         else{
             int id = fc.salvar(f);
-            if(id >= 0){
+            if(id > 0){
                 modelo.removeRow(linhaSelecionada);
                 modelo.addRow(new Object[]{id, f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()});
-
             }
         }
         
