@@ -13,13 +13,15 @@ import javax.swing.JOptionPane;
 
 public class EnderecoDAOImplements implements EnderecoDAO{
     private static final String INSERT = "insert into endereco (endereco, cidade, estado) values( ?,?,?);";
+    private final String UPDATE = "update endereco set endereco = ?,cidade = ?, estado = ? where codigo = ?";
 
     @Override
     public int salvar(Endereco e) {
         if(e.getCodigo() == 0){
             return inserir(e);
+        }else {
+            return update(e);
         }
-        return -1;
     }
 
     private int inserir(Endereco e) {
@@ -46,10 +48,26 @@ public class EnderecoDAOImplements implements EnderecoDAO{
                 JOptionPane.showMessageDialog(null,"Erro ao fechar conexão do endereço: "+ ex.getMessage());
             }
         }
-        
-        
-        
         return status;
+    }
+
+    private int update(Endereco e) {
+        Connection con = null;
+        PreparedStatement pstm = null;
+        int retorno = -1;
+        try{
+            con = ConnectionFactory.getConnection();
+            pstm = con.prepareStatement(UPDATE);
+            pstm.setString(1, e.getEndereco());
+            pstm.setString(2, e.getCidade());
+            pstm.setString(3, e.getEstado());
+            pstm.setInt(4, e.getCodigo());
+            pstm.execute();
+            retorno = e.getCodigo();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro no update de endereco: "+ex.getMessage());
+        }
+        return retorno;
     }
     
 }

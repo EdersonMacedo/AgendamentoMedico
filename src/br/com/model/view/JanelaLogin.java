@@ -5,6 +5,7 @@
 package br.com.model.view;
 
 import br.com.model.controller.FuncionarioController;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,12 +45,18 @@ public class JanelaLogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Login[EMJ]");
 
         PainelLogin.setBackground(new java.awt.Color(255, 255, 255));
 
         txUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txUsuarioActionPerformed(evt);
+            }
+        });
+        txUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txUsuarioKeyPressed(evt);
             }
         });
 
@@ -65,6 +72,11 @@ public class JanelaLogin extends javax.swing.JFrame {
         btEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btEntrarActionPerformed(evt);
+            }
+        });
+        btEntrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btEntrarKeyPressed(evt);
             }
         });
 
@@ -112,6 +124,12 @@ public class JanelaLogin extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
+
+        txSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txSenhaKeyPressed(evt);
+            }
+        });
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/LogoMedico.png"))); // NOI18N
         jLabel4.setToolTipText("");
@@ -199,7 +217,8 @@ public class JanelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txUsuarioActionPerformed
-        // TODO add your handling code here:
+        
+         
     }//GEN-LAST:event_txUsuarioActionPerformed
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
@@ -210,6 +229,27 @@ public class JanelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btSairActionPerformed
+
+    private void btEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btEntrarKeyPressed
+        int tecla=evt.getKeyCode();            
+       if (tecla==KeyEvent.VK_ENTER) {    
+           validarLogin();
+       }  
+    }//GEN-LAST:event_btEntrarKeyPressed
+
+    private void txUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txUsuarioKeyPressed
+        int tecla=evt.getKeyCode();            
+       if (tecla==KeyEvent.VK_ENTER) {    
+           validarLogin();
+       }  
+    }//GEN-LAST:event_txUsuarioKeyPressed
+
+    private void txSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txSenhaKeyPressed
+       int tecla=evt.getKeyCode();            
+       if (tecla==KeyEvent.VK_ENTER) {    
+           validarLogin();
+       }  
+    }//GEN-LAST:event_txSenhaKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PainelInferior;

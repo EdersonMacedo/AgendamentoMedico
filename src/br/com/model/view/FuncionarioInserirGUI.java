@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class FuncionarioInserirGUI extends javax.swing.JFrame {
     private DefaultTableModel modelo;
     private int linhaSelecionada;
+    private int idEndereco;
     
     public FuncionarioInserirGUI(DefaultTableModel modelo) {
         initComponents();
@@ -44,7 +45,10 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
             boxCargo.getSelectedIndex();
         }
         
-        
+        txEndereco.setText(f.getEndereco().getEndereco());
+        txEstado.setText(f.getEndereco().getEstado());
+        txCidade.setText(f.getEndereco().getCidade());
+        idEndereco = f.getEndereco().getCodigo();
         
     }
 
@@ -309,6 +313,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         e.setEndereco(txEndereco.getText());
         e.setCidade(txCidade.getText());
         e.setEstado(txEstado.getText());
+        e.setCodigo(idEndereco);
         EnderecoController ec = new EnderecoController();
         e.setCodigo(ec.salvar(e));
         

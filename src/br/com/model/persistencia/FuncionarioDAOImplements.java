@@ -1,5 +1,6 @@
 package br.com.model.persistencia;
 
+import br.com.model.funcionario.Endereco;
 import br.com.model.funcionario.Funcionario;
 import br.com.model.persistencia.dao.FuncionarioDAO;
 import java.sql.Connection;
@@ -74,16 +75,16 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
         try{
             con = ConnectionFactory.getConnection();
             pstm = con.prepareStatement(UPDATE);
-            //nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, 
-            //endereco = ?, cidade = ?, estado = ? where codigo = ?
+           
             pstm.setString(1, f.getNome());
             pstm.setString(2, f.getLogin());
             pstm.setString(3, f.getSenha());
             pstm.setString(4, f.getTelefone());
             pstm.setString(5, f.getCelular());
             pstm.setString(6, f.getCargo());
-            //pstm.setInt(7, f.getEndereco().getCodigo());
+          
             pstm.setInt(7, f.getCodigo());
+            
             pstm.execute();
             retorno = f.getCodigo();
             
@@ -147,6 +148,10 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
                 f.setCelular(rs.getString("celular"));
                 f.setCargo(rs.getString("cargo"));
                 funcionarios.add(f);
+//                Endereco e = new Endereco();
+//                e.setCodigo(rs.getInt("endereco.codigo"));
+//                e.setCidade(rs.getString("endereco.cidade"));
+//                e.setEndereco(rs.getString("endereco.endereco"));
             }
             
         }catch(Exception e){
@@ -181,6 +186,13 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
                 f.setTelefone(rs.getString("telefone"));
                 f.setCelular(rs.getString("celular"));
                 f.setCargo(rs.getString("cargo"));
+                
+                Endereco e = new Endereco();
+                e.setCodigo(rs.getInt("endereco.codigo"));
+                e.setCidade(rs.getString("endereco.cidade"));
+                e.setEndereco(rs.getString("endereco.endereco"));
+                e.setEstado(rs.getString("endereco.estado"));
+                f.setEndereco(e);
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Erro ao listar funcionário: "+e.getMessage());
