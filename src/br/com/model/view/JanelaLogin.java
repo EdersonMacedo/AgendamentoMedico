@@ -43,7 +43,7 @@ public class JanelaLogin extends javax.swing.JFrame {
         txSenha = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         PainelLogin.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -69,6 +69,11 @@ public class JanelaLogin extends javax.swing.JFrame {
         });
 
         btSair.setText("Sair");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Usuário.:");
 
@@ -201,6 +206,11 @@ public class JanelaLogin extends javax.swing.JFrame {
         validarLogin();
     }//GEN-LAST:event_btEntrarActionPerformed
 
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btSairActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PainelInferior;
     private javax.swing.JPanel PainelLogin;
@@ -224,11 +234,14 @@ public class JanelaLogin extends javax.swing.JFrame {
         String login = txUsuario.getText();
         boolean retorno = fc.autentica(login, senha);
         if(retorno){
+            
             JOptionPane.showMessageDialog(this, "Efetuado com sucesso..");           
-        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
-        janelaPrincipal.setLocationRelativeTo(null);
-        janelaPrincipal.setExtendedState(JanelaPrincipal.MAXIMIZED_BOTH);
-        janelaPrincipal.setVisible(true);
+            JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+            janelaPrincipal.setLocationRelativeTo(null);
+            janelaPrincipal.setExtendedState(JanelaPrincipal.MAXIMIZED_BOTH);
+            janelaPrincipal.setVisible(true);
+            this.dispose();
+            
         }else{
             JOptionPane.showMessageDialog(this, "Campos incorreto..");
         }

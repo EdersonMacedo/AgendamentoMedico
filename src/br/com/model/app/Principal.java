@@ -13,6 +13,5 @@ public class Principal {
         jl.setLocationRelativeTo(null);
         jl.dispose();
         jl.setVisible(true);
-        
     }
 }

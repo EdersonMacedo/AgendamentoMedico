@@ -38,9 +38,9 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         txSenha.setText(f.getSenha());
         txTelefone.setText(f.getTelefone());
         txCelular.setText(f.getCelular());
-        if(f.getCargo().equals("Médico(a)")){
+        if(f.getCargo().equals("Medico(a)")){//Medico(a), Secretario(a)
             boxCargo.getSelectedIndex();
-        }else if(f.getCargo().equals("Secretária")){
+        }else if(f.getCargo().equals("Secretario(a)")){
             boxCargo.getSelectedIndex();
         }
         
@@ -85,7 +85,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         btSalvar = new javax.swing.JButton();
         Deletar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -117,7 +117,12 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
             }
         });
 
-        boxCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Médico(a)", "Secretário(a)" }));
+        boxCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Medico(a)", "Secretario(a)" }));
+        boxCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxCargoActionPerformed(evt);
+            }
+        });
 
         PainelSuperior.setBackground(new java.awt.Color(102, 255, 255));
 
@@ -308,6 +313,10 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         e.setCodigo(ec.salvar(e));
         
         Funcionario f = new Funcionario();
+        f.setEndereco(e);
+        if(!(txCodigo.getText().equals(""))||(txCodigo.getText().equals(null))){
+            f.setCodigo(Integer.parseInt(txCodigo.getText()));
+        }
         f.setNome(txNome.getText());
         f.setSenha(txSenha.getText());
         f.setLogin(txLogin.getText());
@@ -318,22 +327,20 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         }else if(boxCargo.getSelectedIndex() == 1){
             f.setCargo("Secretária");
         }
-        f.setEndereco(e);
-        
         
         FuncionarioController fc = new FuncionarioController();
         if(f.getCodigo() == 0){
             int id = fc.salvar(f);
             if(id>0){
         JOptionPane.showMessageDialog(this, "Salvo com sucesso... Voltando ao menu Pirncipal");
-        modelo.addRow(new Object[]{id, f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()});
+        modelo.addRow(new Object[]{f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()});
             }
         }
         else{
             int id = fc.salvar(f);
             if(id > 0){
                 modelo.removeRow(linhaSelecionada);
-                modelo.addRow(new Object[]{id, f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()});
+                modelo.addRow(new Object[]{f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()});
             }
         }
         
@@ -352,6 +359,10 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         txCelular.setText("");
         boxCargo.setSelectedIndex(0);
     }//GEN-LAST:event_DeletarActionPerformed
+
+    private void boxCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxCargoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boxCargoActionPerformed
 
     /**
      * @param args the command line arguments

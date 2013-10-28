@@ -82,8 +82,8 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
             pstm.setString(4, f.getTelefone());
             pstm.setString(5, f.getCelular());
             pstm.setString(6, f.getCargo());
-            pstm.setInt(7, f.getEndereco().getCodigo());
-            pstm.setInt(8, f.getCodigo());
+            //pstm.setInt(7, f.getEndereco().getCodigo());
+            pstm.setInt(7, f.getCodigo());
             pstm.execute();
             retorno = f.getCodigo();
             
