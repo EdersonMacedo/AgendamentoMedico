@@ -1,7 +1,7 @@
 package br.com.model.paciente;
 
 public class Convenio {
-    private String TipoDeConvenio;
+    private String nome;
     private int codigo;
     public Convenio() {
     }
@@ -13,13 +13,13 @@ public class Convenio {
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
-    
-    public String getTipoDeConvenio() {
-        return TipoDeConvenio;
+
+    public String getNome() {
+        return nome;
     }
 
-    public void setTipoDeConvenio(String TipoDeConvenio) {
-        this.TipoDeConvenio = TipoDeConvenio;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
 }

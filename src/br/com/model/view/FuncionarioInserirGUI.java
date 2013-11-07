@@ -39,9 +39,9 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         txTelefone.setText(f.getTelefone());
         txCelular.setText(f.getCelular());
         if(f.getCargo().equals("Medico(a)")){//Medico(a), Secretario(a)
-            boxCargo.getSelectedIndex();
-        }else if(f.getCargo().equals("Secretario(a)")){
-            boxCargo.getSelectedIndex();
+            boxCargo.setSelectedIndex(0);
+        }else if(f.getCargo().equals("Secretário(a)")){
+            boxCargo.setSelectedIndex(1);
         }
         
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
