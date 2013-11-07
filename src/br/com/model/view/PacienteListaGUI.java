@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package br.com.model.view;
 
-import br.com.model.controller.FuncionarioController;
-import br.com.model.funcionario.Funcionario;
+import br.com.model.controller.PacienteController;
+import br.com.model.paciente.Paciente;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -16,17 +17,15 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Ederson
  */
-public class FuncionarioListaGUI extends javax.swing.JFrame {
-
+public class PacienteListaGUI extends javax.swing.JFrame {
     private JTable tabela;
     private DefaultTableModel modelo = new DefaultTableModel();
-
-    public FuncionarioListaGUI() {
+    
+    public PacienteListaGUI() {
         initComponents();
         criaJTable();
         PainelRolagem.setViewportView(tabela);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +53,7 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
 
         PainelSuperior.setBackground(new java.awt.Color(102, 255, 255));
 
-        jLabel3.setText("Funcionário");
+        jLabel3.setText("Paciente");
 
         javax.swing.GroupLayout PainelSuperiorLayout = new javax.swing.GroupLayout(PainelSuperior);
         PainelSuperior.setLayout(PainelSuperiorLayout);
@@ -69,7 +68,7 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
             PainelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PainelSuperiorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3)
                 .addContainerGap(75, Short.MAX_VALUE))
         );
 
@@ -192,21 +191,20 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
-        FuncionarioInserirGUI fi = new FuncionarioInserirGUI(modelo);
-        fi.setLocationRelativeTo(null);
-        fi.setVisible(true);
+        PacienteInserirGUI pi = new PacienteInserirGUI(modelo);
+        pi.setLocationRelativeTo(null);
+        pi.setVisible(true);
     }//GEN-LAST:event_btInserirActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
-        if (linhaSelecionada >= 0) {
-            int idFuncionario = (int) tabela.getValueAt(linhaSelecionada, 0);
-            FuncionarioController fc = new FuncionarioController();
-            
-            if (fc.remove(idFuncionario)) {
+        if(linhaSelecionada >= 0){
+            int idPaciente = (int)tabela.getValueAt(linhaSelecionada, 0);
+            PacienteController pc = new PacienteController();
+            if(pc.remove(idPaciente)){
                 modelo.removeRow(linhaSelecionada);
-            } else {
+            }else{
                 JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
             }
         }
@@ -215,25 +213,26 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
-        if (linhaSelecionada >= 0) {
-            int idFuncionario = (int) tabela.getValueAt(linhaSelecionada, 0);
-            FuncionarioInserirGUI fi = new FuncionarioInserirGUI(modelo, linhaSelecionada, idFuncionario);
-            fi.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
-        }
+        if(linhaSelecionada >= 0){
+            int idPaciente = (int)tabela.getValueAt(linhaSelecionada, 0);
+            PacienteInserirGUI pi = new PacienteInserirGUI(modelo,linhaSelecionada,idPaciente);
+            pi.setVisible(true);
+        }else{
+                JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
+             }
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void txPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txPesquisarActionPerformed
         String nome = txPesquisar.getText();
-        FuncionarioController fc
-                = new FuncionarioController();
-        modelo.setNumRows(0);
-        for (Funcionario f : fc.listByNome(nome)) {
-            modelo.addRow(new Object[]{
-                f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()
-            });
-        }
+       PacienteController pc =
+               new PacienteController();
+       modelo.setNumRows(0);
+      for(Paciente p: pc.listByNome(nome)){
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+        String data = sdf.format(p.getDataNascimento());
+                  modelo.addRow(new Object[]{p.getCodigo(), p.getNome(), p.getTelefone(), data});
+      }
     }//GEN-LAST:event_txPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -254,22 +253,22 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
         tabela = new JTable(modelo);
         modelo.addColumn("Código");
         modelo.addColumn("Nome");
-        modelo.addColumn("Login");
-        modelo.addColumn("Cargo");
-        modelo.addColumn("Data de nascimento");
+        modelo.addColumn("Telefone");
+        modelo.addColumn("Data de Nascimento");
         preencherJTable();
-
+        
+        
 //id, f.getNome(), f.getLogin(), f.getCargo
     }
-
-    private void preencherJTable() {
-        FuncionarioController uc = new FuncionarioController();
-        for (Funcionario f : uc.listarTodos()) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
-            String data = sdf.format(f.getDataNascimento());
-            modelo.addRow(new Object[]{
-                f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo(), data
-            });
-        }
+private void preencherJTable(){
+    PacienteController pc = new PacienteController();
+    for(Paciente p : pc.listarTodos()){
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+        String data = sdf.format(p.getDataNascimento());
+        modelo.addRow(new Object[]{p.getCodigo(), p.getNome(), p.getTelefone(), data});
+            }
     }
 }
+
+

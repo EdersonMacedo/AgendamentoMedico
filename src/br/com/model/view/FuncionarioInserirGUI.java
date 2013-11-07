@@ -6,10 +6,9 @@
 
 package br.com.model.view;
 
-import br.com.model.controller.EnderecoController;
 import br.com.model.controller.FuncionarioController;
-import br.com.model.funcionario.Endereco;
 import br.com.model.funcionario.Funcionario;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -45,10 +44,14 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
             boxCargo.getSelectedIndex();
         }
         
-        txEndereco.setText(f.getEndereco().getEndereco());
-        txEstado.setText(f.getEndereco().getEstado());
-        txCidade.setText(f.getEndereco().getCidade());
-        idEndereco = f.getEndereco().getCodigo();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+        String data = sdf.format(f.getDataNascimento());
+        txDataNascimento.setText(data);
+        txEndereco.setText(f.getEndereco());
+        txCidade.setText(f.getCidade());
+        txEstado.setText(f.getEstado());
+        txRg.setText(f.getRg());
+        
         
     }
 
@@ -76,8 +79,6 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         txNome = new javax.swing.JTextField();
         txLogin = new javax.swing.JTextField();
         txSenha = new javax.swing.JPasswordField();
-        txTelefone = new javax.swing.JTextField();
-        txCelular = new javax.swing.JTextField();
         txEndereco = new javax.swing.JTextField();
         txCidade = new javax.swing.JTextField();
         txEstado = new javax.swing.JTextField();
@@ -88,6 +89,12 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         btSalvar = new javax.swing.JButton();
         Deletar = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        txRg = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txTelefone = new javax.swing.JFormattedTextField();
+        txCelular = new javax.swing.JFormattedTextField();
+        txDataNascimento = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -114,6 +121,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         jLabel10.setText("Senha.:");
 
         txCodigo.setEditable(false);
+        txCodigo.setEnabled(false);
 
         txNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,70 +184,105 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setText("RG.:");
+
+        jLabel13.setText("Data de nascimento.:");
+
+        try {
+            txTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txTelefoneActionPerformed(evt);
+            }
+        });
+
+        try {
+            txCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PainelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(PainelInferior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel9))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                                        .addComponent(txLogin, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(boxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(98, 98, 98))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(21, 21, 21)
+                                        .addComponent(txTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel13)))
+                            .addComponent(txCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txSenha)
+                        .addComponent(txRg, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                        .addComponent(txCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(jSeparator1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
+                                .addGap(231, 231, 231)
+                                .addComponent(btSalvar)
+                                .addGap(29, 29, 29)
+                                .addComponent(Deletar))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel8))
+                                        .addComponent(jLabel7)
                                         .addGap(30, 30, 30)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(boxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addGap(18, 18, 18)
                                         .addComponent(txEndereco)))
                                 .addGap(117, 117, 117)
                                 .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(txCidade))
-                            .addComponent(jSeparator1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(221, 221, 221)
-                                .addComponent(btSalvar)
-                                .addGap(29, 29, 29)
-                                .addComponent(Deletar)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel9))
-                                .addGap(26, 26, 26)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txLogin)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(txCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE))
-                                    .addComponent(txNome)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(21, 21, 21)
-                                .addComponent(txTelefone)))
-                        .addGap(44, 44, 44)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                            .addComponent(txCelular))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 58, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -253,7 +296,9 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(txRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -261,12 +306,24 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
                     .addComponent(jLabel10)
                     .addComponent(txSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(txCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4)
+                        .addComponent(txCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txTelefone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(boxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(txDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -279,10 +336,6 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(txEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(boxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(Deletar))
@@ -309,16 +362,8 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_txNomeActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        Endereco e = new Endereco();
-        e.setEndereco(txEndereco.getText());
-        e.setCidade(txCidade.getText());
-        e.setEstado(txEstado.getText());
-        e.setCodigo(idEndereco);
-        EnderecoController ec = new EnderecoController();
-        e.setCodigo(ec.salvar(e));
-        
         Funcionario f = new Funcionario();
-        f.setEndereco(e);
+        
         if(!(txCodigo.getText().equals(""))||(txCodigo.getText().equals(null))){
             f.setCodigo(Integer.parseInt(txCodigo.getText()));
         }
@@ -327,25 +372,41 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         f.setLogin(txLogin.getText());
         f.setTelefone(txTelefone.getText());
         f.setCelular(txCelular.getText());
+        f.setEndereco(txEndereco.getText());
+        f.setCidade(txCidade.getText());
+        f.setEstado(txEstado.getText());
+        
         if(boxCargo.getSelectedIndex()==0){
             f.setCargo("Médico(a)");
         }else if(boxCargo.getSelectedIndex() == 1){
-            f.setCargo("Secretária");
+            f.setCargo("Secretário(a)");
         }
-        
+        f.setRg(txRg.getText());
+        try {
+            String data = txDataNascimento.getText();
+            f.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(data));
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao converter a data: "
+                    + ex.getMessage());
+        }
         FuncionarioController fc = new FuncionarioController();
         if(f.getCodigo() == 0){
             int id = fc.salvar(f);
             if(id>0){
         JOptionPane.showMessageDialog(this, "Salvo com sucesso... Voltando ao menu Pirncipal");
-        modelo.addRow(new Object[]{f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()});
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+                String data = sdf.format(f.getDataNascimento());
+        modelo.addRow(new Object[]{id, f.getNome(), f.getLogin(), f.getCargo(),data});
             }
         }
         else{
             int id = fc.salvar(f);
             if(id > 0){
                 modelo.removeRow(linhaSelecionada);
-                modelo.addRow(new Object[]{f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()});
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+                String data = sdf.format(f.getDataNascimento());
+                modelo.addRow(new Object[]{id, f.getNome(), f.getLogin(), f.getCargo(),data});
             }
         }
         
@@ -363,11 +424,21 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         txTelefone.setText("");
         txCelular.setText("");
         boxCargo.setSelectedIndex(0);
+        txRg.setText("");
+        txDataNascimento.setText("");
+        txEstado.setText("");
+        txEndereco.setText("");
+        txCidade.setText("");
+        
     }//GEN-LAST:event_DeletarActionPerformed
 
     private void boxCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxCargoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_boxCargoActionPerformed
+
+    private void txTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txTelefoneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -382,6 +453,8 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -392,14 +465,16 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField txCelular;
+    private javax.swing.JFormattedTextField txCelular;
     private javax.swing.JTextField txCidade;
     private javax.swing.JTextField txCodigo;
+    private javax.swing.JFormattedTextField txDataNascimento;
     private javax.swing.JTextField txEndereco;
     private javax.swing.JTextField txEstado;
     private javax.swing.JTextField txLogin;
     private javax.swing.JTextField txNome;
+    private javax.swing.JTextField txRg;
     private javax.swing.JPasswordField txSenha;
-    private javax.swing.JTextField txTelefone;
+    private javax.swing.JFormattedTextField txTelefone;
     // End of variables declaration//GEN-END:variables
 }

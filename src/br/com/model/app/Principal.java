@@ -1,6 +1,5 @@
 package br.com.model.app;
 
-import br.com.model.view.FuncionarioInserirGUI;
 import br.com.model.view.JanelaLogin;
 
 /**

@@ -1,6 +1,5 @@
 package br.com.model.persistencia;
 
-import br.com.model.funcionario.Endereco;
 import br.com.model.funcionario.Funcionario;
 import br.com.model.persistencia.dao.FuncionarioDAO;
 import java.sql.Connection;
@@ -12,54 +11,64 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class FuncionarioDAOImplements implements FuncionarioDAO{
-    private static final String INSERT = "insert into funcionario(nome, login, senha, telefone, celular, cargo, enderecocodigo) values (?, ?, ?, ?, ?, ?, ?);";
+public class FuncionarioDAOImplements implements FuncionarioDAO {
+
+    private static final String INSERT = "insert into funcionario(nome, login, senha, telefone, celular, cargo, data_nascimento, "
+            + "rg, endereco, cidade, estado) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String LIST = "select * from funcionario;";
     private static final String REMOVE = "delete from funcionario where codigo = ?;";
-    private static final String UPDATE = "update funcionario set nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, cargo = ? where codigo = ?;";
-    private static final String LISTBYID = "select * from funcionario, endereco where funcionario.enderecocodigo = endereco.codigo and funcionario.codigo = ?;";
+    private static final String UPDATE = "update funcionario set nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, "
+            + "cargo = ?,data_nascimento = ?, rg = ?, endereco = ?, cidade = ?, estado = ? where codigo = ?;";
+    private static final String LISTBYID = "select * from funcionario where codigo = ?;";
     private static final String LISTBYNOME = "select * from funcionario where nome like ?;";
     private static final String VALIDALOGIN = "select login,senha from funcionario where login = ? and senha = ?;";
     
+//    private static final String LIST = "select * from curso";
+//    private static final String LISTBYID = "select * from curso where codigo = ?;";
+
     @Override
     public int salvar(Funcionario f) {
-        if (f.getCodigo() == 0){
+        if (f.getCodigo() == 0) {
             return insert(f);
-        }
-        else {
+        } else {
             return update(f);
         }
     }
-    
-    private int insert(Funcionario f){
+
+    private int insert(Funcionario f) {
         Connection con = null;
         PreparedStatement pstm = null;
         int retorno = -1;
-        try{
-            
+        try {
+
             //con = guarda a conexão aberta no connectionFactory
             con = ConnectionFactory.getConnection();
             //pstm = manda um sql para o banco
             pstm = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-            //(nome, login, senha, telefone, celular, cargo)
+            //(nome, login, senha, telefone, celular, cargo, data_nascimento, rg, endereco, cidade, estado)
             pstm.setString(1, f.getNome());
             pstm.setString(2, f.getLogin());
             pstm.setString(3, f.getSenha());
             pstm.setString(4, f.getTelefone());
             pstm.setString(5, f.getCelular());
             pstm.setString(6, f.getCargo());
-            pstm.setInt(7, f.getEndereco().getCodigo());
+            pstm.setDate(7, new java.sql.Date(f.getDataNascimento().getTime()));
+            pstm.setString(8, f.getRg());
+            pstm.setString(9, f.getEndereco());
+            pstm.setString(10, f.getCidade());
+            pstm.setString(11, f.getEstado());
+            
             pstm.execute();
-            try(ResultSet rs = pstm.getGeneratedKeys()){
-                if(rs.next()){
+            try (ResultSet rs = pstm.getGeneratedKeys()) {
+                if (rs.next()) {
                     retorno = rs.getInt(1);
                 }
             }
-            
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro ao inserir: "+e.getMessage());
-        }finally{
-            try{
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao inserir: " + e.getMessage());
+        } finally {
+            try {
                 ConnectionFactory.closeConnection(con, pstm);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao finalizar conexão em inserir: " + ex.getMessage());
@@ -67,31 +76,36 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
         }
         return retorno;
     }
-    
+
     private int update(Funcionario f) {
         Connection con = null;
         PreparedStatement pstm = null;
         int retorno = -1;
-        try{
+        try {
             con = ConnectionFactory.getConnection();
             pstm = con.prepareStatement(UPDATE);
-           
+            //pdate funcionario set nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, 
+            //cargo = ?,data_nascimento = ?, rg = ?, endereco = ?, cidade = ?, estado = ? where codigo = ?
             pstm.setString(1, f.getNome());
             pstm.setString(2, f.getLogin());
             pstm.setString(3, f.getSenha());
             pstm.setString(4, f.getTelefone());
             pstm.setString(5, f.getCelular());
             pstm.setString(6, f.getCargo());
-          
-            pstm.setInt(7, f.getCodigo());
+            pstm.setDate(7, new java.sql.Date(f.getDataNascimento().getTime()));
+            pstm.setString(8, f.getRg());
+            pstm.setString(9, f.getEndereco());
+            pstm.setString(10, f.getCidade());
+            pstm.setString(11, f.getEstado());
+            pstm.setInt(12, f.getCodigo());
             
             pstm.execute();
             retorno = f.getCodigo();
-            
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro ao Editar dados do funcionário: "+e.getMessage());
-        }finally{
-            try{
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Editar dados do funcionário: " + e.getMessage());
+        } finally {
+            try {
                 ConnectionFactory.closeConnection(con, pstm);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao finalizar conexão em inserir: " + ex.getMessage());
@@ -105,20 +119,20 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
         boolean status = false;
         Connection con = null;
         PreparedStatement pstm = null;
-        try{
+        try {
             con = ConnectionFactory.getConnection();
             pstm = con.prepareStatement(REMOVE);
             pstm.setInt(1, codigo);
             pstm.execute();
             status = true;
-            
-        }catch(Exception e){
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir funcionario: " + e.getMessage());
-        }finally{
-            try{
+        } finally {
+            try {
                 ConnectionFactory.closeConnection(con, pstm);
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null, "Erro ao fechar a conexão do remove:"+ex.getMessage());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar a conexão do remove:" + ex.getMessage());
             }
         }
         return status;
@@ -129,16 +143,16 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
         Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        
+
         List<Funcionario> funcionarios = new ArrayList<>();
-        
-        try{
+
+        try {
             con = ConnectionFactory.getConnection();
             pstm = con.prepareStatement(LIST);
             rs = pstm.executeQuery();
-            while(rs.next()){
-            //(nome, login, senha, telefone, celular, endereco, cidade, estado)
-            
+            while (rs.next()) {
+            //nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, cargo = ?,data_nascimento = ?, rg = ? 
+
                 Funcionario f = new Funcionario();
                 f.setNome(rs.getString("nome"));
                 f.setCodigo(rs.getInt("codigo"));
@@ -147,38 +161,39 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
                 f.setTelefone(rs.getString("telefone"));
                 f.setCelular(rs.getString("celular"));
                 f.setCargo(rs.getString("cargo"));
+                f.setDataNascimento(rs.getDate("data_nascimento"));
+                f.setRg(rs.getString("rg"));
+                f.setEndereco(rs.getString("endereco"));
+                f.setCidade(rs.getString("cidade"));
+                f.setEstado(rs.getString("estado"));
                 funcionarios.add(f);
-//                Endereco e = new Endereco();
-//                e.setCodigo(rs.getInt("endereco.codigo"));
-//                e.setCidade(rs.getString("endereco.cidade"));
-//                e.setEndereco(rs.getString("endereco.endereco"));
             }
-            
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Erro ao listar funcionarios: " + e.getMessage());
-        }finally{
-            try{
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar funcionarios: " + e.getMessage());
+        } finally {
+            try {
                 ConnectionFactory.closeConnection(con, pstm, rs);
-            }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Erro ao fechar conexão de listar funcionarios: " + e.getMessage());   
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar conexão de listar funcionarios: " + e.getMessage());
             }
         }
         return funcionarios;
     }
-    
+
     @Override
     public Funcionario listById(int codigo) {
         Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
         Funcionario f = new Funcionario();
-        try{
+        try {
             con = ConnectionFactory.getConnection();
             pstm = con.prepareStatement(LISTBYID);
             pstm.setInt(1, codigo);
             rs = pstm.executeQuery();
-            while(rs.next()){
-                
+            while (rs.next()) {
+
                 f.setCodigo(rs.getInt("codigo"));
                 f.setNome(rs.getString("nome"));
                 f.setLogin(rs.getString("login"));
@@ -186,42 +201,40 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
                 f.setTelefone(rs.getString("telefone"));
                 f.setCelular(rs.getString("celular"));
                 f.setCargo(rs.getString("cargo"));
-                
-                Endereco e = new Endereco();
-                e.setCodigo(rs.getInt("endereco.codigo"));
-                e.setCidade(rs.getString("endereco.cidade"));
-                e.setEndereco(rs.getString("endereco.endereco"));
-                e.setEstado(rs.getString("endereco.estado"));
-                f.setEndereco(e);
+                f.setDataNascimento(rs.getDate("data_nascimento"));
+                f.setRg(rs.getString("rg"));
+                f.setEndereco(rs.getString("endereco"));
+                f.setCidade(rs.getString("cidade"));
+                f.setEstado(rs.getString("estado"));
             }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro ao listar funcionário: "+e.getMessage());
-        }finally{
-            try{
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar funcionário: " + e.getMessage());
+        } finally {
+            try {
                 ConnectionFactory.closeConnection(con, pstm, rs);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao fechar conexão do listar: "+ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro ao fechar conexão do listar: " + ex.getMessage());
             }
         }
         return f;
     }
-    
+
     @Override
     public List<Funcionario> listByNome(String nome) {
         Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        
+
         List<Funcionario> funcionarios = new ArrayList<>();
-        
-        try{
+
+        try {
             con = ConnectionFactory.getConnection();
             pstm = con.prepareStatement(LISTBYNOME);
             pstm.setString(1, "%" + nome + "%");
             rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
             //(nome, login, senha, telefone, celular, endereco, cidade, estado)
-            
+
                 Funcionario f = new Funcionario();
                 f.setCodigo(rs.getInt("codigo"));
                 f.setNome(rs.getString("nome"));
@@ -230,16 +243,21 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
                 f.setTelefone(rs.getString("telefone"));
                 f.setCelular(rs.getString("celular"));
                 f.setCargo(rs.getString("cargo"));
+                f.setDataNascimento(rs.getDate("data_nascimento"));
+                f.setRg(rs.getString("rg"));
+                f.setEndereco(rs.getString("endereco"));
+                f.setCidade(rs.getString("cidade"));
+                f.setEstado(rs.getString("estado"));
                 funcionarios.add(f);
             }
-            
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Erro ao pesquisar funcionarios: " + e.getMessage());
-        }finally{
-            try{
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar funcionarios: " + e.getMessage());
+        } finally {
+            try {
                 ConnectionFactory.closeConnection(con, pstm, rs);
-            }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Erro ao fechar conexão de pesquisar funcionarios: " + e.getMessage());   
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar conexão de pesquisar funcionarios: " + e.getMessage());
             }
         }
         return funcionarios;
@@ -254,19 +272,19 @@ public class FuncionarioDAOImplements implements FuncionarioDAO{
         try {
             con = ConnectionFactory.getConnection();
             pstm = con.prepareStatement(VALIDALOGIN);
-            pstm.setString(1, login);            
+            pstm.setString(1, login);
             pstm.setString(2, senha);
             rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 return true;
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao efetuar login..."+e.getMessage());
-        }finally{
+            JOptionPane.showMessageDialog(null, "Erro ao efetuar login..." + e.getMessage());
+        } finally {
             try {
                 ConnectionFactory.closeConnection(con, pstm, rs);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Erro ao fechar conexão do login..."+e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro ao fechar conexão do login..." + e.getMessage());
             }
         }
         return valida;

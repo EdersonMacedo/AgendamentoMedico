@@ -114,7 +114,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         btFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Secretaria.png"))); // NOI18N
         btFuncionario.setText("Funcionário");
-        btFuncionario.setToolTipText("Cadastro de fucionários e usuários");
+        btFuncionario.setToolTipText("Informações sobre os funcionário(Nome, Endereço, Profissão, telefone, entre outras) Com as opções editar, excluir, e cadastrar um novo.");
         btFuncionario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btFuncionario.setContentAreaFilled(false);
         btFuncionario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -133,6 +133,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         btPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Paciente.png"))); // NOI18N
         btPaciente.setText("Paciente");
+        btPaciente.setToolTipText("Informações sobre os paciente(Nome, Endereço, telefone, entre outras) Com as opções editar, excluir, e cadastrar um novo.");
         btPaciente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btPaciente.setContentAreaFilled(false);
         btPaciente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -156,6 +157,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         btAgenda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btAgenda.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btAgenda.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgendaActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
@@ -171,7 +177,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             PainelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PainelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(PainelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
         );
         PainelPrincipalLayout.setVerticalGroup(
             PainelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,7 +210,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void btPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPacienteActionPerformed
         // TODO add your handling code here:
+        PacienteListaGUI pg = new PacienteListaGUI();
+        pg.setLocationRelativeTo(this);
+        pg.setVisible(true);
     }//GEN-LAST:event_btPacienteActionPerformed
+
+    private void btAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAgendaActionPerformed
 
     /**
      * @param args the command line arguments

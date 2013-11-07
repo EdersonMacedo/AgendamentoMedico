@@ -9,7 +9,20 @@ public abstract class Pessoa {
     private String celular;
     private String nome;
     private Date dataNascimento;
-    private Endereco endereco;
+    private String rg;
+    private String endereco;
+    private String cidade;
+    private String estado;
+
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+    
 
     public Date getDataNascimento() {
         return dataNascimento;
@@ -19,13 +32,30 @@ public abstract class Pessoa {
         this.dataNascimento = dataNascimento;
     }
 
-    public Endereco getEndereco() {
+    public String getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(Endereco endereco) {
+    public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     
     public int getCodigo() {
         return codigo;
