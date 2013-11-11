@@ -26,7 +26,7 @@ public class ConvenioDAOImplements implements ConvenioDAO {
     private static final String LIST = "select * from convenio;";
     private static final String REMOVE = "delete from convenio where codigo = ?;";
     private static final String UPDATE = "update convenio set nome = ? where codigo = ?;";
-    private static final String LISTBYID = "select * from where codigo = ?;";
+    private static final String LISTBYID = "select * from convenio where codigo = ?;";
     private static final String LISTBYNOME = "select * from convenio where nome like ?;";
     
     @Override
@@ -79,13 +79,13 @@ public class ConvenioDAOImplements implements ConvenioDAO {
             pstm = con.prepareStatement(UPDATE);
            
             pstm.setString(1, f.getNome());
-            pstm.setInt(7, f.getCodigo());
+            pstm.setInt(2, f.getCodigo());
             
             pstm.execute();
             retorno = f.getCodigo();
             
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro ao Editar dados do funcionário: "+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao Editar dados do convenio: "+e.getMessage());
         }finally{
             try{
                 ConnectionFactory.closeConnection(con, pstm);
@@ -109,7 +109,7 @@ public class ConvenioDAOImplements implements ConvenioDAO {
             status = true;
             
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro ao excluir funcionario: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao excluir convenio: " + e.getMessage());
         }finally{
             try{
                 ConnectionFactory.closeConnection(con, pstm);
@@ -126,7 +126,7 @@ public class ConvenioDAOImplements implements ConvenioDAO {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         
-        List<Convenio> funcionarios = new ArrayList<>();
+        List<Convenio> convenio = new ArrayList<>();
         
         try{
             con = ConnectionFactory.getConnection();
@@ -137,20 +137,20 @@ public class ConvenioDAOImplements implements ConvenioDAO {
                 Convenio f = new Convenio();
                 f.setNome(rs.getString("nome"));
                 f.setCodigo(rs.getInt("codigo"));
-                funcionarios.add(f);
+                convenio.add(f);
             
             }
             
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Erro ao listar funcionarios: " + e.getMessage());
+            JOptionPane.showMessageDialog(null,"Erro ao listar convenios(all): " + e.getMessage());
         }finally{
             try{
                 ConnectionFactory.closeConnection(con, pstm, rs);
             }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Erro ao fechar conexão de listar funcionarios: " + e.getMessage());   
+            JOptionPane.showMessageDialog(null,"Erro ao fechar conexão de listar convenio: " + e.getMessage());   
             }
         }
-        return funcionarios;
+        return convenio;
     }
     
     @Override
@@ -171,7 +171,7 @@ public class ConvenioDAOImplements implements ConvenioDAO {
                 
             }
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro ao listar funcionário: "+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao listar convenio(id): "+e.getMessage());
         }finally{
             try{
                 ConnectionFactory.closeConnection(con, pstm, rs);
@@ -188,7 +188,7 @@ public class ConvenioDAOImplements implements ConvenioDAO {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         
-        List<Convenio> funcionarios = new ArrayList<>();
+        List<Convenio> convenio = new ArrayList<>();
         
         try{
             con = ConnectionFactory.getConnection();
@@ -199,20 +199,20 @@ public class ConvenioDAOImplements implements ConvenioDAO {
             //(nome, login, senha, telefone, celular, endereco, cidade, estado)
             
                 Convenio f = new Convenio();
-                f.setCodigo(rs.getInt("codigo"));
                 f.setNome(rs.getString("nome"));
-                funcionarios.add(f);
+                f.setCodigo(rs.getInt("codigo"));
+                convenio.add(f);
             }
             
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Erro ao pesquisar funcionarios: " + e.getMessage());
+            JOptionPane.showMessageDialog(null,"Erro ao pesquisar convenio: " + e.getMessage());
         }finally{
             try{
                 ConnectionFactory.closeConnection(con, pstm, rs);
             }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Erro ao fechar conexão de pesquisar funcionarios: " + e.getMessage());   
+            JOptionPane.showMessageDialog(null,"Erro ao fechar conexão de pesquisar convenio: " + e.getMessage());   
             }
         }
-        return funcionarios;
+        return convenio;
     }
 }

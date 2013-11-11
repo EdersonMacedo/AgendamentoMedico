@@ -88,5 +88,10 @@ public abstract class Pessoa {
     public void setCelular(String celular) {
         this.celular = celular;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
     
 }

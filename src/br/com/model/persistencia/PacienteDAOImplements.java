@@ -1,5 +1,6 @@
 package br.com.model.persistencia;
 
+import br.com.model.paciente.Convenio;
 import br.com.model.paciente.Paciente;
 import br.com.model.persistencia.dao.PacienteDAO;
 import java.sql.Connection;
@@ -17,12 +18,17 @@ import javax.swing.JOptionPane;
  */
 public class PacienteDAOImplements implements PacienteDAO {
 
-    private static final String INSERT = "insert into paciente(nome, telefone, celular, data_nascimento, rg, endereco, cidade, estado) values(?, ?, ?, ?, ?, ?, ?, ?);";
-    private static final String UPDATE = "update paciente set nome = ?, telefone = ?, celular = ?, data_nascimento = ?, rg = ?, endereco = ?, cidade = ?, estado = ? where codigo = ?;";
+    private static final String INSERT = "insert into paciente(nome, telefone, celular, data_nascimento, rg, "
+            + "endereco, cidade, estado, codigo_convenio) values(?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    private static final String UPDATE = "update paciente set nome = ?, telefone = ?, celular = ?, data_nascimento = ?,"
+            + " rg = ?, endereco = ?, cidade = ?, estado = ?,codigo_convenio = ? where codigo = ?;";
     private static final String REMOVE = "delete from paciente where codigo = ?";
-    private static final String LIST = "select * from paciente;";
+    private static final String LIST = "select * from paciente, convenio "
+            + "where paciente.codigo_convenio = convenio.codigo";
     private static final String LISTBYNOME = "select * from paciente where nome like ?;";
-    private static final String LISTBYID = "select * from paciente where codigo = ?;";
+    private static final String LISTBYID = "select * from "
+    + "paciente, convenio where paciente.codigo_convenio"
+    +  " = convenio.codigo and paciente.codigo = ?";
 
     @Override
     public int salvar(Paciente p) {
@@ -80,6 +86,10 @@ public class PacienteDAOImplements implements PacienteDAO {
                 p.setEndereco(rs.getString("endereco"));
                 p.setCidade(rs.getString("cidade"));
                 p.setEstado(rs.getString("estado"));
+                Convenio c = new Convenio();
+                c.setCodigo(rs.getInt("convenio.codigo"));
+                c.setNome(rs.getString("convenio.nome"));
+                p.setConvenio(c);
 
                 pacientes.add(p);
             }
@@ -123,7 +133,10 @@ public class PacienteDAOImplements implements PacienteDAO {
                 p.setEndereco(rs.getString("endereco"));
                 p.setCidade(rs.getString("cidade"));
                 p.setEstado(rs.getString("estado"));
-
+                Convenio c = new Convenio();
+                c.setCodigo(rs.getInt("convenio.codigo"));
+                c.setNome(rs.getString("convenio.nome"));
+                p.setConvenio(c);
 
                 pacientes.add(p);
             }
@@ -156,6 +169,7 @@ public class PacienteDAOImplements implements PacienteDAO {
             pstm.setString(6, p.getEndereco());
             pstm.setString(7, p.getCidade());
             pstm.setString(8, p.getEstado());
+            pstm.setInt(9, p.getConvenio().getCodigo());
             pstm.execute();
             try (ResultSet rs = pstm.getGeneratedKeys()) {
                 if (rs.next()) {
@@ -192,7 +206,8 @@ public class PacienteDAOImplements implements PacienteDAO {
             pstm.setString(6, p.getEndereco());
             pstm.setString(7, p.getCidade());
             pstm.setString(8, p.getEstado());
-            pstm.setInt(9, p.getCodigo());
+            pstm.setInt(9, p.getConvenio().getCodigo());
+            pstm.setInt(10, p.getCodigo());
             pstm.execute();
             retorno = p.getCodigo();
         } catch (SQLException ex) {
@@ -229,10 +244,15 @@ public class PacienteDAOImplements implements PacienteDAO {
                 p.setEndereco(rs.getString("endereco"));
                 p.setCidade(rs.getString("cidade"));
                 p.setEstado(rs.getString("estado"));
-
+                
+                Convenio c = new Convenio();
+                c.setCodigo(rs.getInt("convenio.codigo"));
+                c.setNome(rs.getString("convenio.nome"));
+                p.setConvenio(c);
+            
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao listar paciente: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao listar(id) paciente: " + e.getMessage());
         } finally {
             try {
                 ConnectionFactory.closeConnection(con, pstm, rs);

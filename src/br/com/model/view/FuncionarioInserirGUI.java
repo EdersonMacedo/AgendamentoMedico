@@ -84,6 +84,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         txEstado = new javax.swing.JTextField();
         boxCargo = new javax.swing.JComboBox();
         PainelSuperior = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
         PainelInferior = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -138,15 +139,23 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
 
         PainelSuperior.setBackground(new java.awt.Color(102, 255, 255));
 
+        jLabel14.setText("Funcionário");
+
         javax.swing.GroupLayout PainelSuperiorLayout = new javax.swing.GroupLayout(PainelSuperior);
         PainelSuperior.setLayout(PainelSuperiorLayout);
         PainelSuperiorLayout.setHorizontalGroup(
             PainelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(PainelSuperiorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PainelSuperiorLayout.setVerticalGroup(
             PainelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(PainelSuperiorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         PainelInferior.setBackground(new java.awt.Color(102, 255, 255));
@@ -193,6 +202,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txTelefone.setText("");
         txTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txTelefoneActionPerformed(evt);
@@ -204,12 +214,14 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txCelular.setText("");
 
         try {
             txDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txDataNascimento.setText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -455,6 +467,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

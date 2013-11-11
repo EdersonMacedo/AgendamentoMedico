@@ -33,11 +33,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         btFuncionario = new javax.swing.JButton();
         btPaciente = new javax.swing.JButton();
         btAgenda = new javax.swing.JButton();
+        btConvenio = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -91,23 +92,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.LINE_START);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel4, java.awt.BorderLayout.LINE_END);
 
         jPanel6.setMaximumSize(new java.awt.Dimension(200, 200));
         jPanel6.setLayout(new java.awt.GridBagLayout());
@@ -128,7 +116,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(59, 127, 86, 0);
+        gridBagConstraints.insets = new java.awt.Insets(59, 175, 86, 0);
         jPanel6.add(btFuncionario, gridBagConstraints);
 
         btPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Paciente.png"))); // NOI18N
@@ -144,7 +132,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(59, 18, 86, 0);
@@ -163,13 +151,45 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(59, 18, 86, 220);
+        gridBagConstraints.insets = new java.awt.Insets(59, 18, 86, 0);
         jPanel6.add(btAgenda, gridBagConstraints);
 
-        jPanel2.add(jPanel6, java.awt.BorderLayout.CENTER);
+        btConvenio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Convenio.png"))); // NOI18N
+        btConvenio.setText("Convenios");
+        btConvenio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btConvenio.setContentAreaFilled(false);
+        btConvenio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btConvenio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btConvenio.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btConvenio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConvenioActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(59, 18, 86, 257);
+        jPanel6.add(btConvenio, gridBagConstraints);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 230, Short.MAX_VALUE)
+        );
+
+        jPanel6.add(jPanel4, new java.awt.GridBagConstraints());
+
+        jPanel2.add(jPanel6, java.awt.BorderLayout.PAGE_START);
 
         javax.swing.GroupLayout PainelPrincipalLayout = new javax.swing.GroupLayout(PainelPrincipal);
         PainelPrincipal.setLayout(PainelPrincipalLayout);
@@ -177,7 +197,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             PainelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PainelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(PainelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         PainelPrincipalLayout.setVerticalGroup(
             PainelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +205,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(PainelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(87, 87, 87)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addComponent(PainelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -216,8 +236,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btPacienteActionPerformed
 
     private void btAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgendaActionPerformed
-        // TODO add your handling code here:
+        ConsultaListaGUI cg = new ConsultaListaGUI();
+        cg.setLocationRelativeTo(this);
+        cg.setVisible(true);
     }//GEN-LAST:event_btAgendaActionPerformed
+
+    private void btConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConvenioActionPerformed
+        ConvenioListaGUI cg = new ConvenioListaGUI();
+        cg.setLocationRelativeTo(this);
+        cg.setVisible(true);
+    }//GEN-LAST:event_btConvenioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,6 +286,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel PainelPrincipal;
     private javax.swing.JPanel PainelSuperior;
     private javax.swing.JButton btAgenda;
+    private javax.swing.JButton btConvenio;
     private javax.swing.JButton btFuncionario;
     private javax.swing.JButton btPaciente;
     private javax.swing.JLabel jLabel1;
