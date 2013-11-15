@@ -32,6 +32,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         initComponents();
         FuncionarioController fc = new FuncionarioController();
         Funcionario f = fc.listById(idFuncionario);
+        try{
         txCodigo.setText(Integer.toString(f.getCodigo()));
         txNome.setText(f.getNome());
         txLogin.setText(f.getLogin());
@@ -51,7 +52,9 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
         txCidade.setText(f.getCidade());
         txEstado.setText(f.getEstado());
         txRg.setText(f.getRg());
-        
+        }catch(Exception e){
+            System.out.println("Teve Excessões");
+        }
         
     }
 

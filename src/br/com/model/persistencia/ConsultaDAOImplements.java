@@ -29,9 +29,10 @@ public class ConsultaDAOImplements implements ConsultaDAO {
     private static final String UPDATE = "update consulta set data_consulta = ?, descricao = ?, tipo_consulta = ?, horario = ?, codigo_paciente = ? where codigo = ?;";
     private static final String REMOVE = "delete from consulta where codigo = ?";
     //private static final String LIST = "select * from consulta";
-    private static final String LIST = "select * from consulta, paciente where consulta.codigo_paciente = paciente.codigo OR consulta.codigo_paciente is NULL AND consulta.codigo is NOT NULL;";
-    //private static final String LIST = "select * from consulta,paciente where consulta.codigo is NOT NULL;";
-    private static final String LISTBYNOME = "select *from consulta like ?;";
+//    private static final String LIST = "select * from consulta, paciente where consulta.codigo_paciente = paciente.codigo OR consulta.codigo_paciente is NULL AND consulta.codigo is NOT NULL;";
+    private static final String LIST = "select * from consulta,paciente where consulta.codigo is NOT NULL and consulta.codigo_paciente = paciente.codigo;";
+    //private static final String LISTBYNOME = "select * from consulta where nome like ?;";
+    private static final String LISTBYNOME = "select *from consulta, paciente where consulta.codigo_paciente = paciente.codigo and paciente.nome like ?;";
     private static final String LISTBYID = "select *from consulta, "
     +"paciente where consulta.codigo_paciente = "
     +"paciente.codigo and consulta.codigo = ?";

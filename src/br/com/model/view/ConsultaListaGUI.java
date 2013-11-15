@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.com.model.view;
 
 import br.com.model.controller.ConsultaController;
@@ -53,6 +49,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Menu de Consulta[EMJ]");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -253,15 +250,36 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void txPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txPesquisarActionPerformed
-//        String nome = txPesquisar.getText();
-//        ConsultaController fc
-//                = new ConsultaController();
-//        modelo.setNumRows(0);
-//        for (Consulta f : fc.listByNome(nome)) {
-//            modelo.addRow(new Object[]{
-//                f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()
-//            });
-//        }
+        String nom = txPesquisar.getText();
+        ConsultaController fc
+                = new ConsultaController();
+        modelo.setNumRows(0);
+        for (Consulta f : fc.listByNome(nom)) {
+            String hora = "";
+            String data = "";
+            String nome = "";
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                hora = sdf.format(f.getHorario());
+            } catch (Exception ex) {
+                System.out.println("Entrou na excessão Hora: " + ex.getMessage());
+                hora = "";
+            }
+            try {
+                SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy");
+                data = sdfd.format(f.getDataDaConsulta());
+            } catch (Exception e) {
+                System.out.println("entrou na excessão data nula: " + e.getMessage());
+                data = "";
+            }
+            try {
+                nome = f.getPaciente().getNome();
+            } catch (Exception e) {
+                System.out.println("entrou na excessão data nula: " + e.getMessage());
+                 nome= "Disponivel";
+            }
+            modelo.addRow(new Object[]{f.getCodigo(), hora, data, nome, f.getTipoConsulta()});
+        }
     }//GEN-LAST:event_txPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -296,11 +314,30 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
     private void preencherJTable() {
         ConsultaController uc = new ConsultaController();
         for (Consulta f : uc.listarTodos()) {
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            String hora = sdf.format(f.getHorario());
-            SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy");
-            String data = sdfd.format(f.getDataDaConsulta());
-            modelo.addRow(new Object[]{f.getCodigo(), hora, data, f.getPaciente().getNome(), f.getTipoConsulta()});
+            String data = "";
+            String hora = "";
+            String nome = "";
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                hora = sdf.format(f.getHorario());
+            } catch (Exception ex) {
+                System.out.println("Entrou na excessão Hora: " + ex.getMessage());
+                hora = "";
+            }
+            try {
+                SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy");
+                data = sdfd.format(f.getDataDaConsulta());
+            } catch (Exception e) {
+                System.out.println("entrou na excessão data nula: " + e.getMessage());
+                data = "";
+            }
+            try {
+                nome = f.getPaciente().getNome();
+            } catch (Exception e) {
+                System.out.println("entrou na excessão data nula: " + e.getMessage());
+                 nome= "Disponivel";
+            }
+            modelo.addRow(new Object[]{f.getCodigo(), hora, data, nome, f.getTipoConsulta()});
         }
     }
 }

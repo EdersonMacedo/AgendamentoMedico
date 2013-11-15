@@ -47,24 +47,40 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         Consulta p = pc.listById(idPaciente);
         txCodigo.setText(Integer.toString(p.getCodigo()));
 
-        
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
-        String data = sdf.format(p.getDataDaConsulta());
-        txDataConsulta.setText(data);
-        SimpleDateFormat sdfd = new SimpleDateFormat("HH:mm");
-        String hora = sdfd.format(p.getHorario());
-        txHorario.setText(hora);
-        if (p.getTipoConsulta().equals("Consulta")) {
-            cbTipoConsulta.setSelectedIndex(0);
-        } else if (p.getTipoConsulta().equals("Encaixe")) {
-            cbTipoConsulta.setSelectedIndex(1);
-        } else if (p.getTipoConsulta().equals("Retorno")) {
-            cbTipoConsulta.setSelectedIndex(2);
-        } else {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+            String data = sdf.format(p.getDataDaConsulta());
+            txDataConsulta.setText(data);
+
+        } catch (Exception e) {
+            System.out.println("Encontrou excessão na data: " + e.getMessage());
+            txDataConsulta.setText("");
+        }
+        try {
+            SimpleDateFormat sdfd = new SimpleDateFormat("HH:mm");
+            String hora = sdfd.format(p.getHorario());
+            txHorario.setText(hora);
+        } catch (Exception e) {
+            System.out.println("Entrou na excessão");
+            txHorario.setText("##:##");
+
+        }
+        try {
+            if (p.getTipoConsulta().equals("Consulta")) {
+                cbTipoConsulta.setSelectedIndex(0);
+            } else if (p.getTipoConsulta().equals("Encaixe")) {
+                cbTipoConsulta.setSelectedIndex(1);
+            } else if (p.getTipoConsulta().equals("Retorno")) {
+                cbTipoConsulta.setSelectedIndex(2);
+            } else {
+                cbTipoConsulta.setSelectedIndex(0);
+            }
+            txDescricao.setText(p.getDescricao());
+        } catch (Exception e) {
+            System.out.println("Entrou na excessão de ");
             cbTipoConsulta.setSelectedIndex(0);
         }
-        txDescricao.setText(p.getDescricao());
+        
         carregarCombo(p.getPaciente());
     }
 
@@ -100,6 +116,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Inserir Consulta[EMJ]");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -346,7 +363,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         } else {
             int id = pc.salvar(c);
             if (id > 0) {
-                
+
                 modelo.removeRow(linhaSelecionada);
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                 String hora = sdf.format(c.getHorario());

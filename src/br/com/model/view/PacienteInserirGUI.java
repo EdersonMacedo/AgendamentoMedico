@@ -28,6 +28,7 @@ public class PacienteInserirGUI extends javax.swing.JFrame {
 
     public PacienteInserirGUI(DefaultTableModel modelo) {
         initComponents();
+        
         this.modelo = modelo;
         carregarCombo();
 
@@ -39,23 +40,26 @@ public class PacienteInserirGUI extends javax.swing.JFrame {
         initComponents();
         PacienteController pc = new PacienteController();
         Paciente p = pc.listById(idPaciente);
-        txCodigo.setText(Integer.toString(p.getCodigo()));
-        txNome.setText(p.getNome());
-        txTelefone.setText(p.getTelefone());
-        txCelular.setText(p.getCelular());
-        
+        try {
+            txCodigo.setText(Integer.toString(p.getCodigo()));
+            txNome.setText(p.getNome());
+            txTelefone.setText(p.getTelefone());
+            txCelular.setText(p.getCelular());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
-        String data = sdf.format(p.getDataNascimento());
-        txDataNascimento.setText(data);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+            String data = sdf.format(p.getDataNascimento());
+            txDataNascimento.setText(data);
 
-        txRg.setText(p.getRg());
+            txRg.setText(p.getRg());
 
-        txEndereco.setText(p.getEndereco());
-        txEstado.setText(p.getEstado());
-        txCidade.setText(p.getCidade());
-        
-        carregarCombo(p.getConvenio());
+            txEndereco.setText(p.getEndereco());
+            txEstado.setText(p.getEstado());
+            txCidade.setText(p.getCidade());
+
+            carregarCombo(p.getConvenio());
+        } catch (Exception e) {
+            System.out.println("Teve uma excessão ao editar");
+        }
     }
 
     /**
@@ -331,7 +335,7 @@ public class PacienteInserirGUI extends javax.swing.JFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         Paciente p = new Paciente();
-        
+
         if (!(txCodigo.getText().equals("")) || (txCodigo.getText().equals(null))) {
             p.setCodigo(Integer.parseInt(txCodigo.getText()));
         }
@@ -342,10 +346,10 @@ public class PacienteInserirGUI extends javax.swing.JFrame {
         p.setEndereco(txEndereco.getText());
         p.setCidade(txCidade.getText());
         p.setEstado(txEstado.getText());
-        
+
         //Pegar o objeto selecionado do combo
         p.setConvenio((Convenio) cbConvenio.getSelectedItem());
-        
+
         try {
             String data = txDataNascimento.getText();
             p.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(data));
@@ -443,20 +447,19 @@ public class PacienteInserirGUI extends javax.swing.JFrame {
                 comboModel.setSelectedItem(c);
             }
         }
-        
-        
+
     }
 
     private void carregarCombo() {
         DefaultComboBoxModel comboModel = (DefaultComboBoxModel) cbConvenio.getModel();
         comboModel.removeAllElements();
-        
+
         List<Convenio> convenio = new ArrayList<>();
-        ConvenioController cc =new ConvenioController();
+        ConvenioController cc = new ConvenioController();
         convenio = cc.listarTodos();
-        
-        for(int linha = 0; linha< convenio.size();linha++){
-            Convenio c =convenio.get(linha);
+
+        for (int linha = 0; linha < convenio.size(); linha++) {
+            Convenio c = convenio.get(linha);
             comboModel.addElement(c);
         }
     }
