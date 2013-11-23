@@ -38,20 +38,13 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         PainelInferior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         PainelRolagem = new javax.swing.JScrollPane();
-        jLabel2 = new javax.swing.JLabel();
-        txPesquisar = new javax.swing.JTextField();
         btInserir = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
-        cbDia = new javax.swing.JComboBox();
-        cbMes = new javax.swing.JComboBox();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu de Consulta[EMJ]");
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         PainelSuperior.setBackground(new java.awt.Color(102, 255, 255));
 
@@ -95,13 +88,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel2.setText("Pesquisar.:");
-
-        txPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txPesquisarActionPerformed(evt);
-            }
-        });
+        PainelRolagem.setBackground(new java.awt.Color(255, 255, 255));
 
         btInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Cadastro.png"))); // NOI18N
         btInserir.setText("Inserir");
@@ -133,13 +120,11 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
             }
         });
 
-        cbDia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-
-        cbMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
-
-        jLabel4.setText("Dias.:");
-
-        jLabel5.setText("Mês.:");
+        jCalendar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCalendar1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -150,55 +135,37 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PainelRolagem)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(9, 9, 9)
+                        .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(185, 185, 185)
                         .addComponent(btInserir)
                         .addGap(14, 14, 14)
                         .addComponent(btEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btExcluir)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 11, Short.MAX_VALUE))
+                    .addComponent(PainelRolagem, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(PainelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btEditar)
-                        .addComponent(btExcluir))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(36, 36, 36)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2)))
-                        .addComponent(btInserir)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addGap(41, 41, 41)
-                .addComponent(PainelRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btEditar)
+                                .addComponent(btExcluir))
+                            .addComponent(btInserir))
+                        .addGap(80, 80, 80))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(PainelRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(PainelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -249,38 +216,9 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btEditarActionPerformed
 
-    private void txPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txPesquisarActionPerformed
-        String nom = txPesquisar.getText();
-        ConsultaController fc
-                = new ConsultaController();
-        modelo.setNumRows(0);
-        for (Consulta f : fc.listByNome(nom)) {
-            String hora = "";
-            String data = "";
-            String nome = "";
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-                hora = sdf.format(f.getHorario());
-            } catch (Exception ex) {
-                System.out.println("Entrou na excessão Hora: " + ex.getMessage());
-                hora = "";
-            }
-            try {
-                SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy");
-                data = sdfd.format(f.getDataDaConsulta());
-            } catch (Exception e) {
-                System.out.println("entrou na excessão data nula: " + e.getMessage());
-                data = "";
-            }
-            try {
-                nome = f.getPaciente().getNome();
-            } catch (Exception e) {
-                System.out.println("entrou na excessão data nula: " + e.getMessage());
-                 nome= "Disponivel";
-            }
-            modelo.addRow(new Object[]{f.getCodigo(), hora, data, nome, f.getTipoConsulta()});
-        }
-    }//GEN-LAST:event_txPesquisarActionPerformed
+    private void jCalendar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCalendar1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCalendar1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PainelInferior;
@@ -289,15 +227,10 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btInserir;
-    private javax.swing.JComboBox cbDia;
-    private javax.swing.JComboBox cbMes;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txPesquisar;
     // End of variables declaration//GEN-END:variables
 
     private void criaJTable() {
@@ -308,7 +241,6 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         modelo.addColumn("Nome");
         modelo.addColumn("Tipo De Consulta");
         preencherJTable();
-
     }
 
     private void preencherJTable() {
@@ -332,10 +264,15 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
                 data = "";
             }
             try {
+                if(f.getPaciente()!=null){
                 nome = f.getPaciente().getNome();
+                } else {
+                nome= "Disponivel**";
+                }
+                //nome = f.getPaciente().getNome();
             } catch (Exception e) {
                 System.out.println("entrou na excessão data nula: " + e.getMessage());
-                 nome= "Disponivel";
+                nome= "Disponivel";
             }
             modelo.addRow(new Object[]{f.getCodigo(), hora, data, nome, f.getTipoConsulta()});
         }

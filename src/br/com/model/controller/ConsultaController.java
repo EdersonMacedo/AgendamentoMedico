@@ -3,6 +3,7 @@ package br.com.model.controller;
 import br.com.model.paciente.Consulta;
 import br.com.model.persistencia.ConsultaDAOImplements;
 import br.com.model.persistencia.dao.ConsultaDAO;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,5 +31,9 @@ public class ConsultaController {
     public boolean remove (int id){
         ConsultaDAO dao = new ConsultaDAOImplements();
         return dao.remove(id);
+    }
+    public void gerarConsultaTudo(Date data){
+        ConsultaDAO dao = new ConsultaDAOImplements();
+        dao.gerarConsultaTudo(data);
     }
 }

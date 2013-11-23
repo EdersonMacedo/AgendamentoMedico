@@ -7,6 +7,7 @@
 package br.com.model.persistencia.dao;
 
 import br.com.model.paciente.Consulta;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,5 +19,7 @@ public interface ConsultaDAO {
     boolean remove(int codigo);
     List<Consulta> listAll();
     Consulta listById(int codigo);  
-    List<Consulta> listByNome (String nome);    
+    List<Consulta> listByNome (String nome);
+    List<Consulta> listPorDate (Date data);
+    void gerarConsultaTudo(Date data);
 }
