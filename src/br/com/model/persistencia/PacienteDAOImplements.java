@@ -26,8 +26,8 @@ public class PacienteDAOImplements implements PacienteDAO {
     private static final String LIST = "select * from paciente, convenio "
             + "where paciente.codigo_convenio = convenio.codigo";
     private static final String LISTBYNOME = "select * from paciente where nome like ?;";
-    private static final String LISTBYID = "select * from "
-    + "paciente, convenio where paciente.codigo_convenio"
+    private static final String LISTBYID = "select * from paciente, "
+    +  "convenio where paciente.codigo_convenio"
     +  " = convenio.codigo and paciente.codigo = ?";
 
     @Override
@@ -251,6 +251,7 @@ public class PacienteDAOImplements implements PacienteDAO {
                 p.setConvenio(c);
             
             }
+            JOptionPane.showMessageDialog(null, p.getCodigo());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao listar(id) paciente: " + e.getMessage());
         } finally {

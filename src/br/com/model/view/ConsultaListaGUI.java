@@ -1,9 +1,15 @@
-
 package br.com.model.view;
 
 import br.com.model.controller.ConsultaController;
 import br.com.model.paciente.Consulta;
+import br.com.model.paciente.Paciente;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -14,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ConsultaListaGUI extends javax.swing.JFrame {
 
-    private JTable tabela;
+    private JTable tabela = new JTable();
     private DefaultTableModel modelo = new DefaultTableModel();
 
     public ConsultaListaGUI() {
@@ -41,7 +47,8 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         btInserir = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
+        Calendario = new com.toedter.calendar.JCalendar();
+        btPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu de Consulta[EMJ]");
@@ -83,7 +90,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         PainelInferiorLayout.setVerticalGroup(
             PainelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelInferiorLayout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
@@ -120,9 +127,28 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
             }
         });
 
-        jCalendar1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Calendario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jCalendar1MouseClicked(evt);
+                CalendarioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                CalendarioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                CalendarioMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                CalendarioMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                CalendarioMouseReleased(evt);
+            }
+        });
+
+        btPesquisar.setText("Pesquisar");
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarActionPerformed(evt);
             }
         });
 
@@ -137,14 +163,16 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(185, 185, 185)
+                        .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btPesquisar)
+                        .addGap(94, 94, 94)
                         .addComponent(btInserir)
                         .addGap(14, 14, 14)
                         .addComponent(btEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btExcluir)
-                        .addGap(0, 11, Short.MAX_VALUE))
+                        .addGap(0, 5, Short.MAX_VALUE))
                     .addComponent(PainelRolagem, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -154,18 +182,16 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
                 .addComponent(PainelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btEditar)
-                                .addComponent(btExcluir))
-                            .addComponent(btInserir))
-                        .addGap(80, 80, 80))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(PainelRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btEditar)
+                            .addComponent(btExcluir))
+                        .addComponent(btInserir))
+                    .addComponent(btPesquisar)
+                    .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PainelRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PainelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -184,9 +210,26 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
-        ConsultaInserirGUI fi = new ConsultaInserirGUI(modelo);
-        fi.setLocationRelativeTo(null);
-        fi.setVisible(true);
+        int linhaSelecionada = -1;
+        linhaSelecionada = tabela.getSelectedRow();
+        String confere = "";
+        System.out.println("Valor do Confere:" + confere + ":");
+        System.out.println("Valor do Confere:" + confere.toString() + ":");
+        confere = (String) tabela.getValueAt(linhaSelecionada, 3);
+        System.out.println("Valor do Confere:" + confere + ":");
+
+//        if (!(confere == (null)) || !(confere.equals(""))) {
+//            System.out.println("Entrou no confere false");
+//            return;
+//        }
+        if (linhaSelecionada >= 0) {
+            int idConsulta = (int) tabela.getValueAt(linhaSelecionada, 0);
+            ConsultaInserirGUI pi = new ConsultaInserirGUI(modelo, linhaSelecionada, idConsulta);
+            //pi.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
+        }
+
     }//GEN-LAST:event_btInserirActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
@@ -194,14 +237,12 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         linhaSelecionada = tabela.getSelectedRow();
         if (linhaSelecionada >= 0) {
             int idConsulta = (int) tabela.getValueAt(linhaSelecionada, 0);
-            ConsultaController fc = new ConsultaController();
-
-            if (fc.remove(idConsulta)) {
-                modelo.removeRow(linhaSelecionada);
-            } else {
-                JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
-            }
+            ConsultaInserirGUI pi = new ConsultaInserirGUI(linhaSelecionada, modelo, idConsulta);
+            //pi.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
         }
+        preencherJTableData(Calendario.getDate());
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
@@ -209,25 +250,60 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         linhaSelecionada = tabela.getSelectedRow();
         if (linhaSelecionada >= 0) {
             int idConsulta = (int) tabela.getValueAt(linhaSelecionada, 0);
-            ConsultaInserirGUI fi = new ConsultaInserirGUI(modelo, linhaSelecionada, idConsulta);
-            fi.setVisible(true);
+            ConsultaInserirGUI pi = new ConsultaInserirGUI(linhaSelecionada, idConsulta, modelo);
+            //pi.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
         }
     }//GEN-LAST:event_btEditarActionPerformed
 
-    private void jCalendar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCalendar1MouseClicked
+    private void CalendarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CalendarioMouseClicked
+
+    }//GEN-LAST:event_CalendarioMouseClicked
+
+    private void CalendarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CalendarioMousePressed
+
+    }//GEN-LAST:event_CalendarioMousePressed
+
+    private void CalendarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CalendarioMouseEntered
+
+    }//GEN-LAST:event_CalendarioMouseEntered
+
+    private void CalendarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CalendarioMouseExited
+
+    }//GEN-LAST:event_CalendarioMouseExited
+
+    private void CalendarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CalendarioMouseReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCalendar1MouseClicked
+    }//GEN-LAST:event_CalendarioMouseReleased
+
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+
+        try {
+            ConsultaController cc = new ConsultaController();
+            cc.gerarConsultaTudo(Calendario.getDate());
+            System.out.println("3-CONSULTE O BANCO");
+        } catch (Exception e) {
+        } finally {
+            try {
+                System.out.println("Entrou");
+                preencherJTableData(Calendario.getDate());
+            } catch (Exception e) {
+                System.out.println("Catch" + e.getMessage());
+            }
+        }
+
+    }//GEN-LAST:event_btPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JCalendar Calendario;
     private javax.swing.JPanel PainelInferior;
     private javax.swing.JScrollPane PainelRolagem;
     private javax.swing.JPanel PainelSuperior;
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btInserir;
-    private com.toedter.calendar.JCalendar jCalendar1;
+    private javax.swing.JButton btPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
@@ -240,12 +316,24 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         modelo.addColumn("Data da consulta");
         modelo.addColumn("Nome");
         modelo.addColumn("Tipo De Consulta");
-        preencherJTable();
+
+        long time = System.currentTimeMillis();
+        java.sql.Timestamp datahora = new Timestamp(time);
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(datahora);
+        datahora = new Timestamp(calendar.getTimeInMillis());
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println("DATE TIME");
+        preencherJTableData(datahora);
     }
 
-    private void preencherJTable() {
+    private void preencherJTableData(Date dataInfo) {
+        final int I = 0;
         ConsultaController uc = new ConsultaController();
-        for (Consulta f : uc.listarTodos()) {
+        modelo.setRowCount(I);
+        System.out.println("getRowCount ");
+        tabela.updateUI();
+        for (Consulta f : uc.listPorDate(dataInfo)) {
             String data = "";
             String hora = "";
             String nome = "";
@@ -264,17 +352,15 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
                 data = "";
             }
             try {
-                if(f.getPaciente()!=null){
                 nome = f.getPaciente().getNome();
-                } else {
-                nome= "Disponivel**";
-                }
-                //nome = f.getPaciente().getNome();
             } catch (Exception e) {
                 System.out.println("entrou na excessão data nula: " + e.getMessage());
-                nome= "Disponivel";
+                nome = "Disponivel";
             }
+
             modelo.addRow(new Object[]{f.getCodigo(), hora, data, nome, f.getTipoConsulta()});
         }
+        PainelRolagem.setViewportView(tabela);
+
     }
 }

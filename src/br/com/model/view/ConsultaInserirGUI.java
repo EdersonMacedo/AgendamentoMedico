@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.model.view;
 
 import br.com.model.controller.ConsultaController;
@@ -13,11 +8,8 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -39,31 +31,40 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
 
     }
 
-    public ConsultaInserirGUI(DefaultTableModel modelo, int linhaSelecionada, int idPaciente) {
+    //---INSERT---
+    public ConsultaInserirGUI(DefaultTableModel modelo, int linhaSelecionada, int idConsulta) {
         this.modelo = modelo;
         this.linhaSelecionada = linhaSelecionada;
+        System.out.println("linhaSelecionada: " + linhaSelecionada);
+        System.out.println("idConsulta: " + idConsulta);
         initComponents();
-        ConsultaController pc = new ConsultaController();
-        Consulta p = pc.listById(idPaciente);
-        txCodigo.setText(Integer.toString(p.getCodigo()));
+        ConsultaController cc = new ConsultaController();
+        Consulta p = cc.listByIdInsert(idConsulta);
+        System.out.println("Valor do p: " + p);
+        if ((p.equals(null)) || (p.equals(""))) {
+            System.out.println("Entrou no setVisible false");
+            setVisible(false);
+            return;
+        }
 
+        try {
+            txCodigo.setText(Integer.toString(p.getCodigo()));
+        } catch (Exception e) {
+            System.out.println("Caiu em uma exceção(codigo)" + e.getMessage());
+        }
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
             String data = sdf.format(p.getDataDaConsulta());
             txDataConsulta.setText(data);
-
         } catch (Exception e) {
-            System.out.println("Encontrou excessão na data: " + e.getMessage());
-            txDataConsulta.setText("");
+            System.out.println("Caiu em uma exceção(data) " + e.getMessage());
         }
         try {
-            SimpleDateFormat sdfd = new SimpleDateFormat("HH:mm");
-            String hora = sdfd.format(p.getHorario());
+            SimpleDateFormat sdfh = new SimpleDateFormat("hh:mm:ss");
+            String hora = sdfh.format(p.getHorario());
             txHorario.setText(hora);
         } catch (Exception e) {
-            System.out.println("Entrou na excessão");
-            txHorario.setText("##:##");
-
+            System.out.println("Caiu em uma exceção(horas) " + e.getMessage());
         }
         try {
             if (p.getTipoConsulta().equals("Consulta")) {
@@ -76,12 +77,170 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
                 cbTipoConsulta.setSelectedIndex(0);
             }
             txDescricao.setText(p.getDescricao());
+
         } catch (Exception e) {
+            System.out.println("Entrou na excessão de cbTipoConsulta");
+            cbTipoConsulta.setSelectedIndex(0);
+            System.out.println("Caiu em uma exceção(tipo de consulta) " + e.getMessage());
+        }
+
+        try {
+            carregarCombo(p.getPaciente());
+        } catch (Exception e) {
+            System.out.println("Caiu em uma exceção(Combo) " + e.getMessage());
+        } finally {
+            if ((txDescricao.getText().equals(null)) || (txDescricao.getText().equals(""))) {
+                System.out.println("txDescricao:" + txDescricao.getText() + ":");
+                System.out.println("entrou no txDescricao");
+                cbPaciente.setSelectedIndex(0);
+                setVisible(true);
+            }
+        }
+    }
+    //---UPDATE---
+    public ConsultaInserirGUI(int linhaSelecionada, int idConsulta, DefaultTableModel modelo) {
+        this.modelo = modelo;
+        this.linhaSelecionada = linhaSelecionada;
+        System.out.println("linhaSelecionada: " + linhaSelecionada);
+        System.out.println("idConsulta: " + idConsulta);
+        initComponents();
+        ConsultaController cc = new ConsultaController();
+        Consulta p = cc.listByIdUpdate(idConsulta);
+        System.out.println("Valor do p: " + p);
+        if ((p.equals(null)) || (p.equals(""))) {
+            System.out.println("Entrou no setVisible false");
+            setVisible(false);
+            return;
+        }
+
+        try {
+            txCodigo.setText(Integer.toString(p.getCodigo()));
+        } catch (Exception e) {
+            System.out.println("Caiu em uma exceção(codigo)" + e.getMessage());
+        }
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+            String data = sdf.format(p.getDataDaConsulta());
+            txDataConsulta.setText(data);
+        } catch (Exception e) {
+            System.out.println("Caiu em uma exceção(data) " + e.getMessage());
+        }
+        try {
+            SimpleDateFormat sdfh = new SimpleDateFormat("hh:mm:ss");
+            String hora = sdfh.format(p.getHorario());
+            txHorario.setText(hora);
+        } catch (Exception e) {
+            System.out.println("Caiu em uma exceção(horas) " + e.getMessage());
+        }
+        try {
+            if (p.getTipoConsulta().equals("Consulta")) {
+                cbTipoConsulta.setSelectedIndex(0);
+            } else if (p.getTipoConsulta().equals("Encaixe")) {
+                cbTipoConsulta.setSelectedIndex(1);
+            } else if (p.getTipoConsulta().equals("Retorno")) {
+                cbTipoConsulta.setSelectedIndex(2);
+            } else {
+                cbTipoConsulta.setSelectedIndex(0);
+            }
+            txDescricao.setText(p.getDescricao());
+
             System.out.println("Entrou na excessão de ");
             cbTipoConsulta.setSelectedIndex(0);
+
+        } catch (Exception e) {
+
+            System.out.println("Caiu em uma exceção(tipo de consulta) " + e.getMessage());
         }
-        
-        carregarCombo(p.getPaciente());
+
+        try {
+            carregarCombo(p.getPaciente());
+        } catch (Exception e) {
+            System.out.println("Caiu em uma exceção(Combo) " + e.getMessage());
+        } finally {
+            System.out.println("txCodigo:" + txCodigo.getText() + ":");
+
+            if (!(txCodigo.getText().equals(0))&&(Integer.parseInt(txCodigo.getText())>0)) {
+                System.out.println("txCodigo:" + txCodigo.getText() + ":");
+                System.out.println("entrou no txCodigo(Up)");
+                setVisible(true);
+                return;
+            }
+            System.out.println("NÃO entrou no txCodigo(Up):"+txCodigo.getText()+":");
+        }
+    }
+    //---Excluir---
+    public ConsultaInserirGUI(int linhaSelecionada, DefaultTableModel modelo, int idConsulta) {
+        this.modelo = modelo;
+        this.linhaSelecionada = linhaSelecionada;
+        System.out.println("linhaSelecionada: " + linhaSelecionada);
+        System.out.println("idConsulta: " + idConsulta);
+        initComponents();
+        ConsultaController cc = new ConsultaController();
+        Consulta p = cc.listByIdUpdate(idConsulta);
+        System.out.println("Valor do p: " + p);
+        if ((p.equals(null)) || (p.equals(""))) {
+            System.out.println("Entrou no setVisible false");
+            setVisible(false);
+            return;
+        }
+
+        try {
+            txCodigo.setText(Integer.toString(p.getCodigo()));
+        } catch (Exception e) {
+            System.out.println("Caiu em uma exceção(codigo)" + e.getMessage());
+        }
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+            String data = sdf.format(p.getDataDaConsulta());
+            txDataConsulta.setText(data);
+        } catch (Exception e) {
+            System.out.println("Caiu em uma exceção(data) " + e.getMessage());
+        }
+        try {
+            SimpleDateFormat sdfh = new SimpleDateFormat("hh:mm:ss");
+            String hora = sdfh.format(p.getHorario());
+            txHorario.setText(hora);
+        } catch (Exception e) {
+            System.out.println("Caiu em uma exceção(horas) " + e.getMessage());
+        }
+        try {
+            if (p.getTipoConsulta().equals("Consulta")) {
+                cbTipoConsulta.setSelectedIndex(0);
+            } else if (p.getTipoConsulta().equals("Encaixe")) {
+                cbTipoConsulta.setSelectedIndex(1);
+            } else if (p.getTipoConsulta().equals("Retorno")) {
+                cbTipoConsulta.setSelectedIndex(2);
+            } else {
+                cbTipoConsulta.setSelectedIndex(0);
+            }
+            txDescricao.setText(p.getDescricao());
+
+            System.out.println("Entrou na excessão de ");
+            cbTipoConsulta.setSelectedIndex(0);
+
+        } catch (Exception e) {
+
+            System.out.println("Caiu em uma exceção(tipo de consulta) " + e.getMessage());
+        }
+
+        try {
+            carregarCombo(p.getPaciente());
+        } catch (Exception e) {
+            System.out.println("Caiu em uma exceção(Combo) " + e.getMessage());
+        } finally {
+            System.out.println("txCodigo:" + txCodigo.getText() + ":");
+
+            if (!(txCodigo.getText().equals(0))&&(Integer.parseInt(txCodigo.getText())>0)) {
+                System.out.println("txCodigo:" + txCodigo.getText() + ":");
+                System.out.println("entrou no txCodigo(Up)");
+                int id = cc.remove(p);
+                if(id>0){
+                    System.out.println("Conferir exclusão...");
+                }
+                return;
+            }
+            System.out.println("NÃO entrou no txCodigo(Up):"+txCodigo.getText()+":");
+        }
     }
 
     /**
@@ -103,7 +262,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btSalvar = new javax.swing.JButton();
-        Deletar = new javax.swing.JButton();
+        btDeletar = new javax.swing.JButton();
         cbPaciente = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         cbTipoConsulta = new javax.swing.JComboBox();
@@ -176,10 +335,10 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
             }
         });
 
-        Deletar.setText("Deletar");
-        Deletar.addActionListener(new java.awt.event.ActionListener() {
+        btDeletar.setText("Deletar");
+        btDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeletarActionPerformed(evt);
+                btDeletarActionPerformed(evt);
             }
         });
 
@@ -189,11 +348,13 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
 
         jLabel4.setText("Data da consulta.:");
 
+        txDataConsulta.setEditable(false);
         try {
             txDataConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txDataConsulta.setEnabled(false);
         txDataConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txDataConsultaActionPerformed(evt);
@@ -202,11 +363,13 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
 
         jLabel5.setText("Horário.:");
 
+        txHorario.setEditable(false);
         try {
             txHorario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txHorario.setEnabled(false);
 
         txDescricao.setColumns(20);
         txDescricao.setRows(5);
@@ -227,7 +390,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
                         .addGap(231, 231, 231)
                         .addComponent(btSalvar)
                         .addGap(29, 29, 29)
-                        .addComponent(Deletar))
+                        .addComponent(btDeletar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,7 +452,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
                         .addGap(116, 116, 116)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
-                    .addComponent(Deletar))
+                    .addComponent(btDeletar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PainelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -310,11 +473,11 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void DeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletarActionPerformed
+    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
         // TODO add your handling code here:
-
+        
         cbPaciente.setSelectedIndex(0);
-    }//GEN-LAST:event_DeletarActionPerformed
+    }//GEN-LAST:event_btDeletarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         Consulta c = new Consulta();
@@ -380,9 +543,9 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txDataConsultaActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Deletar;
     private javax.swing.JPanel PainelInferior;
     private javax.swing.JPanel PainelSuperior;
+    private javax.swing.JButton btDeletar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox cbPaciente;
     private javax.swing.JComboBox cbTipoConsulta;

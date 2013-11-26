@@ -16,10 +16,16 @@ public class ConsultaController {
         return dao.salvar(p);
     }
     
-    public Consulta listById(int codigo){
+    public Consulta listByIdInsert(int codigo){
         ConsultaDAO dao = new ConsultaDAOImplements();
-        return dao.listById(codigo);
+        return dao.listByIdInsert(codigo);
     }
+
+    public Consulta listByIdUpdate(int codigo){
+        ConsultaDAO dao = new ConsultaDAOImplements();
+        return dao.listByIdUpdate(codigo);
+    }
+    
     public List<Consulta> listarTodos(){
         ConsultaDAO dao = new ConsultaDAOImplements();
         return dao.listAll();
@@ -28,12 +34,16 @@ public class ConsultaController {
         ConsultaDAO dao = new ConsultaDAOImplements();
         return dao.listByNome(nome);
     }
-    public boolean remove (int id){
+    public int remove (Consulta c){
         ConsultaDAO dao = new ConsultaDAOImplements();
-        return dao.remove(id);
+        return dao.remove(c);
     }
     public void gerarConsultaTudo(Date data){
         ConsultaDAO dao = new ConsultaDAOImplements();
         dao.gerarConsultaTudo(data);
+    }
+    public List<Consulta> listPorDate(Date data){
+        ConsultaDAO dao = new ConsultaDAOImplements();
+        return dao.listPorDate(data);
     }
 }

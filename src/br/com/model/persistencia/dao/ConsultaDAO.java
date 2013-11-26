@@ -16,9 +16,10 @@ import java.util.List;
  */
 public interface ConsultaDAO {
     int salvar(Consulta f);
-    boolean remove(int codigo);
+    int remove(Consulta f);
     List<Consulta> listAll();
-    Consulta listById(int codigo);  
+    Consulta listByIdInsert(int codigo);  
+    Consulta listByIdUpdate(int codigo);  
     List<Consulta> listByNome (String nome);
     List<Consulta> listPorDate (Date data);
     void gerarConsultaTudo(Date data);

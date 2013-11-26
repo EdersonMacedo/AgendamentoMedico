@@ -6,6 +6,7 @@
 
 package br.com.model.view;
 
+import br.com.model.controller.ConsultaController;
 import br.com.model.controller.ConvenioController;
 import br.com.model.paciente.Convenio;
 import javax.swing.JOptionPane;
@@ -196,9 +197,9 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
         if(linhaSelecionada >= 0){
-            int idConvenio = (int)tabela.getValueAt(linhaSelecionada, 0);
-            ConvenioController fc = new ConvenioController();
-            if(fc.remove(idConvenio)){
+            int idPaciente = (int)tabela.getValueAt(linhaSelecionada, 0);
+            ConvenioController pc = new ConvenioController();
+            if(pc.remove(idPaciente)){
                 modelo.removeRow(linhaSelecionada);
             }else{
                 JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
