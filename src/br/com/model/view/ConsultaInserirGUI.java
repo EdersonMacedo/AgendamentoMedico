@@ -535,7 +535,8 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
                 modelo.addRow(new Object[]{id, hora, data, c.getPaciente().getNome(), c.getTipoConsulta()});
             }
         }
-
+        ConsultaListaGUI cl = new ConsultaListaGUI();
+        cl.carregarJTable();
         dispose();
     }//GEN-LAST:event_btSalvarActionPerformed
 

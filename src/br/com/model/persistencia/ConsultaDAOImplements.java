@@ -151,10 +151,6 @@ public class ConsultaDAOImplements implements ConsultaDAO {
                 c.setPaciente(p);
             }
             System.out.println("Paciente: " + c.getPaciente().getNome());
-            if (!(c.getPaciente().getNome().equals("")) && !(c.getDescricao().equals("") || !(c.getDescricao().equals(null)))) {
-                JOptionPane.showMessageDialog(null, "Já tem alguém nesse dia(ListByInsert)...");
-                return null;
-            }
 
             System.out.println(c.getCodigo() + "  " + c.getDescricao());
         } catch (SQLException ex) {

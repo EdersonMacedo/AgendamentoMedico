@@ -212,16 +212,6 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
-        String confere = "";
-        System.out.println("Valor do Confere:" + confere + ":");
-        System.out.println("Valor do Confere:" + confere.toString() + ":");
-        confere = (String) tabela.getValueAt(linhaSelecionada, 3);
-        System.out.println("Valor do Confere:" + confere + ":");
-
-//        if (!(confere == (null)) || !(confere.equals(""))) {
-//            System.out.println("Entrou no confere false");
-//            return;
-//        }
         if (linhaSelecionada >= 0) {
             int idConsulta = (int) tabela.getValueAt(linhaSelecionada, 0);
             ConsultaInserirGUI pi = new ConsultaInserirGUI(modelo, linhaSelecionada, idConsulta);
@@ -229,7 +219,23 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
         }
-
+        carregarJTable();
+        preencherJTableData(Calendario.getDate());
+        btPesquisarActionPerformed(evt);
+        try {
+            ConsultaController cc = new ConsultaController();
+            cc.gerarConsultaTudo(Calendario.getDate());
+            System.out.println("ss-CONSULTE O BANCO");
+        } catch (Exception e) {
+        } finally {
+            try {
+                System.out.println("Entrou");
+                preencherJTableData(Calendario.getDate());
+            } catch (Exception e) {
+                System.out.println("Catch" + e.getMessage());
+            }
+        }
+        
     }//GEN-LAST:event_btInserirActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
@@ -243,6 +249,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
         }
         preencherJTableData(Calendario.getDate());
+        btPesquisarActionPerformed(evt);
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
@@ -255,6 +262,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
         }
+        preencherJTableData(Calendario.getDate());
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void CalendarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CalendarioMouseClicked
@@ -278,21 +286,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_CalendarioMouseReleased
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-
-        try {
-            ConsultaController cc = new ConsultaController();
-            cc.gerarConsultaTudo(Calendario.getDate());
-            System.out.println("3-CONSULTE O BANCO");
-        } catch (Exception e) {
-        } finally {
-            try {
-                System.out.println("Entrou");
-                preencherJTableData(Calendario.getDate());
-            } catch (Exception e) {
-                System.out.println("Catch" + e.getMessage());
-            }
-        }
-
+        carregarJTable();
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -331,8 +325,10 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         final int I = 0;
         ConsultaController uc = new ConsultaController();
         modelo.setRowCount(I);
+        PainelRolagem.setViewportView(tabela);
         System.out.println("getRowCount ");
         tabela.updateUI();
+        PainelRolagem.setViewportView(tabela);
         for (Consulta f : uc.listPorDate(dataInfo)) {
             String data = "";
             String hora = "";
@@ -361,6 +357,22 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
             modelo.addRow(new Object[]{f.getCodigo(), hora, data, nome, f.getTipoConsulta()});
         }
         PainelRolagem.setViewportView(tabela);
-
+    }
+    
+    void carregarJTable(){
+        
+        try {
+            ConsultaController cc = new ConsultaController();
+            cc.gerarConsultaTudo(Calendario.getDate());
+            System.out.println("3-CONSULTE O BANCO");
+        } catch (Exception e) {
+        } finally {
+            try {
+                System.out.println("Entrou");
+                preencherJTableData(Calendario.getDate());
+            } catch (Exception e) {
+                System.out.println("Catch" + e.getMessage());
+            }
+        }
     }
 }
