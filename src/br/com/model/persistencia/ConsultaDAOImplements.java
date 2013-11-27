@@ -26,7 +26,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
     private static final String INSERT = "insert into consulta(data_consulta, descricao, "
             + "tipo_consulta, horario, codigo_paciente) values (?, ?, ?, ?, ?);";//ORIGINAL
     //private static final String INSERT = "insert into consulta(data_consulta, descricao) values (?,?);";
-    private static final String UPDATE = "update consulta set data_consulta = ?, descricao = ?, tipo_consulta = ?, horario = ?, codigo_paciente = ? where codigo = ?;";
+    private static final String UPDATE = "update consulta set data_consulta = ?, descricao = ?, tipo_consulta = ?, codigo_paciente = ? where codigo = ?;";
     private static final String REMOVE = "select *from consulta, "
             + "paciente where consulta.codigo_paciente = "
             + "paciente.codigo and consulta.codigo = ?";
@@ -43,11 +43,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
 
     @Override
     public int salvar(Consulta p) {
-        if (p.getCodigo() == 0) {
-            return insert(p);
-        } else {
             return update(p);
-        }
     }
 
     
@@ -257,9 +253,8 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             pstm.setDate(1, new java.sql.Date(p.getDataDaConsulta().getTime()));
             pstm.setString(2, p.getDescricao());
             pstm.setString(3, p.getTipoConsulta());
-            pstm.setTime(4, p.getHorario());
-            pstm.setInt(5, p.getPaciente().getCodigo());
-            pstm.setInt(6, p.getCodigo());
+            pstm.setInt(4, p.getPaciente().getCodigo());
+            pstm.setInt(5, p.getCodigo());
             pstm.execute();
             retorno = p.getCodigo();
         } catch (SQLException e) {

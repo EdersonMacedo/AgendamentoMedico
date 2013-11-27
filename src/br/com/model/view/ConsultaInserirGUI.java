@@ -41,12 +41,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         ConsultaController cc = new ConsultaController();
         Consulta p = cc.listByIdInsert(idConsulta);
         System.out.println("Valor do p: " + p);
-        if ((p.equals(null)) || (p.equals(""))) {
-            System.out.println("Entrou no setVisible false");
-            setVisible(false);
-            return;
-        }
-
+        
         try {
             txCodigo.setText(Integer.toString(p.getCodigo()));
         } catch (Exception e) {
@@ -89,7 +84,8 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Caiu em uma exceção(Combo) " + e.getMessage());
         } finally {
-            if ((txDescricao.getText().equals(null)) || (txDescricao.getText().equals(""))) {
+            System.out.println("Entrada no finnalyy");
+            if (!(txDescricao.getText().equals(null)) || (txDescricao.getText().equals(""))) {
                 System.out.println("txDescricao:" + txDescricao.getText() + ":");
                 System.out.println("entrou no txDescricao");
                 cbPaciente.setSelectedIndex(0);
@@ -284,6 +280,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         jLabel2.setText("Codigo.:");
 
         txCodigo.setEditable(false);
+        txCodigo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txCodigo.setEnabled(false);
 
         PainelSuperior.setBackground(new java.awt.Color(102, 255, 255));
@@ -354,6 +351,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txDataConsulta.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txDataConsulta.setEnabled(false);
         txDataConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -369,6 +367,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txHorario.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txHorario.setEnabled(false);
 
         txDescricao.setColumns(20);

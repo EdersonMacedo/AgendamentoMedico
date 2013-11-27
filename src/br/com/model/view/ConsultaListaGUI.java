@@ -219,22 +219,6 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
         }
-        carregarJTable();
-        preencherJTableData(Calendario.getDate());
-        btPesquisarActionPerformed(evt);
-        try {
-            ConsultaController cc = new ConsultaController();
-            cc.gerarConsultaTudo(Calendario.getDate());
-            System.out.println("ss-CONSULTE O BANCO");
-        } catch (Exception e) {
-        } finally {
-            try {
-                System.out.println("Entrou");
-                preencherJTableData(Calendario.getDate());
-            } catch (Exception e) {
-                System.out.println("Catch" + e.getMessage());
-            }
-        }
         
     }//GEN-LAST:event_btInserirActionPerformed
 
@@ -248,8 +232,6 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
         }
-        preencherJTableData(Calendario.getDate());
-        btPesquisarActionPerformed(evt);
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
