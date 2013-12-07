@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.com.model.view;
 
 import br.com.model.controller.PacienteController;
@@ -34,6 +28,7 @@ public class PacienteListaGUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         PainelSuperior = new javax.swing.JPanel();
@@ -52,46 +47,26 @@ public class PacienteListaGUI extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         PainelSuperior.setBackground(new java.awt.Color(102, 255, 255));
+        PainelSuperior.setLayout(new java.awt.GridBagLayout());
 
         jLabel3.setText("Paciente");
-
-        javax.swing.GroupLayout PainelSuperiorLayout = new javax.swing.GroupLayout(PainelSuperior);
-        PainelSuperior.setLayout(PainelSuperiorLayout);
-        PainelSuperiorLayout.setHorizontalGroup(
-            PainelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelSuperiorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        PainelSuperiorLayout.setVerticalGroup(
-            PainelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelSuperiorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addContainerGap(75, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(11, 10, 75, 703);
+        PainelSuperior.add(jLabel3, gridBagConstraints);
 
         PainelInferior.setBackground(new java.awt.Color(102, 255, 255));
+        PainelInferior.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Java.png"))); // NOI18N
-
-        javax.swing.GroupLayout PainelInferiorLayout = new javax.swing.GroupLayout(PainelInferior);
-        PainelInferior.setLayout(PainelInferiorLayout);
-        PainelInferiorLayout.setHorizontalGroup(
-            PainelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelInferiorLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap())
-        );
-        PainelInferiorLayout.setVerticalGroup(
-            PainelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelInferiorLayout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(65, 720, 11, 10);
+        PainelInferior.add(jLabel1, gridBagConstraints);
 
         jLabel2.setText("Pesquisar.:");
 
@@ -151,7 +126,7 @@ public class PacienteListaGUI extends javax.swing.JFrame {
                         .addComponent(btEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btExcluir)
-                        .addGap(0, 34, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -170,10 +145,10 @@ public class PacienteListaGUI extends javax.swing.JFrame {
                                 .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel2)))
                         .addComponent(btInserir)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PainelRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PainelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(PainelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -200,12 +175,18 @@ public class PacienteListaGUI extends javax.swing.JFrame {
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
         if(linhaSelecionada >= 0){
+            int i = -1;
+            i = (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse funcionário permanentemente?", "Excluir funcionário", JOptionPane.YES_NO_OPTION));
+            if (i == 0) {
             int idPaciente = (int)tabela.getValueAt(linhaSelecionada, 0);
             PacienteController pc = new PacienteController();
             if(pc.remove(idPaciente)){
                 modelo.removeRow(linhaSelecionada);
             }else{
                 JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
+            }
+            } else {
+                JOptionPane.showMessageDialog(null, "Exclusão Cancelada");
             }
         }
     }//GEN-LAST:event_btExcluirActionPerformed

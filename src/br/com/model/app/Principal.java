@@ -10,7 +10,6 @@ public class Principal {
     public static void main(String args[]){
         JanelaLogin jl = new JanelaLogin();        
         jl.setLocationRelativeTo(null);
-        jl.dispose();
         jl.setVisible(true);
     }
 }

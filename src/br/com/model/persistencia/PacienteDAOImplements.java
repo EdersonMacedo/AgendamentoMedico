@@ -25,10 +25,11 @@ public class PacienteDAOImplements implements PacienteDAO {
     private static final String REMOVE = "delete from paciente where codigo = ?";
     private static final String LIST = "select * from paciente, convenio "
             + "where paciente.codigo_convenio = convenio.codigo";
-    private static final String LISTBYNOME = "select * from paciente where nome like ?;";
+    private static final String LISTBYNOME = "SELECT paciente.codigo, paciente.telefone, paciente.celular, paciente.nome, paciente.rg, paciente.data_nascimento, "
+            + "paciente.codigo_convenio, convenio.codigo, convenio.nome FROM paciente left JOIN convenio ON paciente.codigo_convenio=convenio.codigo where paciente.nome like ?;";
     private static final String LISTBYID = "select * from paciente, "
-    +  "convenio where paciente.codigo_convenio"
-    +  " = convenio.codigo and paciente.codigo = ?";
+            + "convenio where paciente.codigo_convenio"
+            + " = convenio.codigo and paciente.codigo = ?";
 
     @Override
     public int salvar(Paciente p) {
@@ -51,7 +52,14 @@ public class PacienteDAOImplements implements PacienteDAO {
             pstm.execute();
             status = true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir paciente: " + ex.getMessage());
+
+            String var = "com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`agendamento_medico`.`consulta`, CONSTRAINT `paciente_fk` FOREIGN KEY (`codigo_paciente`) REFERENCES `paciente` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION)";
+            if(ex.toString().equals(var)){
+                JOptionPane.showMessageDialog(null, "Erro ao remover, você está usando a sua referencia na agenda");
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao excluir paciente: " + ex.getMessage());
+                System.out.println("Erro ao remover:" + ex + ":");
+            }
         } finally {
             try {
                 ConnectionFactory.closeConnection(con, pstm);
@@ -130,9 +138,6 @@ public class PacienteDAOImplements implements PacienteDAO {
                 p.setTelefone(rs.getString("telefone"));
                 p.setCelular(rs.getString("celular"));
                 p.setRg(rs.getString("rg"));
-                p.setEndereco(rs.getString("endereco"));
-                p.setCidade(rs.getString("cidade"));
-                p.setEstado(rs.getString("estado"));
                 Convenio c = new Convenio();
                 c.setCodigo(rs.getInt("convenio.codigo"));
                 c.setNome(rs.getString("convenio.nome"));
@@ -244,12 +249,12 @@ public class PacienteDAOImplements implements PacienteDAO {
                 p.setEndereco(rs.getString("endereco"));
                 p.setCidade(rs.getString("cidade"));
                 p.setEstado(rs.getString("estado"));
-                
+
                 Convenio c = new Convenio();
                 c.setCodigo(rs.getInt("convenio.codigo"));
                 c.setNome(rs.getString("convenio.nome"));
                 p.setConvenio(c);
-            
+
             }
             JOptionPane.showMessageDialog(null, p.getCodigo());
         } catch (Exception e) {

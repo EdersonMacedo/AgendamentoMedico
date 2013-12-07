@@ -49,12 +49,13 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
         btExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Funcionários");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         PainelSuperior.setBackground(new java.awt.Color(102, 255, 255));
 
-        jLabel3.setText("Funcionário");
+        jLabel3.setText("Funcionários");
 
         javax.swing.GroupLayout PainelSuperiorLayout = new javax.swing.GroupLayout(PainelSuperior);
         PainelSuperior.setLayout(PainelSuperiorLayout);
@@ -146,34 +147,34 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                         .addComponent(btInserir)
-                        .addGap(14, 14, 14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btExcluir)
-                        .addGap(0, 34, Short.MAX_VALUE)))
+                        .addComponent(btExcluir)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(PainelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(35, 35, 35))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btEditar)
+                            .addComponent(btExcluir)
+                            .addComponent(btInserir))))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btEditar)
-                        .addComponent(btExcluir))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(36, 36, 36)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2)))
-                        .addComponent(btInserir)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(PainelRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(PainelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -201,6 +202,8 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
         if (linhaSelecionada >= 0) {
+            int i = (JOptionPane.showConfirmDialog(null,"Tem certeza que deseja excluir esse funcionário permanentemente?","Excluir funcionário",JOptionPane.YES_NO_OPTION));
+            if(i == 0){
             int idFuncionario = (int) tabela.getValueAt(linhaSelecionada, 0);
             FuncionarioController fc = new FuncionarioController();
             
@@ -208,6 +211,9 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
                 modelo.removeRow(linhaSelecionada);
             } else {
                 JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
+            }
+            }else{
+                JOptionPane.showMessageDialog(null, "Exclusão Cancelada");
             }
         }
     }//GEN-LAST:event_btExcluirActionPerformed
@@ -230,8 +236,10 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
                 = new FuncionarioController();
         modelo.setNumRows(0);
         for (Funcionario f : fc.listByNome(nome)) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+            String data = sdf.format(f.getDataNascimento());
             modelo.addRow(new Object[]{
-                f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo()
+                f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo(), data
             });
         }
     }//GEN-LAST:event_txPesquisarActionPerformed

@@ -32,9 +32,10 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             + "paciente.codigo and consulta.codigo = ?";
     private static final String LIST = "SELECT consulta.data_consulta, consulta.horario, paciente.nome, paciente.codigo ,consulta.codigo,consulta.tipo_consulta, consulta.descricao FROM consulta left JOIN paciente ON consulta.codigo_paciente=paciente.codigo ;";
     private static final String LISTBYNOME = "select *from consulta, paciente where consulta.codigo_paciente = paciente.codigo and paciente.nome like ?;";
-    private static final String LISTBYIDINSERT = "select *from consulta, "
-            + "paciente where consulta.codigo_paciente = "
-            + "paciente.codigo OR consulta.codigo = ?";
+//    private static final String LISTBYIDINSERT = "select *from consulta, "
+//            + "paciente where consulta.codigo_paciente = "
+//            + "paciente.codigo OR consulta.codigo = ?";
+    private static final String LISTBYIDINSERT = "SELECT consulta.data_consulta, consulta.horario, paciente.nome, paciente.codigo ,consulta.codigo,consulta.tipo_consulta, consulta.descricao FROM consulta left JOIN paciente ON consulta.codigo_paciente=paciente.codigo where consulta.codigo = ?;";
     private static final String LISTBYIDUPDATE = "select *from consulta, "
             + "paciente where consulta.codigo_paciente = "
             + "paciente.codigo and consulta.codigo = ?";
@@ -54,13 +55,13 @@ public class ConsultaDAOImplements implements ConsultaDAO {
         try {
             con = ConnectionFactory.getConnection();
             pstm = con.prepareStatement(UPDATE);
+            //"update consulta set data_consulta = ?, descricao = ?, tipo_consulta = ?, codigo_paciente = ? where codigo = ?;";
 
             pstm.setDate(1, new java.sql.Date(p.getDataDaConsulta().getTime()));
             pstm.setString(2, "");
             pstm.setString(3, "");
-            pstm.setTime(4, p.getHorario());
-            pstm.setInt(5, 0);
-            pstm.setInt(6, p.getCodigo());
+            pstm.setInt(4, 0);
+            pstm.setInt(5, p.getCodigo());
             pstm.execute();
             retorno = p.getCodigo();
         } catch (SQLException e) {
@@ -131,12 +132,14 @@ public class ConsultaDAOImplements implements ConsultaDAO {
         try {
             con = ConnectionFactory.getConnection();
             pstm = con.prepareStatement(LISTBYIDINSERT);
+            System.out.println("Codigo enviado: "+codigo);
             pstm.setInt(1, codigo);
             rs = pstm.executeQuery();
             while (rs.next()) {
-                //codigo, data_consulta,descricao, codigo_paciente,tipo_consulta,horario
-
-                c.setCodigo(rs.getInt("consulta.codigo"));
+//                "select *from consulta, "
+//            + "paciente where consulta.codigo_paciente = "
+//            + "paciente.codigo OR consulta.codigo = ?";
+                c.setCodigo(codigo);
                 c.setDataDaConsulta(rs.getDate("data_consulta"));
                 c.setDescricao(rs.getString("descricao"));
                 c.setTipoConsulta(rs.getString("tipo_consulta"));
@@ -146,9 +149,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
                 p.setNome(rs.getString("paciente.nome"));
                 c.setPaciente(p);
             }
-            System.out.println("Paciente: " + c.getPaciente().getNome());
-
-            System.out.println(c.getCodigo() + "  " + c.getDescricao());
+            System.out.println("getCodigo: "+c.getCodigo() + "  " + c.getDescricao());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao listar(ID): " + ex.getMessage());
         } finally {

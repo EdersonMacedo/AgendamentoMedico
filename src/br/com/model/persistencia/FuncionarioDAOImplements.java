@@ -126,8 +126,9 @@ public class FuncionarioDAOImplements implements FuncionarioDAO {
             pstm.execute();
             status = true;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir funcionario: " + e.getMessage());
+            System.out.println("Erro ao remover:"+e+":");
         } finally {
             try {
                 ConnectionFactory.closeConnection(con, pstm);

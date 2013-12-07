@@ -2,12 +2,8 @@ package br.com.model.view;
 
 import br.com.model.controller.ConsultaController;
 import br.com.model.paciente.Consulta;
-import br.com.model.paciente.Paciente;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
@@ -53,7 +49,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu de Consulta[EMJ]");
 
-        PainelSuperior.setBackground(new java.awt.Color(102, 255, 255));
+        PainelSuperior.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel3.setText("Consulta");
 
@@ -210,28 +206,54 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
+
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
         if (linhaSelecionada >= 0) {
             int idConsulta = (int) tabela.getValueAt(linhaSelecionada, 0);
+            System.out.println("idCOnsulta: " + idConsulta);
+            String tipoConsulta = (String) tabela.getValueAt(linhaSelecionada, 4);
+//            try {
+//                if (!tipoConsulta.equals(null)) {
+//                    JOptionPane.showMessageDialog(null, "Não é possivel...");
+//                    return;
+//                }
+//            } catch (Exception e) {
+//                String id = null;
+//                if (!e.toString().equals(id)||e.equals(id)) {
+//                    JOptionPane.showMessageDialog(null, "Não é possivel...");
+//                    return;
+//                }
+//                JOptionPane.showMessageDialog(null, "Excessão ao Inserir(bt): " + e.getMessage());
+//            }
+            System.out.println("Tipo de consulta: " + tipoConsulta);
             ConsultaInserirGUI pi = new ConsultaInserirGUI(modelo, linhaSelecionada, idConsulta);
-            //pi.setVisible(true);
+            System.out.println("Já chegou abaixo do ConsultaInserirGUI");
+
         } else {
             JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
         }
-        
     }//GEN-LAST:event_btInserirActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
+
         if (linhaSelecionada >= 0) {
-            int idConsulta = (int) tabela.getValueAt(linhaSelecionada, 0);
-            ConsultaInserirGUI pi = new ConsultaInserirGUI(linhaSelecionada, modelo, idConsulta);
-            //pi.setVisible(true);
+            int i = (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse funcionário permanentemente?", "Excluir funcionário", JOptionPane.YES_NO_OPTION));
+            if (i == 0) {
+                int idConsulta = (int) tabela.getValueAt(linhaSelecionada, 0);
+                System.out.println("idCOnsulta: " + idConsulta);
+                ConsultaInserirGUI pi = new ConsultaInserirGUI(linhaSelecionada, modelo, idConsulta);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
+            JOptionPane.showMessageDialog(null, "Exclusão Cancelada");
         }
+
+        preencherJTableData(Calendario.getDate());
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
@@ -268,7 +290,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_CalendarioMouseReleased
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        carregarJTable();
+        preencherJTableData(Calendario.getDate());
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -304,6 +326,8 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
     }
 
     private void preencherJTableData(Date dataInfo) {
+
+        carregarJTable();
         final int I = 0;
         ConsultaController uc = new ConsultaController();
         modelo.setRowCount(I);
@@ -324,7 +348,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
             }
             try {
                 SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy");
-                data = sdfd.format(f.getDataDaConsulta());
+                data = sdfd.format(f.getDataDaConsulta().getTime());
             } catch (Exception e) {
                 System.out.println("entrou na excessão data nula: " + e.getMessage());
                 data = "";
@@ -340,21 +364,15 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         }
         PainelRolagem.setViewportView(tabela);
     }
-    
-    void carregarJTable(){
-        
+
+    public void carregarJTable() {
+
         try {
             ConsultaController cc = new ConsultaController();
             cc.gerarConsultaTudo(Calendario.getDate());
-            System.out.println("3-CONSULTE O BANCO");
+            System.out.println("CONSULTE O BANCO data: " + Calendario.getDate());
         } catch (Exception e) {
-        } finally {
-            try {
-                System.out.println("Entrou");
-                preencherJTableData(Calendario.getDate());
-            } catch (Exception e) {
-                System.out.println("Catch" + e.getMessage());
-            }
         }
+
     }
 }

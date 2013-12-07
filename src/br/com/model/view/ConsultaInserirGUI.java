@@ -22,7 +22,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
 
     private DefaultTableModel modelo;
     private int linhaSelecionada;
-    private int idEndereco;
+    private int idConsulta;
 
     public ConsultaInserirGUI(DefaultTableModel modelo) {
         initComponents();
@@ -35,27 +35,31 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
     public ConsultaInserirGUI(DefaultTableModel modelo, int linhaSelecionada, int idConsulta) {
         this.modelo = modelo;
         this.linhaSelecionada = linhaSelecionada;
-        System.out.println("linhaSelecionada: " + linhaSelecionada);
-        System.out.println("idConsulta: " + idConsulta);
+        this.idConsulta = idConsulta;
         initComponents();
+        System.out.println("linhaSelecionada: " + linhaSelecionada);
+        System.out.println("In idConsulta: " + idConsulta);
+        
         ConsultaController cc = new ConsultaController();
         Consulta p = cc.listByIdInsert(idConsulta);
-        System.out.println("Valor do p: " + p);
+        String data = "";
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+            data = sdf.format(p.getDataDaConsulta());
+            txDataConsulta.setText(data);
+        } catch (Exception e) {
+            System.out.println("Caiu em uma exceção(data) " + e.getMessage());
+        }
+        System.out.println("Valor do p: " + p+"\n\nData: "+data+"codigo: "+p.getCodigo());
         
+
         try {
             txCodigo.setText(Integer.toString(p.getCodigo()));
         } catch (Exception e) {
             System.out.println("Caiu em uma exceção(codigo)" + e.getMessage());
         }
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
-            String data = sdf.format(p.getDataDaConsulta());
-            txDataConsulta.setText(data);
-        } catch (Exception e) {
-            System.out.println("Caiu em uma exceção(data) " + e.getMessage());
-        }
-        try {
-            SimpleDateFormat sdfh = new SimpleDateFormat("hh:mm:ss");
+            SimpleDateFormat sdfh = new SimpleDateFormat("HH:mm:ss");
             String hora = sdfh.format(p.getHorario());
             txHorario.setText(hora);
         } catch (Exception e) {
@@ -68,8 +72,6 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
                 cbTipoConsulta.setSelectedIndex(1);
             } else if (p.getTipoConsulta().equals("Retorno")) {
                 cbTipoConsulta.setSelectedIndex(2);
-            } else {
-                cbTipoConsulta.setSelectedIndex(0);
             }
             txDescricao.setText(p.getDescricao());
 
@@ -85,7 +87,17 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
             System.out.println("Caiu em uma exceção(Combo) " + e.getMessage());
         } finally {
             System.out.println("Entrada no finnalyy");
-            if (!(txDescricao.getText().equals(null)) || (txDescricao.getText().equals(""))) {
+            try{
+                System.out.println("cbTipo de consulta: "+cbTipoConsulta.getName());
+                if((txDescricao.getText().equals(null) || !txDescricao.getText().equals(""))){
+                JOptionPane.showMessageDialog(null, "Não é possivel inserir. ");
+                return;
+            }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"BUCHAA" + e.getMessage());
+            }
+            
+            if (!(txDescricao.toString().equals(null)) || (txDescricao.toString().equals(""))) {
                 System.out.println("txDescricao:" + txDescricao.getText() + ":");
                 System.out.println("entrou no txDescricao");
                 cbPaciente.setSelectedIndex(0);
@@ -93,12 +105,13 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
             }
         }
     }
+
     //---UPDATE---
     public ConsultaInserirGUI(int linhaSelecionada, int idConsulta, DefaultTableModel modelo) {
         this.modelo = modelo;
         this.linhaSelecionada = linhaSelecionada;
         System.out.println("linhaSelecionada: " + linhaSelecionada);
-        System.out.println("idConsulta: " + idConsulta);
+        System.out.println("Up idConsulta: " + idConsulta);
         initComponents();
         ConsultaController cc = new ConsultaController();
         Consulta p = cc.listByIdUpdate(idConsulta);
@@ -106,6 +119,8 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         if ((p.equals(null)) || (p.equals(""))) {
             System.out.println("Entrou no setVisible false");
             setVisible(false);
+            System.out.println("NÃO entrou no txCodigo(Up):" + txCodigo.getText() + ":");
+            JOptionPane.showMessageDialog(null, "Não é possivel editar.");
             return;
         }
 
@@ -122,9 +137,9 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
             System.out.println("Caiu em uma exceção(data) " + e.getMessage());
         }
         try {
-            SimpleDateFormat sdfh = new SimpleDateFormat("hh:mm:ss");
+            SimpleDateFormat sdfh = new SimpleDateFormat("HH:mm:ss");
             String hora = sdfh.format(p.getHorario());
-            txHorario.setText(hora);
+            txHorario.setText(hora.intern());
         } catch (Exception e) {
             System.out.println("Caiu em uma exceção(horas) " + e.getMessage());
         }
@@ -135,14 +150,8 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
                 cbTipoConsulta.setSelectedIndex(1);
             } else if (p.getTipoConsulta().equals("Retorno")) {
                 cbTipoConsulta.setSelectedIndex(2);
-            } else {
-                cbTipoConsulta.setSelectedIndex(0);
             }
             txDescricao.setText(p.getDescricao());
-
-            System.out.println("Entrou na excessão de ");
-            cbTipoConsulta.setSelectedIndex(0);
-
         } catch (Exception e) {
 
             System.out.println("Caiu em uma exceção(tipo de consulta) " + e.getMessage());
@@ -155,15 +164,16 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         } finally {
             System.out.println("txCodigo:" + txCodigo.getText() + ":");
 
-            if (!(txCodigo.getText().equals(0))&&(Integer.parseInt(txCodigo.getText())>0)) {
+            if (!(txCodigo.getText().equals(0)) && (Integer.parseInt(txCodigo.getText()) > 0)) {
                 System.out.println("txCodigo:" + txCodigo.getText() + ":");
                 System.out.println("entrou no txCodigo(Up)");
                 setVisible(true);
                 return;
             }
-            System.out.println("NÃO entrou no txCodigo(Up):"+txCodigo.getText()+":");
+            JOptionPane.showMessageDialog(null, "Não é possivel editar.");
         }
     }
+
     //---Excluir---
     public ConsultaInserirGUI(int linhaSelecionada, DefaultTableModel modelo, int idConsulta) {
         this.modelo = modelo;
@@ -193,7 +203,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
             System.out.println("Caiu em uma exceção(data) " + e.getMessage());
         }
         try {
-            SimpleDateFormat sdfh = new SimpleDateFormat("hh:mm:ss");
+            SimpleDateFormat sdfh = new SimpleDateFormat("HH:mm:ss");
             String hora = sdfh.format(p.getHorario());
             txHorario.setText(hora);
         } catch (Exception e) {
@@ -226,16 +236,16 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         } finally {
             System.out.println("txCodigo:" + txCodigo.getText() + ":");
 
-            if (!(txCodigo.getText().equals(0))&&(Integer.parseInt(txCodigo.getText())>0)) {
+            if (!(txCodigo.getText().equals(0)) && (Integer.parseInt(txCodigo.getText()) > 0)) {
                 System.out.println("txCodigo:" + txCodigo.getText() + ":");
                 System.out.println("entrou no txCodigo(Up)");
                 int id = cc.remove(p);
-                if(id>0){
+                if (id > 0) {
                     System.out.println("Conferir exclusão...");
                 }
                 return;
             }
-            System.out.println("NÃO entrou no txCodigo(Up):"+txCodigo.getText()+":");
+            System.out.println("NÃO entrou no txCodigo(Up):" + txCodigo.getText() + ":");
         }
     }
 
@@ -403,8 +413,8 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
                             .addComponent(cbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbTipoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txDataConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(txDataConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -474,7 +484,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
 
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
         // TODO add your handling code here:
-        
+
         cbPaciente.setSelectedIndex(0);
     }//GEN-LAST:event_btDeletarActionPerformed
 
@@ -521,21 +531,25 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
                 SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy");
                 String data = sdfd.format(c.getDataDaConsulta());
                 modelo.addRow(new Object[]{id, hora, data, c.getPaciente().getNome(), c.getTipoConsulta()});
+
+//                ConsultaListaGUI cl = new ConsultaListaGUI();
+//                cl.carregarJTable();
             }
         } else {
             int id = pc.salvar(c);
             if (id > 0) {
-
+                
                 modelo.removeRow(linhaSelecionada);
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                 String hora = sdf.format(c.getHorario());
                 SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy");
                 String data = sdfd.format(c.getDataDaConsulta());
-                modelo.addRow(new Object[]{id, hora, data, c.getPaciente().getNome(), c.getTipoConsulta()});
+                modelo.insertRow(linhaSelecionada, new Object[]{id, hora, data, c.getPaciente().getNome(), c.getTipoConsulta()});
+                        //addRow(new Object[]{id, hora, data, c.getPaciente().getNome(), c.getTipoConsulta()});
+                JOptionPane.showMessageDialog(null,"Salvo com sucesso... Voltando ao menu Pirncipal");
+
             }
         }
-        ConsultaListaGUI cl = new ConsultaListaGUI();
-        cl.carregarJTable();
         dispose();
     }//GEN-LAST:event_btSalvarActionPerformed
 

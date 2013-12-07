@@ -72,8 +72,8 @@
                               <Component id="cbPaciente" min="-2" pref="210" max="-2" attributes="0"/>
                               <Component id="cbTipoConsulta" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="txDataConsulta" min="-2" pref="65" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="txDataConsulta" min="-2" pref="73" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="txHorario" min="-2" pref="41" max="-2" attributes="0"/>

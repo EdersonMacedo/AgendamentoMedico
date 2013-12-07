@@ -1,5 +1,11 @@
 package br.com.model.view;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author guest01
@@ -25,6 +31,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
         PainelPrincipal = new javax.swing.JPanel();
         PainelSuperior = new javax.swing.JPanel();
         PainelInferior = new javax.swing.JPanel();
@@ -37,9 +46,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         btPaciente = new javax.swing.JButton();
         btAgenda = new javax.swing.JButton();
         btConvenio = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        mBarOpcHelp = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        miAgenda = new javax.swing.JMenuItem();
+        miConvenio = new javax.swing.JMenuItem();
+        miFuncionario = new javax.swing.JMenuItem();
+        miPaciente = new javax.swing.JMenuItem();
+        mAjuda = new javax.swing.JMenu();
+        miSobre = new javax.swing.JMenuItem();
+
+        jMenu3.setText("File");
+        jMenuBar2.add(jMenu3);
+
+        jMenu4.setText("Edit");
+        jMenuBar2.add(jMenu4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Janela Principal[EMJ]");
@@ -113,8 +133,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jPanel6.setLayout(new java.awt.GridBagLayout());
 
         btFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Secretaria.png"))); // NOI18N
-        btFuncionario.setText("Funcionário");
-        btFuncionario.setToolTipText("Informações sobre os funcionário(Nome, Endereço, Profissão, telefone, entre outras) Com as opções editar, excluir, e cadastrar um novo.");
+        btFuncionario.setText("Funcionários");
+        btFuncionario.setToolTipText("Informações sobre os funcionários (Nome, Endereço, Profissão, telefone, entre outros) Com as opções editar, excluir e cadastrar um novo.");
         btFuncionario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btFuncionario.setContentAreaFilled(false);
         btFuncionario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -132,8 +152,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jPanel6.add(btFuncionario, gridBagConstraints);
 
         btPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Paciente.png"))); // NOI18N
-        btPaciente.setText("Paciente");
-        btPaciente.setToolTipText("Informações sobre os paciente(Nome, Endereço, telefone, entre outras) Com as opções editar, excluir, e cadastrar um novo.");
+        btPaciente.setText("Pacientes");
+        btPaciente.setToolTipText("Informações sobre os pacientes (Nome, Endereço, telefone, convênio, entre outras) Com as opções editar, excluir e cadastrar um novo.");
         btPaciente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btPaciente.setContentAreaFilled(false);
         btPaciente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -152,6 +172,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         btAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Calendario.png"))); // NOI18N
         btAgenda.setText("Agenda Médica");
+        btAgenda.setToolTipText("Aqui você poderá marcar as consultas médicas com os seus pacientes, desmarcar, editar.");
         btAgenda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btAgenda.setContentAreaFilled(false);
         btAgenda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -170,7 +191,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jPanel6.add(btAgenda, gridBagConstraints);
 
         btConvenio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Convenio.png"))); // NOI18N
-        btConvenio.setText("Convenios");
+        btConvenio.setText("Convênios");
+        btConvenio.setToolTipText("Todos os seus parceiros com a consultório pode ser cadastrado, editado ou excluído por aqui.");
         btConvenio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btConvenio.setContentAreaFilled(false);
         btConvenio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -210,13 +232,68 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         getContentPane().add(PainelPrincipal, java.awt.BorderLayout.CENTER);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jMenu1.setBackground(new java.awt.Color(255, 255, 255));
+        jMenu1.setText("Opções");
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        miAgenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        miAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Calendar.png"))); // NOI18N
+        miAgenda.setText("Agenda Médica");
+        miAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAgendaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miAgenda);
 
-        setJMenuBar(jMenuBar1);
+        miConvenio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        miConvenio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Partnership.png"))); // NOI18N
+        miConvenio.setText("Convênios");
+        miConvenio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConvenioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miConvenio);
+
+        miFuncionario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        miFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/people.png"))); // NOI18N
+        miFuncionario.setText("Funcionários");
+        miFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miFuncionarioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miFuncionario);
+
+        miPaciente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        miPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/customer.png"))); // NOI18N
+        miPaciente.setText("Pacientes");
+        miPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPacienteActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miPaciente);
+
+        mBarOpcHelp.add(jMenu1);
+
+        mAjuda.setText("Ajuda");
+
+        miSobre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        miSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Help.png"))); // NOI18N
+        miSobre.setText("Sobre");
+        miSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSobreActionPerformed(evt);
+            }
+        });
+        mAjuda.add(miSobre);
+
+        mBarOpcHelp.add(mAjuda);
+
+        setJMenuBar(mBarOpcHelp);
+        mBarOpcHelp.getAccessibleContext().setAccessibleName("");
+        mBarOpcHelp.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -245,6 +322,39 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         cg.setLocationRelativeTo(this);
         cg.setVisible(true);
     }//GEN-LAST:event_btConvenioActionPerformed
+
+    private void miFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miFuncionarioActionPerformed
+        FuncionarioListaGUI fg = new FuncionarioListaGUI();
+        fg.setLocationRelativeTo(this);
+        fg.setVisible(true);
+    }//GEN-LAST:event_miFuncionarioActionPerformed
+
+    private void miSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSobreActionPerformed
+        java.awt.Desktop desktop = java.awt.Desktop.getDesktop();    
+        try {
+            desktop.open(new File("G:\\Curso\\PIC I\\AgendaMedica\\src\\br\\com\\model\\help\\GABARITOREC.P2.pdf"));
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao exibir documento de ajuda: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_miSobreActionPerformed
+
+    private void miAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAgendaActionPerformed
+        ConsultaListaGUI cg = new ConsultaListaGUI();
+        cg.setLocationRelativeTo(this);
+        cg.setVisible(true);
+    }//GEN-LAST:event_miAgendaActionPerformed
+
+    private void miConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConvenioActionPerformed
+        ConvenioListaGUI cg = new ConvenioListaGUI();
+        cg.setLocationRelativeTo(this);
+        cg.setVisible(true);
+    }//GEN-LAST:event_miConvenioActionPerformed
+
+    private void miPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPacienteActionPerformed
+        PacienteListaGUI pg = new PacienteListaGUI();
+        pg.setLocationRelativeTo(this);
+        pg.setVisible(true);
+    }//GEN-LAST:event_miPacienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,11 +400,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btPaciente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JMenu mAjuda;
+    private javax.swing.JMenuBar mBarOpcHelp;
+    private javax.swing.JMenuItem miAgenda;
+    private javax.swing.JMenuItem miConvenio;
+    private javax.swing.JMenuItem miFuncionario;
+    private javax.swing.JMenuItem miPaciente;
+    private javax.swing.JMenuItem miSobre;
     // End of variables declaration//GEN-END:variables
 }

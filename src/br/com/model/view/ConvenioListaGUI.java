@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.model.view;
 
 import br.com.model.controller.ConsultaController;
@@ -18,14 +17,16 @@ import javax.swing.table.DefaultTableModel;
  * @author Ederson
  */
 public class ConvenioListaGUI extends javax.swing.JFrame {
+
     private JTable tabela;
     private DefaultTableModel modelo = new DefaultTableModel();
-    
+
     public ConvenioListaGUI() {
         initComponents();
         criaJTable();
         PainelRolagem.setViewportView(tabela);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -196,13 +197,18 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
-        if(linhaSelecionada >= 0){
-            int idPaciente = (int)tabela.getValueAt(linhaSelecionada, 0);
-            ConvenioController pc = new ConvenioController();
-            if(pc.remove(idPaciente)){
-                modelo.removeRow(linhaSelecionada);
-            }else{
-                JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
+        if (linhaSelecionada >= 0) {
+            int i = (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse funcionário permanentemente?", "Excluir funcionário", JOptionPane.YES_NO_OPTION));
+            if (i == 0) {
+                int idPaciente = (int) tabela.getValueAt(linhaSelecionada, 0);
+                ConvenioController pc = new ConvenioController();
+                if (pc.remove(idPaciente)) {
+                    modelo.removeRow(linhaSelecionada);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Exclusão Cancelada");
             }
         }
     }//GEN-LAST:event_btExcluirActionPerformed
@@ -210,25 +216,25 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
-        if(linhaSelecionada >= 0){
-            int idConvenio = (int)tabela.getValueAt(linhaSelecionada, 0);
-            ConvenioInserirGUI fi = new ConvenioInserirGUI(modelo,linhaSelecionada,idConvenio);
+        if (linhaSelecionada >= 0) {
+            int idConvenio = (int) tabela.getValueAt(linhaSelecionada, 0);
+            ConvenioInserirGUI fi = new ConvenioInserirGUI(modelo, linhaSelecionada, idConvenio);
             fi.setVisible(true);
-        }else{
-                JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
-             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
+        }
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void txPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txPesquisarActionPerformed
         String nome = txPesquisar.getText();
-       ConvenioController fc =
-               new ConvenioController();
-       modelo.setNumRows(0);
-      for(Convenio f: fc.listByNome(nome)){
-                  modelo.addRow(new Object[]{
-            f.getCodigo(), f.getNome()
-        });
-      }
+        ConvenioController fc
+                = new ConvenioController();
+        modelo.setNumRows(0);
+        for (Convenio f : fc.listByNome(nome)) {
+            modelo.addRow(new Object[]{
+                f.getCodigo(), f.getNome()
+            });
+        }
     }//GEN-LAST:event_txPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -251,13 +257,13 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
         modelo.addColumn("Nome");
         preencherJTable();
     }
-private void preencherJTable(){
-    ConvenioController uc = new ConvenioController();
-    for(Convenio f : uc.listarTodos()){
-        modelo.addRow(new Object[]{
-            f.getCodigo(), f.getNome()
-        });
+
+    private void preencherJTable() {
+        ConvenioController uc = new ConvenioController();
+        for (Convenio f : uc.listarTodos()) {
+            modelo.addRow(new Object[]{
+                f.getCodigo(), f.getNome()
+            });
+        }
     }
 }
-}
-
