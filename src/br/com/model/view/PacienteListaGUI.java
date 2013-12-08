@@ -46,7 +46,7 @@ public class PacienteListaGUI extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        PainelSuperior.setBackground(new java.awt.Color(102, 255, 255));
+        PainelSuperior.setBackground(new java.awt.Color(0, 204, 204));
         PainelSuperior.setLayout(new java.awt.GridBagLayout());
 
         jLabel3.setText("Paciente");
@@ -57,7 +57,7 @@ public class PacienteListaGUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(11, 10, 75, 703);
         PainelSuperior.add(jLabel3, gridBagConstraints);
 
-        PainelInferior.setBackground(new java.awt.Color(102, 255, 255));
+        PainelInferior.setBackground(new java.awt.Color(0, 204, 204));
         PainelInferior.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Java.png"))); // NOI18N

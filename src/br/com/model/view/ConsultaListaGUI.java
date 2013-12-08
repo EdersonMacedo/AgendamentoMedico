@@ -49,7 +49,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu de Consulta[EMJ]");
 
-        PainelSuperior.setBackground(new java.awt.Color(0, 153, 153));
+        PainelSuperior.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel3.setText("Consulta");
 
@@ -70,7 +70,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
                 .addContainerGap(75, Short.MAX_VALUE))
         );
 
-        PainelInferior.setBackground(new java.awt.Color(102, 255, 255));
+        PainelInferior.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Java.png"))); // NOI18N
 

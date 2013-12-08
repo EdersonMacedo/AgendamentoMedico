@@ -140,7 +140,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
             }
         });
 
-        PainelSuperior.setBackground(new java.awt.Color(102, 255, 255));
+        PainelSuperior.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel14.setText("Funcionário");
 
@@ -161,7 +161,7 @@ public class FuncionarioInserirGUI extends javax.swing.JFrame {
                 .addContainerGap(75, Short.MAX_VALUE))
         );
 
-        PainelInferior.setBackground(new java.awt.Color(102, 255, 255));
+        PainelInferior.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Java.png"))); // NOI18N
 
