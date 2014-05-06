@@ -5,7 +5,6 @@
  */
 package br.com.model.view;
 
-import br.com.model.controller.ConsultaController;
 import br.com.model.controller.ConvenioController;
 import br.com.model.paciente.Convenio;
 import javax.swing.JOptionPane;
@@ -47,12 +46,13 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
         btInserir = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
+        btOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        PainelSuperior.setBackground(new java.awt.Color(0, 204, 204));
+        PainelSuperior.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel3.setText("Convenio");
 
@@ -73,7 +73,7 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
                 .addContainerGap(75, Short.MAX_VALUE))
         );
 
-        PainelInferior.setBackground(new java.awt.Color(0, 204, 204));
+        PainelInferior.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Java.png"))); // NOI18N
 
@@ -132,6 +132,13 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
             }
         });
 
+        btOk.setText("Ok");
+        btOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btOkActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -140,13 +147,17 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
             .addComponent(PainelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(PainelRolagem)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(PainelRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btOk))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btInserir)
                         .addGap(18, 18, 18)
                         .addComponent(btEditar)
@@ -157,18 +168,22 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(PainelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(PainelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(btEditar)
                                 .addComponent(btInserir, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(btExcluir)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btOk)))
                 .addGap(18, 18, 18)
                 .addComponent(PainelRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -191,6 +206,8 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
         ConvenioInserirGUI fi = new ConvenioInserirGUI(modelo);
+        fi.setLocationRelativeTo(this);
+        fi.setTitle("Inserir Convênio[EMJ]");
         fi.setVisible(true);
     }//GEN-LAST:event_btInserirActionPerformed
 
@@ -198,14 +215,19 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
         if (linhaSelecionada >= 0) {
-            int i = (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse funcionário permanentemente?", "Excluir funcionário", JOptionPane.YES_NO_OPTION));
+            int i = (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse convênio permanentemente?", "Excluir funcionário", JOptionPane.YES_NO_OPTION));
             if (i == 0) {
+                try {
                 int idPaciente = (int) tabela.getValueAt(linhaSelecionada, 0);
                 ConvenioController pc = new ConvenioController();
                 if (pc.remove(idPaciente)) {
                     modelo.removeRow(linhaSelecionada);
                 } else {
                     JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
+                }
+                    
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Erro ao excluir: "+e.getMessage());
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Exclusão Cancelada");
@@ -219,6 +241,8 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
         if (linhaSelecionada >= 0) {
             int idConvenio = (int) tabela.getValueAt(linhaSelecionada, 0);
             ConvenioInserirGUI fi = new ConvenioInserirGUI(modelo, linhaSelecionada, idConvenio);
+            fi.setLocationRelativeTo(this);
+            fi.setTitle("Editar Convênio[EMJ]");
             fi.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
@@ -237,6 +261,20 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txPesquisarActionPerformed
 
+    private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
+        String nome = txPesquisar.getText();
+        ConvenioController fc = new ConvenioController();
+        modelo.setNumRows(0);
+
+        for (Convenio f : fc.listByNome(nome)) {
+            modelo.addRow(new Object[]{
+                f.getCodigo(), f.getNome()
+            });
+        }
+
+        txPesquisar.grabFocus();
+    }//GEN-LAST:event_btOkActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PainelInferior;
     private javax.swing.JScrollPane PainelRolagem;
@@ -244,6 +282,7 @@ public class ConvenioListaGUI extends javax.swing.JFrame {
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btInserir;
+    private javax.swing.JButton btOk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

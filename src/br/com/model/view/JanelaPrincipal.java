@@ -1,5 +1,6 @@
 package br.com.model.view;
 
+import br.com.model.help.Sobre;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JOptionPane;
@@ -52,6 +53,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         miPaciente = new javax.swing.JMenuItem();
         mAjuda = new javax.swing.JMenu();
         miSobre = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        miAjuda = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -65,7 +68,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         PainelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
 
-        PainelSuperior.setBackground(new java.awt.Color(0, 204, 204));
+        PainelSuperior.setBackground(new java.awt.Color(0, 153, 153));
 
         javax.swing.GroupLayout PainelSuperiorLayout = new javax.swing.GroupLayout(PainelSuperior);
         PainelSuperior.setLayout(PainelSuperiorLayout);
@@ -78,7 +81,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        PainelInferior.setBackground(new java.awt.Color(0, 204, 204));
+        PainelInferior.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Java.png"))); // NOI18N
 
@@ -282,15 +285,26 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         mAjuda.setText("Ajuda");
 
-        miSobre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        miSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Help.png"))); // NOI18N
-        miSobre.setText("Sobre");
+        miSobre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.SHIFT_MASK));
+        miSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/about.png"))); // NOI18N
+        miSobre.setText("Sobre a Agenda Médica");
         miSobre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miSobreActionPerformed(evt);
             }
         });
         mAjuda.add(miSobre);
+        mAjuda.add(jSeparator1);
+
+        miAjuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        miAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Help.png"))); // NOI18N
+        miAjuda.setText("Ajuda a Agenda Médica");
+        miAjuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAjudaActionPerformed(evt);
+            }
+        });
+        mAjuda.add(miAjuda);
 
         mBarOpcHelp.add(mAjuda);
 
@@ -333,12 +347,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miFuncionarioActionPerformed
 
     private void miSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSobreActionPerformed
-        java.awt.Desktop desktop = java.awt.Desktop.getDesktop();    
-        try {
-            desktop.open(new File("G:\\Curso\\PIC I\\AgendaMedica\\src\\br\\com\\model\\help\\GABARITOREC.P2.pdf"));
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao exibir documento de ajuda: " + ex.getMessage());
-        }
+        new Sobre();
     }//GEN-LAST:event_miSobreActionPerformed
 
     private void miAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAgendaActionPerformed
@@ -359,6 +368,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         pg.setVisible(true);
     }//GEN-LAST:event_miPacienteActionPerformed
 
+    private void miAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAjudaActionPerformed
+        java.awt.Desktop desktop = java.awt.Desktop.getDesktop();    
+        try {
+            desktop.open(new File("G:\\Curso\\PIC I\\AgendaMedica\\src\\br\\com\\model\\help\\Help.xps"));
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao exibir documento de ajuda: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_miAjudaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PainelInferior;
     private javax.swing.JPanel PainelPrincipal;
@@ -376,9 +394,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu mAjuda;
     private javax.swing.JMenuBar mBarOpcHelp;
     private javax.swing.JMenuItem miAgenda;
+    private javax.swing.JMenuItem miAjuda;
     private javax.swing.JMenuItem miConvenio;
     private javax.swing.JMenuItem miFuncionario;
     private javax.swing.JMenuItem miPaciente;

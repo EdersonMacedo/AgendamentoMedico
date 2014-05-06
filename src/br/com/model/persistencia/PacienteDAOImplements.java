@@ -23,7 +23,9 @@ public class PacienteDAOImplements implements PacienteDAO {
     private static final String UPDATE = "update paciente set nome = ?, telefone = ?, celular = ?, data_nascimento = ?,"
             + " rg = ?, endereco = ?, cidade = ?, estado = ?,codigo_convenio = ? where codigo = ?;";
     private static final String REMOVE = "delete from paciente where codigo = ?";
-    private static final String LIST = "select * from paciente, convenio "
+    private static final String LIST = "SELECT paciente.codigo, paciente.telefone, paciente.celular, paciente.nome, paciente.rg, paciente.data_nascimento, "
+            + "paciente.codigo_convenio, convenio.codigo, convenio.nome FROM paciente left JOIN convenio ON paciente.codigo_convenio=convenio.codigo where paciente.codigo <> 0";
+    private static final String LISTFORCONSULTA = "select * from paciente, convenio "
             + "where paciente.codigo_convenio = convenio.codigo";
     private static final String LISTBYNOME = "SELECT paciente.codigo, paciente.telefone, paciente.celular, paciente.nome, paciente.rg, paciente.data_nascimento, "
             + "paciente.codigo_convenio, convenio.codigo, convenio.nome FROM paciente left JOIN convenio ON paciente.codigo_convenio=convenio.codigo where paciente.nome like ?;";
@@ -91,9 +93,6 @@ public class PacienteDAOImplements implements PacienteDAO {
                 p.setCelular(rs.getString("celular"));
                 p.setDataNascimento(rs.getDate("data_nascimento"));
                 p.setRg(rs.getString("rg"));
-                p.setEndereco(rs.getString("endereco"));
-                p.setCidade(rs.getString("cidade"));
-                p.setEstado(rs.getString("estado"));
                 Convenio c = new Convenio();
                 c.setCodigo(rs.getInt("convenio.codigo"));
                 c.setNome(rs.getString("convenio.nome"));
@@ -256,7 +255,7 @@ public class PacienteDAOImplements implements PacienteDAO {
                 p.setConvenio(c);
 
             }
-            JOptionPane.showMessageDialog(null, p.getCodigo());
+            System.out.println(p.getCodigo());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao listar(id) paciente: " + e.getMessage());
         } finally {
@@ -267,5 +266,50 @@ public class PacienteDAOImplements implements PacienteDAO {
             }
         }
         return p;
+    }
+
+    @Override
+    public List<Paciente> listConsulta() {
+        
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+        List<Paciente> pacientes = new ArrayList<>();
+        try {
+            con = ConnectionFactory.getConnection();
+            pstm = con.prepareStatement(LISTFORCONSULTA);
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                //nome, telefone, celular, data_nascimento, rg, enderecocodigo
+                Paciente p = new Paciente();
+                p.setNome(rs.getString("nome"));
+                p.setCodigo(rs.getInt("codigo"));
+                p.setTelefone(rs.getString("telefone"));
+                p.setCelular(rs.getString("celular"));
+                p.setDataNascimento(rs.getDate("data_nascimento"));
+                p.setRg(rs.getString("rg"));
+                p.setEndereco(rs.getString("endereco"));
+                p.setCidade(rs.getString("cidade"));
+                p.setEstado(rs.getString("estado"));
+                Convenio c = new Convenio();
+                c.setCodigo(rs.getInt("convenio.codigo"));
+                c.setNome(rs.getString("convenio.nome"));
+                p.setConvenio(c);
+
+                pacientes.add(p);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar " + ex.getMessage());
+        } finally {
+            try {
+                ConnectionFactory.closeConnection(con, pstm, rs);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,
+                        "Erro ao fechar a conexão"
+                        + e.getMessage());
+            }
+        }
+        return pacientes;
     }
 }

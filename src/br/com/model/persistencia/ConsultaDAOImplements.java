@@ -30,18 +30,15 @@ public class ConsultaDAOImplements implements ConsultaDAO {
     private static final String REMOVE = "select *from consulta, "
             + "paciente where consulta.codigo_paciente = "
             + "paciente.codigo and consulta.codigo = ?";
-    private static final String LIST = "SELECT consulta.data_consulta, consulta.horario, paciente.nome, paciente.codigo ,consulta.codigo,consulta.tipo_consulta, consulta.descricao FROM consulta left JOIN paciente ON consulta.codigo_paciente=paciente.codigo ;";
+    private static final String LIST = "SELECT consulta.data_consulta, consulta.horario, paciente.nome, paciente.codigo ,consulta.codigo,consulta.tipo_consulta, consulta.descricao FROM consulta left JOIN paciente ON consulta.codigo_paciente=paciente.codigo where paciente.codigo <> ;";
     private static final String LISTBYNOME = "select *from consulta, paciente where consulta.codigo_paciente = paciente.codigo and paciente.nome like ?;";
-//    private static final String LISTBYIDINSERT = "select *from consulta, "
-//            + "paciente where consulta.codigo_paciente = "
-//            + "paciente.codigo OR consulta.codigo = ?";
     private static final String LISTBYIDINSERT = "SELECT consulta.data_consulta, consulta.horario, paciente.nome, paciente.codigo ,consulta.codigo,consulta.tipo_consulta, consulta.descricao FROM consulta left JOIN paciente ON consulta.codigo_paciente=paciente.codigo where consulta.codigo = ?;";
     private static final String LISTBYIDUPDATE = "select *from consulta, "
             + "paciente where consulta.codigo_paciente = "
             + "paciente.codigo and consulta.codigo = ?";
     private static final String LISTBYDATE = "SELECT consulta.data_consulta, consulta.horario, paciente.nome, paciente.codigo ,consulta.codigo,consulta.tipo_consulta, consulta.descricao FROM consulta left JOIN paciente ON consulta.codigo_paciente=paciente.codigo where consulta.data_consulta like ?;";
-    private static final String LISTALL = " insert into CONSULTA (data_consulta,horario,data_horario) values (?,?,?)";
-
+    private static final String LISTALL = " insert into CONSULTA (data_consulta,horario,data_horario,descricao) values (?,?,?,?)";
+    
     @Override
     public int salvar(Consulta p) {
             return update(p);
@@ -136,9 +133,6 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             pstm.setInt(1, codigo);
             rs = pstm.executeQuery();
             while (rs.next()) {
-//                "select *from consulta, "
-//            + "paciente where consulta.codigo_paciente = "
-//            + "paciente.codigo OR consulta.codigo = ?";
                 c.setCodigo(codigo);
                 c.setDataDaConsulta(rs.getDate("data_consulta"));
                 c.setDescricao(rs.getString("descricao"));
@@ -149,7 +143,11 @@ public class ConsultaDAOImplements implements ConsultaDAO {
                 p.setNome(rs.getString("paciente.nome"));
                 c.setPaciente(p);
             }
-            System.out.println("getCodigo: "+c.getCodigo() + "  " + c.getDescricao());
+            System.out.println("getCodigo: "+c.getCodigo() + "  :" + c.getDescricao()+":");
+            if(!c.getDescricao().equals("")){
+                JOptionPane.showMessageDialog(null, "Não é possivel inserir. Selecione uma linha vazia");
+                return null;
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao listar(ID): " + ex.getMessage());
         } finally {
@@ -325,6 +323,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             //Inserindo 8h
             pstm.setDate(1, new java.sql.Date(data.getTime()));
             pstm.setTime(2, Time.valueOf("08:00:00"));
+            
             //Começo da atualização da data
             long time = System.currentTimeMillis();
             java.sql.Timestamp datahora = new Timestamp(time);
@@ -339,6 +338,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             int diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 8h30m
@@ -355,6 +355,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 9h
@@ -371,6 +372,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 9h30m
@@ -387,6 +389,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 10h
@@ -403,6 +406,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 10h30m
@@ -419,6 +423,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 9h
@@ -435,6 +440,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 11h30m
@@ -451,6 +457,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 9h
@@ -467,6 +474,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 8h30m
@@ -483,6 +491,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 9h
@@ -499,6 +508,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 8h30m
@@ -515,6 +525,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 9h
@@ -531,6 +542,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 8h30m
@@ -547,6 +559,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 9h
@@ -563,6 +576,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 8h30m
@@ -579,6 +593,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 9h
@@ -595,6 +610,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 8h30m
@@ -611,6 +627,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
             //inserindo 9h
@@ -627,6 +644,7 @@ public class ConsultaDAOImplements implements ConsultaDAO {
             datahora = new Timestamp(calendar.getTimeInMillis());
             diaDoMes = calendar.get(Calendar.MONTH);
             pstm.setTimestamp(3, datahora);
+            pstm.setString(4, "");
             pstm.execute();
 
         } catch (SQLException e) {

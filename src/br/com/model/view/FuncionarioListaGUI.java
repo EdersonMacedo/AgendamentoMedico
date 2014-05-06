@@ -47,13 +47,14 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
         btInserir = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
+        btOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Funcionários");
+        setTitle("Funcionários[EMJ]");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        PainelSuperior.setBackground(new java.awt.Color(0, 204, 204));
+        PainelSuperior.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel3.setText("Funcionários");
 
@@ -74,7 +75,7 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
                 .addContainerGap(75, Short.MAX_VALUE))
         );
 
-        PainelInferior.setBackground(new java.awt.Color(0, 204, 204));
+        PainelInferior.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Java.png"))); // NOI18N
 
@@ -133,6 +134,13 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
             }
         });
 
+        btOk.setText("Ok");
+        btOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btOkActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -146,7 +154,9 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btOk))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                         .addComponent(btInserir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -165,7 +175,8 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
-                        .addGap(35, 35, 35))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btOk))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,6 +206,7 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
         FuncionarioInserirGUI fi = new FuncionarioInserirGUI(modelo);
         fi.setLocationRelativeTo(null);
+        fi.setTitle("Inserir Funcionário[EMJ]");
         fi.setVisible(true);
     }//GEN-LAST:event_btInserirActionPerformed
 
@@ -202,17 +214,17 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
         if (linhaSelecionada >= 0) {
-            int i = (JOptionPane.showConfirmDialog(null,"Tem certeza que deseja excluir esse funcionário permanentemente?","Excluir funcionário",JOptionPane.YES_NO_OPTION));
-            if(i == 0){
-            int idFuncionario = (int) tabela.getValueAt(linhaSelecionada, 0);
-            FuncionarioController fc = new FuncionarioController();
-            
-            if (fc.remove(idFuncionario)) {
-                modelo.removeRow(linhaSelecionada);
+            int i = (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse funcionário permanentemente?", "Excluir funcionário", JOptionPane.YES_NO_OPTION));
+            if (i == 0) {
+                int idFuncionario = (int) tabela.getValueAt(linhaSelecionada, 0);
+                FuncionarioController fc = new FuncionarioController();
+
+                if (fc.remove(idFuncionario)) {
+                    modelo.removeRow(linhaSelecionada);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
-            }
-            }else{
                 JOptionPane.showMessageDialog(null, "Exclusão Cancelada");
             }
         }
@@ -224,6 +236,7 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
         if (linhaSelecionada >= 0) {
             int idFuncionario = (int) tabela.getValueAt(linhaSelecionada, 0);
             FuncionarioInserirGUI fi = new FuncionarioInserirGUI(modelo, linhaSelecionada, idFuncionario);
+            fi.setTitle("Editar Funcionário[EMJ]");
             fi.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
@@ -244,6 +257,22 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txPesquisarActionPerformed
 
+    private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
+        String nome = txPesquisar.getText();
+        FuncionarioController fc
+                = new FuncionarioController();
+        modelo.setNumRows(0);
+        for (Funcionario f : fc.listByNome(nome)) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+            String data = sdf.format(f.getDataNascimento());
+            modelo.addRow(new Object[]{
+                f.getCodigo(), f.getNome(), f.getLogin(), f.getCargo(), data
+            });
+        }
+
+        txPesquisar.grabFocus();
+    }//GEN-LAST:event_btOkActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PainelInferior;
     private javax.swing.JScrollPane PainelRolagem;
@@ -251,6 +280,7 @@ public class FuncionarioListaGUI extends javax.swing.JFrame {
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btInserir;
+    private javax.swing.JButton btOk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

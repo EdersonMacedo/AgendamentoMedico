@@ -18,6 +18,7 @@ public interface ConsultaDAO {
     int salvar(Consulta f);
     int remove(Consulta f);
     List<Consulta> listAll();
+    
     Consulta listByIdInsert(int codigo);  
     Consulta listByIdUpdate(int codigo);  
     List<Consulta> listByNome (String nome);

@@ -2,6 +2,7 @@ package br.com.model.view;
 
 import br.com.model.controller.ConsultaController;
 import br.com.model.paciente.Consulta;
+import java.awt.event.KeyEvent;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,11 +46,14 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         btExcluir = new javax.swing.JButton();
         Calendario = new com.toedter.calendar.JCalendar();
         btPesquisar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txPesqNome = new javax.swing.JTextField();
+        btOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Menu de Consulta[EMJ]");
+        setTitle("Agenda Médica[EMJ]");
 
-        PainelSuperior.setBackground(new java.awt.Color(0, 204, 204));
+        PainelSuperior.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel3.setText("Consulta");
 
@@ -70,7 +74,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
                 .addContainerGap(75, Short.MAX_VALUE))
         );
 
-        PainelInferior.setBackground(new java.awt.Color(0, 204, 204));
+        PainelInferior.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Java.png"))); // NOI18N
 
@@ -148,6 +152,26 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Pesquisar por nome:");
+
+        txPesqNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txPesqNomeActionPerformed(evt);
+            }
+        });
+        txPesqNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txPesqNomeKeyPressed(evt);
+            }
+        });
+
+        btOk.setText("Ok");
+        btOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btOkActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -161,14 +185,22 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btPesquisar)
-                        .addGap(94, 94, 94)
-                        .addComponent(btInserir)
-                        .addGap(14, 14, 14)
-                        .addComponent(btEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btExcluir)
-                        .addGap(0, 5, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btPesquisar)
+                                .addGap(82, 82, 82)
+                                .addComponent(btInserir)
+                                .addGap(14, 14, 14)
+                                .addComponent(btEditar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btExcluir))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btOk)))
+                        .addGap(0, 19, Short.MAX_VALUE))
                     .addComponent(PainelRolagem, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -177,15 +209,24 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(PainelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btEditar)
-                            .addComponent(btExcluir))
-                        .addComponent(btInserir))
-                    .addComponent(btPesquisar)
-                    .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btEditar)
+                                    .addComponent(btExcluir))
+                                .addComponent(btInserir))
+                            .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btPesquisar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btOk))
+                        .addGap(26, 26, 26)))
                 .addComponent(PainelRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PainelInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -207,35 +248,24 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
 
+        System.out.println("\n\nCodigo do Inserir");
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
         if (linhaSelecionada >= 0) {
             int idConsulta = (int) tabela.getValueAt(linhaSelecionada, 0);
             System.out.println("idCOnsulta: " + idConsulta);
             String tipoConsulta = (String) tabela.getValueAt(linhaSelecionada, 4);
-//            try {
-//                if (!tipoConsulta.equals(null)) {
-//                    JOptionPane.showMessageDialog(null, "Não é possivel...");
-//                    return;
-//                }
-//            } catch (Exception e) {
-//                String id = null;
-//                if (!e.toString().equals(id)||e.equals(id)) {
-//                    JOptionPane.showMessageDialog(null, "Não é possivel...");
-//                    return;
-//                }
-//                JOptionPane.showMessageDialog(null, "Excessão ao Inserir(bt): " + e.getMessage());
-//            }
             System.out.println("Tipo de consulta: " + tipoConsulta);
             ConsultaInserirGUI pi = new ConsultaInserirGUI(modelo, linhaSelecionada, idConsulta);
-            System.out.println("Já chegou abaixo do ConsultaInserirGUI");
-
+            pi.setTitle("Inseir Consulta[EMJ]");
         } else {
             JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
         }
     }//GEN-LAST:event_btInserirActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        
+        System.out.println("\n\nCodigo do Excluir");
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
 
@@ -257,12 +287,14 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        
+        System.out.println("\n\nCodigo do Editar");
         int linhaSelecionada = -1;
         linhaSelecionada = tabela.getSelectedRow();
         if (linhaSelecionada >= 0) {
             int idConsulta = (int) tabela.getValueAt(linhaSelecionada, 0);
             ConsultaInserirGUI pi = new ConsultaInserirGUI(linhaSelecionada, idConsulta, modelo);
-            //pi.setVisible(true);
+            pi.setTitle("Editar Consulta[EMJ]");
         } else {
             JOptionPane.showMessageDialog(this, "Nehuma linha foi selecionada.");
         }
@@ -293,6 +325,119 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         preencherJTableData(Calendario.getDate());
     }//GEN-LAST:event_btPesquisarActionPerformed
 
+    private void txPesqNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txPesqNomeActionPerformed
+        String nome = txPesqNome.getText();
+        ConsultaController pc
+                = new ConsultaController();
+        modelo.setNumRows(0);
+        for (Consulta p : pc.listByNome(nome)) {
+            String data = "";
+            String hora = "";
+            String linome = "";
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                hora = sdf.format(p.getHorario());
+            } catch (Exception ex) {
+                System.out.println("Entrou na excessão Hora: " + ex.getMessage());
+                hora = "";
+            }
+            try {
+                SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy");
+                data = sdfd.format(p.getDataDaConsulta().getTime());
+            } catch (Exception e) {
+                System.out.println("entrou na excessão data nula: " + e.getMessage());
+                data = "";
+            }
+            try {
+                linome = p.getPaciente().getNome();
+            } catch (Exception e) {
+                System.out.println("entrou na excessão data nula: " + e.getMessage());
+
+            }
+            if(!linome.equals(" ")){
+                System.out.println("Nome:"+linome+":");
+                       
+            modelo.addRow(new Object[]{p.getCodigo(), hora, data, linome, p.getTipoConsulta()});
+            }
+        }
+    }//GEN-LAST:event_txPesqNomeActionPerformed
+
+    private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
+        String nome = txPesqNome.getText();
+        ConsultaController pc
+                = new ConsultaController();
+        modelo.setNumRows(0);
+        for (Consulta p : pc.listByNome(nome)) {
+            String data = "";
+            String hora = "";
+            String linome = "";
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                hora = sdf.format(p.getHorario());
+            } catch (Exception ex) {
+                System.out.println("Entrou na excessão Hora: " + ex.getMessage());
+                hora = "";
+            }
+            try {
+                SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy");
+                data = sdfd.format(p.getDataDaConsulta().getTime());
+            } catch (Exception e) {
+                System.out.println("entrou na excessão data nula: " + e.getMessage());
+                data = "";
+            }
+            try {
+                linome = p.getPaciente().getNome();
+            } catch (Exception e) {
+                System.out.println("entrou na excessão data nula: " + e.getMessage());
+
+            }
+            if(!linome.equals(" ")){
+                System.out.println("Nome:"+linome+":");
+                       
+            modelo.addRow(new Object[]{p.getCodigo(), hora, data, linome, p.getTipoConsulta()});
+            }
+        }
+    }//GEN-LAST:event_btOkActionPerformed
+
+    private void txPesqNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txPesqNomeKeyPressed
+           String nome = txPesqNome.getText();
+           if(nome.length()>0){
+        ConsultaController pc
+                = new ConsultaController();
+        modelo.setNumRows(0);
+        for (Consulta p : pc.listByNome(nome)) {
+            String data = "";
+            String hora = "";
+            String linome = "";
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                hora = sdf.format(p.getHorario());
+            } catch (Exception ex) {
+                System.out.println("Entrou na excessão Hora: " + ex.getMessage());
+                hora = "";
+            }
+            try {
+                SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy");
+                data = sdfd.format(p.getDataDaConsulta().getTime());
+            } catch (Exception e) {
+                System.out.println("entrou na excessão data nula: " + e.getMessage());
+                data = "";
+            }
+            try {
+                linome = p.getPaciente().getNome();
+            } catch (Exception e) {
+                System.out.println("entrou na excessão data nula: " + e.getMessage());
+
+            }
+            if(!linome.equals(" ")){
+                System.out.println("Nome:"+linome+":");
+                       
+            modelo.addRow(new Object[]{p.getCodigo(), hora, data, linome, p.getTipoConsulta()});
+            }
+        }
+    }
+    }//GEN-LAST:event_txPesqNomeKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JCalendar Calendario;
     private javax.swing.JPanel PainelInferior;
@@ -301,10 +446,13 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btInserir;
+    private javax.swing.JButton btOk;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txPesqNome;
     // End of variables declaration//GEN-END:variables
 
     private void criaJTable() {
@@ -335,6 +483,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
         System.out.println("getRowCount ");
         tabela.updateUI();
         PainelRolagem.setViewportView(tabela);
+        
         for (Consulta f : uc.listPorDate(dataInfo)) {
             String data = "";
             String hora = "";
@@ -357,7 +506,7 @@ public class ConsultaListaGUI extends javax.swing.JFrame {
                 nome = f.getPaciente().getNome();
             } catch (Exception e) {
                 System.out.println("entrou na excessão data nula: " + e.getMessage());
-                nome = "Disponivel";
+                
             }
 
             modelo.addRow(new Object[]{f.getCodigo(), hora, data, nome, f.getTipoConsulta()});

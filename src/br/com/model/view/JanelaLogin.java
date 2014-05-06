@@ -91,7 +91,7 @@ public class JanelaLogin extends javax.swing.JFrame {
 
         jLabel2.setText("Senha.:");
 
-        PainelSuperior.setBackground(new java.awt.Color(0, 204, 204));
+        PainelSuperior.setBackground(new java.awt.Color(0, 153, 153));
 
         javax.swing.GroupLayout PainelSuperiorLayout = new javax.swing.GroupLayout(PainelSuperior);
         PainelSuperior.setLayout(PainelSuperiorLayout);
@@ -104,7 +104,7 @@ public class JanelaLogin extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        PainelInferior.setBackground(new java.awt.Color(0, 204, 204));
+        PainelInferior.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Java.png"))); // NOI18N
 
@@ -241,7 +241,7 @@ public class JanelaLogin extends javax.swing.JFrame {
         int tecla=evt.getKeyCode();            
        if (tecla==KeyEvent.VK_ENTER) {    
            validarLogin();
-       }  
+       }
     }//GEN-LAST:event_txUsuarioKeyPressed
 
     private void txSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txSenhaKeyPressed

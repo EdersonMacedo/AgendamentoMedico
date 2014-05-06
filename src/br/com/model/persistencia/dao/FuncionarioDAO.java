@@ -7,7 +7,7 @@ public interface FuncionarioDAO {
     int salvar(Funcionario f);
     boolean remove(int codigo);
     List<Funcionario> listAll();
-    Funcionario listById(int codigo);  
+    Funcionario listById(int codigo);
     List<Funcionario> listByNome (String nome);
     boolean autentica(String login,String senha);
 }

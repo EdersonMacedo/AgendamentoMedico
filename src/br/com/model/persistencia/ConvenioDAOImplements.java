@@ -109,7 +109,14 @@ public class ConvenioDAOImplements implements ConvenioDAO {
             status = true;
             
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro ao excluir convenio: " + e.getMessage());
+            String var = "com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`agendamento_medico`.`paciente`, CONSTRAINT `convenio_fk` FOREIGN KEY (`codigo_convenio`) REFERENCES `convenio` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION)";
+            
+            if(e.toString().equals(var)){
+                JOptionPane.showMessageDialog(null, "Erro ao remover, ele está sendo usado em algum paciente");
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao excluir convenio: " + e.getMessage());
+                System.out.println("Erro ao remover:" + e + ":");
+            }
         }finally{
             try{
                 ConnectionFactory.closeConnection(con, pstm);

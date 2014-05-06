@@ -39,32 +39,49 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         initComponents();
         System.out.println("linhaSelecionada: " + linhaSelecionada);
         System.out.println("In idConsulta: " + idConsulta);
-        
+
         ConsultaController cc = new ConsultaController();
         Consulta p = cc.listByIdInsert(idConsulta);
+
+        try {
+            if (p.equals(null)) {
+                System.out.println("p nulo");
+                System.out.println("Valor do p: " + p.toString() + "codigo: " + p.getCodigo());
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao conferir p nulo: " + e.getMessage());
+
+            return;
+        }
+
         String data = "";
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
             data = sdf.format(p.getDataDaConsulta());
             txDataConsulta.setText(data);
         } catch (Exception e) {
+
             System.out.println("Caiu em uma exceção(data) " + e.getMessage());
+            return;
         }
-        System.out.println("Valor do p: " + p+"\n\nData: "+data+"codigo: "+p.getCodigo());
-        
 
         try {
             txCodigo.setText(Integer.toString(p.getCodigo()));
         } catch (Exception e) {
             System.out.println("Caiu em uma exceção(codigo)" + e.getMessage());
+            return;
         }
+
         try {
             SimpleDateFormat sdfh = new SimpleDateFormat("HH:mm:ss");
             String hora = sdfh.format(p.getHorario());
             txHorario.setText(hora);
         } catch (Exception e) {
             System.out.println("Caiu em uma exceção(horas) " + e.getMessage());
+            return;
         }
+
         try {
             if (p.getTipoConsulta().equals("Consulta")) {
                 cbTipoConsulta.setSelectedIndex(0);
@@ -74,7 +91,6 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
                 cbTipoConsulta.setSelectedIndex(2);
             }
             txDescricao.setText(p.getDescricao());
-
         } catch (Exception e) {
             System.out.println("Entrou na excessão de cbTipoConsulta");
             cbTipoConsulta.setSelectedIndex(0);
@@ -83,26 +99,18 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
 
         try {
             carregarCombo(p.getPaciente());
+
         } catch (Exception e) {
             System.out.println("Caiu em uma exceção(Combo) " + e.getMessage());
         } finally {
             System.out.println("Entrada no finnalyy");
-            try{
-                System.out.println("cbTipo de consulta: "+cbTipoConsulta.getName());
-                if((txDescricao.getText().equals(null) || !txDescricao.getText().equals(""))){
-                JOptionPane.showMessageDialog(null, "Não é possivel inserir. ");
-                return;
-            }
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(null,"BUCHAA" + e.getMessage());
-            }
-            
-            if (!(txDescricao.toString().equals(null)) || (txDescricao.toString().equals(""))) {
+
+            if ((txDescricao.toString().equals(null)) || !(txDescricao.toString().equals(""))) {
                 System.out.println("txDescricao:" + txDescricao.getText() + ":");
                 System.out.println("entrou no txDescricao");
-                cbPaciente.setSelectedIndex(0);
                 setVisible(true);
             }
+            System.out.println("Chegou até na ultima linha");
         }
     }
 
@@ -115,7 +123,10 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         initComponents();
         ConsultaController cc = new ConsultaController();
         Consulta p = cc.listByIdUpdate(idConsulta);
+        try {
+            
         System.out.println("Valor do p: " + p);
+        System.out.println("Valor da descrição:"+p.getDescricao()+":"+"valor do nome:"+p.getPaciente().getNome()+":");
         if ((p.equals(null)) || (p.equals(""))) {
             System.out.println("Entrou no setVisible false");
             setVisible(false);
@@ -123,7 +134,19 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não é possivel editar.");
             return;
         }
+        if(p.getDescricao().equals("")||p.getDescricao().equals(null)){
+            System.out.println("Entrou no setVisible false");
+            setVisible(false);
+            System.out.println("NÃO entrou no txCodigo(Up):" + txCodigo.getText() + ":");
+            JOptionPane.showMessageDialog(null, "Não é possivel editar.");
+            return;
+        }
 
+        } catch (Exception e) {
+            System.out.println("Excessão no editar: "+ e.getMessage());
+            JOptionPane.showMessageDialog(null, "Não é possivel editar.");
+            return;
+        }
         try {
             txCodigo.setText(Integer.toString(p.getCodigo()));
         } catch (Exception e) {
@@ -189,7 +212,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
             setVisible(false);
             return;
         }
-
+        
         try {
             txCodigo.setText(Integer.toString(p.getCodigo()));
         } catch (Exception e) {
@@ -249,11 +272,6 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -293,7 +311,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         txCodigo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txCodigo.setEnabled(false);
 
-        PainelSuperior.setBackground(new java.awt.Color(0, 204, 204));
+        PainelSuperior.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel7.setText("Consulta");
 
@@ -314,7 +332,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
                 .addContainerGap(75, Short.MAX_VALUE))
         );
 
-        PainelInferior.setBackground(new java.awt.Color(0, 204, 204));
+        PainelInferior.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/model/images/Java.png"))); // NOI18N
 
@@ -346,6 +364,16 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         btDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btDeletarActionPerformed(evt);
+            }
+        });
+
+        cbPaciente.setAutoscrolls(true);
+        cbPaciente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cbPaciente.setName(""); // NOI18N
+        cbPaciente.setOpaque(false);
+        cbPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPacienteActionPerformed(evt);
             }
         });
 
@@ -417,7 +445,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
@@ -483,15 +511,25 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
-        // TODO add your handling code here:
 
+        txDescricao.setText("");
         cbPaciente.setSelectedIndex(0);
+        cbPaciente.setSelectedIndex(0);
+
     }//GEN-LAST:event_btDeletarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         Consulta c = new Consulta();
+        if(cbPaciente.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null, "Não é possível inserir, selecione o cliente.");
+            return;
+        }
         if (!(txCodigo.getText().equals("")) || (txCodigo.getText().equals(null))) {
             c.setCodigo(Integer.parseInt(txCodigo.getText()));
+        }
+        if (txDescricao.getText().equals("") || txDescricao.getText().equals(null)) {
+            JOptionPane.showMessageDialog(null, "É preciso inserir uma descrição.");
+            return;
         }
         try {
             String data = txDataConsulta.getText();
@@ -538,15 +576,15 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         } else {
             int id = pc.salvar(c);
             if (id > 0) {
-                
+
                 modelo.removeRow(linhaSelecionada);
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                 String hora = sdf.format(c.getHorario());
                 SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy");
                 String data = sdfd.format(c.getDataDaConsulta());
                 modelo.insertRow(linhaSelecionada, new Object[]{id, hora, data, c.getPaciente().getNome(), c.getTipoConsulta()});
-                        //addRow(new Object[]{id, hora, data, c.getPaciente().getNome(), c.getTipoConsulta()});
-                JOptionPane.showMessageDialog(null,"Salvo com sucesso... Voltando ao menu Pirncipal");
+                //addRow(new Object[]{id, hora, data, c.getPaciente().getNome(), c.getTipoConsulta()});
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso... Voltando ao menu Pirncipal");
 
             }
         }
@@ -556,6 +594,11 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
     private void txDataConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txDataConsultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txDataConsultaActionPerformed
+
+    private void cbPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPacienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbPacienteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PainelInferior;
     private javax.swing.JPanel PainelSuperior;
@@ -588,7 +631,7 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
         //Buscar na base de dados os convenios cadastrados
         List<Paciente> convenios = new ArrayList<>();
         PacienteController cc = new PacienteController();
-        convenios = cc.listarTodos();
+        convenios = cc.listarConsulta();
         //Preencher o combo com os convenios que estão na lista
         for (int linha = 0; linha < convenios.size(); linha++) {
             Paciente c = convenios.get(linha);
@@ -606,10 +649,10 @@ public class ConsultaInserirGUI extends javax.swing.JFrame {
 
         List<Paciente> convenio = new ArrayList<>();
         PacienteController cc = new PacienteController();
-        convenio = cc.listarTodos();
+        convenio = cc.listarConsulta();
 
-        for (int linha = 0; linha < convenio.size(); linha++) {
-            Paciente c = convenio.get(linha);
+        for(Paciente p : cc.listarConsulta()){
+            Paciente c = convenio.get(p.getCodigo());
             comboModel.addElement(c);
         }
     }

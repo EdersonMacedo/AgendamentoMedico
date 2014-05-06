@@ -11,6 +11,7 @@ public interface PacienteDAO {
     int salvar(Paciente p);
     boolean remove(int codigo);
     Paciente listById(int codigo); 
-    List<Paciente> listAll();
+    List<Paciente> listAll(); 
+    List<Paciente> listConsulta();
     List<Paciente> listByNome(String nome);
 }

@@ -15,16 +15,14 @@ public class FuncionarioDAOImplements implements FuncionarioDAO {
 
     private static final String INSERT = "insert into funcionario(nome, login, senha, telefone, celular, cargo, data_nascimento, "
             + "rg, endereco, cidade, estado) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-    private static final String LIST = "select * from funcionario;";
+    private static final String LIST = "select * from funcionario where codigo <> 1;";
     private static final String REMOVE = "delete from funcionario where codigo = ?;";
     private static final String UPDATE = "update funcionario set nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, "
             + "cargo = ?,data_nascimento = ?, rg = ?, endereco = ?, cidade = ?, estado = ? where codigo = ?;";
-    private static final String LISTBYID = "select * from funcionario where codigo = ?;";
-    private static final String LISTBYNOME = "select * from funcionario where nome like ?;";
-    private static final String VALIDALOGIN = "select login,senha from funcionario where login = ? and senha = ?;";
-    
-//    private static final String LIST = "select * from curso";
-//    private static final String LISTBYID = "select * from curso where codigo = ?;";
+    private static final String LISTBYID = "select * from funcionario where codigo = ? and codigo <> 1;";
+    private static final String LISTBYNOME = "select * from funcionario where nome like ? AND codigo <> 1;";
+//    private static final String VALIDALOGIN = "select login,senha from funcionario where login = ? and senha = ?;";
+    private static final String VALIDALOGIN = "select * from funcionario;";
 
     @Override
     public int salvar(Funcionario f) {
@@ -57,7 +55,7 @@ public class FuncionarioDAOImplements implements FuncionarioDAO {
             pstm.setString(9, f.getEndereco());
             pstm.setString(10, f.getCidade());
             pstm.setString(11, f.getEstado());
-            
+
             pstm.execute();
             try (ResultSet rs = pstm.getGeneratedKeys()) {
                 if (rs.next()) {
@@ -98,7 +96,7 @@ public class FuncionarioDAOImplements implements FuncionarioDAO {
             pstm.setString(10, f.getCidade());
             pstm.setString(11, f.getEstado());
             pstm.setInt(12, f.getCodigo());
-            
+
             pstm.execute();
             retorno = f.getCodigo();
 
@@ -128,7 +126,7 @@ public class FuncionarioDAOImplements implements FuncionarioDAO {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir funcionario: " + e.getMessage());
-            System.out.println("Erro ao remover:"+e+":");
+            System.out.println("Erro ao remover:" + e + ":");
         } finally {
             try {
                 ConnectionFactory.closeConnection(con, pstm);
@@ -152,7 +150,7 @@ public class FuncionarioDAOImplements implements FuncionarioDAO {
             pstm = con.prepareStatement(LIST);
             rs = pstm.executeQuery();
             while (rs.next()) {
-            //nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, cargo = ?,data_nascimento = ?, rg = ? 
+                //nome = ?, login = ?, senha = ?, telefone = ?, celular = ?, cargo = ?,data_nascimento = ?, rg = ? 
 
                 Funcionario f = new Funcionario();
                 f.setNome(rs.getString("nome"));
@@ -234,7 +232,7 @@ public class FuncionarioDAOImplements implements FuncionarioDAO {
             pstm.setString(1, "%" + nome + "%");
             rs = pstm.executeQuery();
             while (rs.next()) {
-            //(nome, login, senha, telefone, celular, endereco, cidade, estado)
+                //(nome, login, senha, telefone, celular, endereco, cidade, estado)
 
                 Funcionario f = new Funcionario();
                 f.setCodigo(rs.getInt("codigo"));
@@ -273,11 +271,25 @@ public class FuncionarioDAOImplements implements FuncionarioDAO {
         try {
             con = ConnectionFactory.getConnection();
             pstm = con.prepareStatement(VALIDALOGIN);
-            pstm.setString(1, login);
-            pstm.setString(2, senha);
             rs = pstm.executeQuery();
+            
+//            pstm.setString(1, login);
+//            pstm.setString(2, senha);
+//            rs = pstm.executeQuery();
+//            while (rs.next()) {
+//                return true;
+//            }
             while (rs.next()) {
-                return true;
+                System.out.println("autentica");
+                Funcionario f = new Funcionario();
+                f.setLogin(rs.getString("login"));
+                f.setSenha(rs.getString("senha"));
+
+                System.out.println("login digitado: " + login + "    Senha digitada." + senha);
+                System.out.println("Login do banco: " + f.getLogin() + "    Senha do banco: " + f.getSenha());
+                if (f.getLogin().equalsIgnoreCase(login) && f.getSenha().equals(senha)) {
+                    return true;
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao efetuar login..." + e.getMessage());

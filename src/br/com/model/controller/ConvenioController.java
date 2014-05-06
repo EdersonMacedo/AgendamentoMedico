@@ -7,10 +7,13 @@ import br.com.model.persistencia.dao.ConvenioDAO;
 import java.util.List;
 
 public class ConvenioController {
+    
+    
     public int salvar(Convenio f){
         ConvenioDAO dao = new ConvenioDAOImplements();
         return dao.salvar(f);
     }
+    
     public Convenio listById(int codigo){
         ConvenioDAO dao = new ConvenioDAOImplements();
         return dao.listById(codigo);

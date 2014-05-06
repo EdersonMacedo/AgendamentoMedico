@@ -24,6 +24,11 @@ public class PacienteController {
         PacienteDAO dao = new PacienteDAOImplements();
         return dao.listAll();
     }
+    public List<Paciente> listarConsulta(){
+        PacienteDAO dao = new PacienteDAOImplements();
+        return dao.listConsulta();
+    }
+    
     public List<Paciente> listByNome(String nome){
         PacienteDAO dao = new PacienteDAOImplements();
         return dao.listByNome(nome);
