@@ -19,7 +19,7 @@ public class ConnectionFactory {
             throw new SQLException(ex.getMessage());
         }
     }
-    
+
     public static void closeConnection (Connection con) throws SQLException{
         if(con!=null){
             con.close();

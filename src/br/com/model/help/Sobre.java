@@ -21,6 +21,9 @@ public class Sobre {
                 + "\ncom a contribuição do SENAI e apresentado na UNESC no projeto interdisciplinar, trabalhando"
                 + "\nem conjunto para a organização ao marcar consultas."
                 + "\n\nContatos: ederson.mos@gmail.com, mansiba@hotmail.com, mateus.inacio@hotmail.com", 
-                "Sobre a Agenda Médica", JOptionPane.PLAIN_MESSAGE, new ImageIcon("G:\\Curso\\PIC I\\AgendaMedica\\src\\br\\com\\model\\images\\LogoTipo.png"));
+                "Sobre a Agenda Médica", JOptionPane.PLAIN_MESSAGE, new ImageIcon("src/br/com/model/images/LogoTipo.png"));
+    }
+    public static void main(String[] args) {
+        new Sobre();
     }
 }

@@ -371,7 +371,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void miAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAjudaActionPerformed
         java.awt.Desktop desktop = java.awt.Desktop.getDesktop();    
         try {
-            desktop.open(new File("C:\\Users\\Ederson\\Documents\\NetBeansProjects\\PIC I\\AgendaMedica\\src\\br\\com\\model\\help\\Help.xps"));
+            desktop.open(new File("src/br/com/model/help/Help.xps"));
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao exibir documento de ajuda: " + ex.getMessage());
         }
